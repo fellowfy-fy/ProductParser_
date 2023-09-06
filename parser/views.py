@@ -18,3 +18,6 @@ class ParseTaskViewset(viewsets.ModelViewSet):
         #     return self.queryset.filter(author=user)
         else:
             return self.queryset.filter(author=user)
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)

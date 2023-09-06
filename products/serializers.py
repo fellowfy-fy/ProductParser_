@@ -7,12 +7,14 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         exclude = ()
+        read_only_fields = ["author"]
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         exclude = ()
+        read_only_fields = ["author"]
 
 
 class ProductPriceHistorySerializer(serializers.ModelSerializer):

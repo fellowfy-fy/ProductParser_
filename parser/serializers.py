@@ -7,6 +7,7 @@ class ParseTaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = ParseTask
         exclude = ()
+        read_only_fields = ["author"]
 
 
 class SiteParseSettingsSerializer(serializers.ModelSerializer):

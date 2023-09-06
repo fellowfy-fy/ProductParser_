@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class WithDates(models.Model):
@@ -22,6 +25,9 @@ class Product(WithDates, models.Model):
         null=True,
         blank=True,
         verbose_name="Создано задачей",
+    )
+    author = models.ForeignKey(
+        User, models.CASCADE, related_name="products", verbose_name="Автор задачи", null=True, blank=True
     )
 
     class Meta:
@@ -50,6 +56,9 @@ class ProductPriceHistory(WithDates, models.Model):
 
 class Category(WithDates, models.Model):
     name = models.CharField("Название раздела", max_length=255, unique=True)
+    author = models.ForeignKey(
+        User, models.CASCADE, related_name="categories", verbose_name="Автор задачи", null=True, blank=True
+    )
 
     class Meta:
         verbose_name = "Раздел"

@@ -1,10 +1,12 @@
 import logging
 from urllib.parse import urlparse
-from django.db import models
-from django.contrib.auth import get_user_model
-from multiselectfield.db.fields import MultiSelectField
-from products.models import Product
+
 from computedfields.models import ComputedFieldsModel, computed
+from django.contrib.auth import get_user_model
+from django.db import models
+from multiselectfield.db.fields import MultiSelectField
+
+from products.models import Product
 
 User = get_user_model()
 
