@@ -35,54 +35,46 @@ export default route(function (/* { store, ssrContext } */) {
   });
   const store = useAuthStore();
 
-  Router.beforeEach((to, from, next) => {
-    const isAuthorized = store.isAuthenticated;
-    const isAdmin = store.isAdmin;
-    store.pageLoading = true;
+  Router.beforeEach(async (to, from, next) => {
+    const isAuthorized = store.isAuthenticated
+    const isAdmin = store.isAdmin
+    store.pageLoading = true
     // console.debug("To: ", to, isAuthorized)
 
     if (isAuthorized && !store.account) {
-      store
+      await store
         .loadAccountInfo()
         .then((resp) => {
-          console.debug("Loaded account info: ", resp);
+          console.debug("Loaded account info: ", resp)
         })
         .catch((err) => {
           if (!store.account) {
-            console.warn(
-              "Authorized but no accountInfo! Performing logout...",
-              err
-            );
+            console.warn("Authorized but no accountInfo! Performing logout...", err)
 
             void store.logout().then(() => {
               void Router.push({
                 name: "login",
                 query: { next: to.fullPath },
-              });
-            });
+              })
+            })
           }
-        });
+        })
     }
 
-    const requiresAdmin =
-      to.matched.some((record) => record.meta.requiresAdmin) ||
-      to.path.startsWith("manage");
+    const requiresAdmin = to.matched.some((record) => record.meta.requiresAdmin) || to.path.startsWith("manage")
 
-    if (
-      to.matched.some((record) => record.meta.requiresAuth) &&
-      !isAuthorized
-    ) {
-      next({ name: "login", query: { next: to.fullPath } });
+    if (to.matched.some((record) => record.meta.requiresAuth) && !isAuthorized) {
+      next({ name: "login", query: { next: to.fullPath } })
     } else if (requiresAdmin && !isAdmin) {
-      console.debug("Admin required, redirected to login");
-      next("/");
+      console.debug("Admin required, redirected to login")
+      next("/")
     } else if (to.name === "login" && isAuthorized) {
-      console.debug("Already authorized");
-      next({ name: "index" });
+      console.debug("Already authorized")
+      next({ name: "index" })
     } else {
-      next();
+      next()
     }
-  });
+  })
 
   Router.afterEach(() => {
     store.pageLoading = false;

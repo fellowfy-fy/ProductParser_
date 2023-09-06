@@ -29,11 +29,13 @@ from rest_framework import routers
 from rest_framework.authtoken import views
 
 from accounts.urls import router as accounts_router
+from products.urls import router as products_router
 
 router = routers.DefaultRouter()
 router_include = [
     accounts_router,
     parser_router,
+    products_router,
 ]
 
 for sub_router in router_include:

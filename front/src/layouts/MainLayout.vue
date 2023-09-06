@@ -8,7 +8,7 @@
           round
           icon="menu"
           aria-label="Menu"
-@click="toggleLeftDrawer"
+          @click="toggleLeftDrawer"
         />
 
         <q-toolbar-title />
@@ -36,6 +36,9 @@
           </q-item-section>
           <q-item-section>
             {{ userReadable }}
+            <q-item-label caption>
+              {{ userRole }}
+            </q-item-label>
           </q-item-section>
 
           <q-menu
@@ -80,9 +83,10 @@
 </template>
 
 <script lang="ts" setup>
+import { UserRoleReadable } from "src/modules/StaticTranslate"
 import MainAsideMenu from "../components/common/MainAsideMenu.vue"
 import { useQuasar } from "quasar"
-import { useAuthStore } from "src/stores/auth"
+import { TUserRole, useAuthStore } from "src/stores/auth"
 import { computed, ref } from "vue"
 import { useRouter } from "vue-router"
 
@@ -138,6 +142,15 @@ const userReadable = computed(() => {
   }
   return user.value.first_name ? user.value.first_name + " " + String(user.value.last_name) : "@" + user.value.username
 })
+
+const userRole = computed(() => {
+  if (!user.value){
+    return
+  }
+  console.debug(user.value.role)
+  return UserRoleReadable(user.value.role)
+})
+
 function askLogout() {
   $q.dialog({
     title: "Подтверждение",

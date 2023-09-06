@@ -19,6 +19,7 @@ export class UsersService {
     public static usersList({
 ordering,
 page,
+pageSize,
 search,
 }: {
 /**
@@ -30,6 +31,10 @@ ordering?: string,
  */
 page?: number,
 /**
+ * Number of results to return per page.
+ */
+pageSize?: number,
+/**
  * A search term.
  */
 search?: string,
@@ -40,6 +45,7 @@ search?: string,
             query: {
                 'ordering': ordering,
                 'page': page,
+                'page_size': pageSize,
                 'search': search,
             },
         });

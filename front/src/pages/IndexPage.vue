@@ -6,22 +6,25 @@
 
 <script lang="ts" setup>
 import { useAuthStore } from "src/stores/auth"
-import { onMounted } from "vue"
+import { nextTick, onMounted } from "vue"
 import { useRouter } from "vue-router"
 
 const store = useAuthStore()
 const $router = useRouter()
 
 onMounted(() => {
-  switch (store.userRole) {
-    case "manager":
-      void $router.push({ name: "manager_index" })
+  void nextTick(() => {
 
-      break
+    switch (store.userRole) {
+      case "manager":
+        void $router.push({ name: "manager_index" })
 
-    default:
-      void $router.push({ name: "manager_index" })
-      break
-  }
+        break
+
+      default:
+        void $router.push({ name: "manager_index" })
+        break
+    }
+  })
 })
 </script>

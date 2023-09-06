@@ -1,21 +1,21 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { PaginatedParseTaskList } from '../models/PaginatedParseTaskList';
-import type { ParseTask } from '../models/ParseTask';
-import type { PatchedParseTask } from '../models/PatchedParseTask';
+import type { PaginatedProductList } from '../models/PaginatedProductList';
+import type { PatchedProduct } from '../models/PatchedProduct';
+import type { Product } from '../models/Product';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-export class ParseTaskService {
+export class ProductService {
 
     /**
-     * @returns PaginatedParseTaskList 
+     * @returns PaginatedProductList 
      * @throws ApiError
      */
-    public static parseTaskList({
+    public static productList({
 ordering,
 page,
 pageSize,
@@ -37,10 +37,10 @@ pageSize?: number,
  * A search term.
  */
 search?: string,
-}): CancelablePromise<PaginatedParseTaskList> {
+}): CancelablePromise<PaginatedProductList> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/v1/parse_task/',
+            url: '/api/v1/product/',
             query: {
                 'ordering': ordering,
                 'page': page,
@@ -51,37 +51,37 @@ search?: string,
     }
 
     /**
-     * @returns ParseTask 
+     * @returns Product 
      * @throws ApiError
      */
-    public static parseTaskCreate({
+    public static productCreate({
 requestBody,
 }: {
-requestBody: ParseTask,
-}): CancelablePromise<ParseTask> {
+requestBody: Product,
+}): CancelablePromise<Product> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/v1/parse_task/',
+            url: '/api/v1/product/',
             body: requestBody,
             mediaType: 'application/json',
         });
     }
 
     /**
-     * @returns ParseTask 
+     * @returns Product 
      * @throws ApiError
      */
-    public static parseTaskRetrieve({
+    public static productRetrieve({
 id,
 }: {
 /**
- * A unique integer value identifying this Задача парсера.
+ * A unique integer value identifying this Товар.
  */
 id: number,
-}): CancelablePromise<ParseTask> {
+}): CancelablePromise<Product> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/v1/parse_task/{id}/',
+            url: '/api/v1/product/{id}/',
             path: {
                 'id': id,
             },
@@ -89,22 +89,22 @@ id: number,
     }
 
     /**
-     * @returns ParseTask 
+     * @returns Product 
      * @throws ApiError
      */
-    public static parseTaskUpdate({
+    public static productUpdate({
 id,
 requestBody,
 }: {
 /**
- * A unique integer value identifying this Задача парсера.
+ * A unique integer value identifying this Товар.
  */
 id: number,
-requestBody: ParseTask,
-}): CancelablePromise<ParseTask> {
+requestBody: Product,
+}): CancelablePromise<Product> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/api/v1/parse_task/{id}/',
+            url: '/api/v1/product/{id}/',
             path: {
                 'id': id,
             },
@@ -114,22 +114,22 @@ requestBody: ParseTask,
     }
 
     /**
-     * @returns ParseTask 
+     * @returns Product 
      * @throws ApiError
      */
-    public static parseTaskPartialUpdate({
+    public static productPartialUpdate({
 id,
 requestBody,
 }: {
 /**
- * A unique integer value identifying this Задача парсера.
+ * A unique integer value identifying this Товар.
  */
 id: number,
-requestBody?: PatchedParseTask,
-}): CancelablePromise<ParseTask> {
+requestBody?: PatchedProduct,
+}): CancelablePromise<Product> {
         return __request(OpenAPI, {
             method: 'PATCH',
-            url: '/api/v1/parse_task/{id}/',
+            url: '/api/v1/product/{id}/',
             path: {
                 'id': id,
             },
@@ -142,17 +142,17 @@ requestBody?: PatchedParseTask,
      * @returns void 
      * @throws ApiError
      */
-    public static parseTaskDestroy({
+    public static productDestroy({
 id,
 }: {
 /**
- * A unique integer value identifying this Задача парсера.
+ * A unique integer value identifying this Товар.
  */
 id: number,
 }): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'DELETE',
-            url: '/api/v1/parse_task/{id}/',
+            url: '/api/v1/product/{id}/',
             path: {
                 'id': id,
             },

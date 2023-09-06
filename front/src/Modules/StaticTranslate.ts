@@ -1,10 +1,7 @@
-import { CustomUser } from "src/client"
+import { TUserRole } from "src/stores/auth"
 
-export function UserRoleFromNum(acc: CustomUser | null) {
-  if (!acc) {
-    return "user"
-  }
-  switch (acc.role) {
+export function UserRoleFromNum(role: TUserRole) {
+  switch (role) {
     case 1:
       return "user"
     case 2:
@@ -14,5 +11,17 @@ export function UserRoleFromNum(acc: CustomUser | null) {
 
     default:
       return "admin"
+  }
+}
+
+export function UserRoleReadable(role: number | undefined): string {
+  switch (role) {
+    case TUserRole.admin:
+      return "Администратор"
+    case TUserRole.manager:
+      return "Руководитель"
+
+    default:
+      return "Сотрудник"
   }
 }

@@ -13,7 +13,11 @@ OpenAPI.TOKEN = getToken
 
 const cachedPermissions: string[] = LocalStorage.getItem("cachedPermissions") || []
 
-export type TUserRole = "user" | "admin" | "manager"
+export enum TUserRole {
+  user = 1,
+  manager = 2,
+  admin = 3,
+}
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
@@ -30,10 +34,10 @@ export const useAuthStore = defineStore("auth", {
     },
     userRole(state): TUserRole {
       const acc = state.account
-      return UserRoleFromNum(acc)
+      return (acc.role as TUserRole | undefined) || TUserRole.user
     },
     isAdmin(state) {
-      return state.account?.is_staff
+      return state.account?.is_staff || (state.account?.role && state.account?.role >= 3)
     },
     // permissions(state): Array<string> {
     //   return state.account?.permissions || []

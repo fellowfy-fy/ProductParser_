@@ -4,9 +4,9 @@ from django.utils.translation import gettext_lazy as _
 
 
 class RoleChoices(models.IntegerChoices):
-    USER = 1, _("Сотрудник")
-    MANAGER = 2, _("Руководитель")
-    ADMIN = 3, _("Администратор")
+    USER = 1, "Сотрудник"
+    MANAGER = 2, "Руководитель"
+    ADMIN = 3, "Администратор"
 
 
 class CustomUser(AbstractUser):

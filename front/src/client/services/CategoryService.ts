@@ -1,21 +1,21 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { PaginatedParseTaskList } from '../models/PaginatedParseTaskList';
-import type { ParseTask } from '../models/ParseTask';
-import type { PatchedParseTask } from '../models/PatchedParseTask';
+import type { Category } from '../models/Category';
+import type { PaginatedCategoryList } from '../models/PaginatedCategoryList';
+import type { PatchedCategory } from '../models/PatchedCategory';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-export class ParseTaskService {
+export class CategoryService {
 
     /**
-     * @returns PaginatedParseTaskList 
+     * @returns PaginatedCategoryList 
      * @throws ApiError
      */
-    public static parseTaskList({
+    public static categoryList({
 ordering,
 page,
 pageSize,
@@ -37,10 +37,10 @@ pageSize?: number,
  * A search term.
  */
 search?: string,
-}): CancelablePromise<PaginatedParseTaskList> {
+}): CancelablePromise<PaginatedCategoryList> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/v1/parse_task/',
+            url: '/api/v1/category/',
             query: {
                 'ordering': ordering,
                 'page': page,
@@ -51,37 +51,37 @@ search?: string,
     }
 
     /**
-     * @returns ParseTask 
+     * @returns Category 
      * @throws ApiError
      */
-    public static parseTaskCreate({
+    public static categoryCreate({
 requestBody,
 }: {
-requestBody: ParseTask,
-}): CancelablePromise<ParseTask> {
+requestBody: Category,
+}): CancelablePromise<Category> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/v1/parse_task/',
+            url: '/api/v1/category/',
             body: requestBody,
             mediaType: 'application/json',
         });
     }
 
     /**
-     * @returns ParseTask 
+     * @returns Category 
      * @throws ApiError
      */
-    public static parseTaskRetrieve({
+    public static categoryRetrieve({
 id,
 }: {
 /**
- * A unique integer value identifying this Задача парсера.
+ * A unique integer value identifying this Раздел.
  */
 id: number,
-}): CancelablePromise<ParseTask> {
+}): CancelablePromise<Category> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/v1/parse_task/{id}/',
+            url: '/api/v1/category/{id}/',
             path: {
                 'id': id,
             },
@@ -89,22 +89,22 @@ id: number,
     }
 
     /**
-     * @returns ParseTask 
+     * @returns Category 
      * @throws ApiError
      */
-    public static parseTaskUpdate({
+    public static categoryUpdate({
 id,
 requestBody,
 }: {
 /**
- * A unique integer value identifying this Задача парсера.
+ * A unique integer value identifying this Раздел.
  */
 id: number,
-requestBody: ParseTask,
-}): CancelablePromise<ParseTask> {
+requestBody: Category,
+}): CancelablePromise<Category> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/api/v1/parse_task/{id}/',
+            url: '/api/v1/category/{id}/',
             path: {
                 'id': id,
             },
@@ -114,22 +114,22 @@ requestBody: ParseTask,
     }
 
     /**
-     * @returns ParseTask 
+     * @returns Category 
      * @throws ApiError
      */
-    public static parseTaskPartialUpdate({
+    public static categoryPartialUpdate({
 id,
 requestBody,
 }: {
 /**
- * A unique integer value identifying this Задача парсера.
+ * A unique integer value identifying this Раздел.
  */
 id: number,
-requestBody?: PatchedParseTask,
-}): CancelablePromise<ParseTask> {
+requestBody?: PatchedCategory,
+}): CancelablePromise<Category> {
         return __request(OpenAPI, {
             method: 'PATCH',
-            url: '/api/v1/parse_task/{id}/',
+            url: '/api/v1/category/{id}/',
             path: {
                 'id': id,
             },
@@ -142,17 +142,17 @@ requestBody?: PatchedParseTask,
      * @returns void 
      * @throws ApiError
      */
-    public static parseTaskDestroy({
+    public static categoryDestroy({
 id,
 }: {
 /**
- * A unique integer value identifying this Задача парсера.
+ * A unique integer value identifying this Раздел.
  */
 id: number,
 }): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'DELETE',
-            url: '/api/v1/parse_task/{id}/',
+            url: '/api/v1/category/{id}/',
             path: {
                 'id': id,
             },

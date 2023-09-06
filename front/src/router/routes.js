@@ -3,6 +3,9 @@ const routes = [
   {
     path: "/manager",
     component: () => import("layouts/MainLayout.vue"),
+    meta: {
+      requiresAdmin: true,
+    },
     children: [
       {
         path: "",
@@ -21,11 +24,26 @@ const routes = [
         component: () => import("pages/user/IndexPage.vue"),
         name: "user_index",
       },
+      {
+        path: "product",
+        children: [
+          {
+            path: "",
+            component: () => import("pages/user/ProductList.vue"),
+            name: "user_products"
+          },
+          {
+            path: ":id",
+            component: () => import("pages/user/ProductView.vue"),
+            name: "user_product"
+          }
+        ]
+      },
     ],
   },
 
   {
-    path: "/",
+    path: "",
     component: () => import("pages/IndexPage.vue"),
   },
 
