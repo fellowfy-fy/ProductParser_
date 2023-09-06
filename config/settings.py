@@ -57,6 +57,9 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "django_filters",
     "computedfields",
+    "huey.contrib.djhuey",
+    "bx_django_utils",  # Required by huey_monitor
+    "huey_monitor",
     # custom
     "parser",
     "products",
@@ -214,6 +217,19 @@ SPECTACULAR_SETTINGS = {
     "SERVE_PERMISSIONS": [] if DEBUG else ["rest_framework.permissions.IsAuthenticated"],
     "COMPONENT_SPLIT_PATCH": True,
 }
+
+HUEY = {
+    "huey_class": os.getenv("HUEY_CLASS", "huey.RedisHuey"),
+    "results": True,
+    "immediate": bool(os.getenv("HUEY_IMMEDIATE", False)),
+    "connection": {},
+    "consumer": {
+        "workers": 1,
+    },
+}
+
+if huey_conn := os.getenv("HUEY_CONNECTION", None):
+    HUEY["connection"]["url"] = huey_conn
 
 
 LOGGING = {

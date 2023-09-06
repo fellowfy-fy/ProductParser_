@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import logging
+from typing import Callable
 from parser.models import ParseTask, SiteParseSettings
 from parser.services.request import send_request
 from parser.services.response import ParseResult, parse_result
@@ -40,9 +41,10 @@ def process_parse_result(res: ProcessResult):
         )
 
 
-def process_parse_results(res: list[ProcessResult]):
-    for i in res:
-        process_parse_result(i)
+def process_parse_results(res: list[ProcessResult | None]):
+    for item_res in res:
+        if item_res:
+            process_parse_result(item_res)
 
 
 def process_task_url(task: ParseTask, url: str, product: Product | None = None) -> ProcessResult | None:
@@ -68,22 +70,27 @@ def process_task_url(task: ParseTask, url: str, product: Product | None = None) 
     )
 
 
-def process_task(task: ParseTask):
+def process_task(task: ParseTask, callback: Callable | None = None):
     """Process parse task"""
     urls = list(filter(None, task.urls.split(" ")))
-    res: list[ProcessResult] = []
+    res: list[ProcessResult | None] = []
 
     if task.products:  # Products detect mode
         url = urls[0]
         assert url is not None, "URL list empty"
         log.debug("Processing products list...")
 
-        for product in task.products.all():
+        all_products = task.products.all()
+        for i, product in enumerate(all_products):
             res.append(process_task_url(task, url, product=product))
+            if callback:
+                callback(i, len(all_products))
 
     else:
-        for url in urls:
+        for i, url in enumerate(urls):
             res.append(process_task_url(task, url))
+            if callback:
+                callback(i, len(urls))
 
     process_parse_results(res)
 

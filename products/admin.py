@@ -18,6 +18,7 @@ class ProductPriceHistoryInline(admin.TabularInline):
 class ProductAdmin(admin.ModelAdmin):
     list_display = ("name", "linked_id", "price", "created_at")
     list_filter = ("created_at", "updated_at")
+    readonly_fields = ("created_at", "updated_at")
     search_fields = ("name", "linked_id")
     filter_horizontal = ("categories",)
     inlines = [ProductPriceHistoryInline]
@@ -25,10 +26,13 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(ProductPriceHistory)
 class ProductPriceHistoryAdmin(admin.ModelAdmin):
-    list_display = ("product", "price")
+    list_display = ("product", "price", "created_at")
+    list_filter = ("created_at",)
     autocomplete_fields = ("product",)
+    readonly_fields = ("created_at",)
 
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name",)
+    readonly_fields = ("created_at", "updated_at")

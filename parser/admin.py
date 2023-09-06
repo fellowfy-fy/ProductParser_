@@ -18,6 +18,7 @@ class ParserTaskAdmin(admin.ModelAdmin):
     # raw_id_fields = ("products",)
     filter_horizontal = ("products",)
     search_fields = ("urls", "name")
+    readonly_fields = ("created_at", "updated_at")
 
 
 @admin.register(SiteParseSettings)

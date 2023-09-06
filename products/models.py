@@ -43,6 +43,10 @@ class ProductPriceHistory(WithDates, models.Model):
         verbose_name="Создано задачей",
     )
 
+    class Meta:
+        verbose_name = "История цен"
+        verbose_name_plural = "История цен"
+
 
 class Category(WithDates, models.Model):
     name = models.CharField("Название раздела", max_length=255, unique=True)
