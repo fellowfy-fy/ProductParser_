@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "drf_spectacular",
     "django_filters",
+    "computedfields",
     # custom
     "parser",
     "products",

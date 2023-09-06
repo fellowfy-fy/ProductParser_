@@ -13,6 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from parser.urls import router as parser_router
+
 from django.conf import settings
 from django.conf.urls import include
 from django.contrib import admin
@@ -27,7 +29,6 @@ from rest_framework import routers
 from rest_framework.authtoken import views
 
 from accounts.urls import router as accounts_router
-from parser.urls import router as parser_router
 
 router = routers.DefaultRouter()
 router_include = [

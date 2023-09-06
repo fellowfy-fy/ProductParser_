@@ -1,4 +1,3 @@
-import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
@@ -8,6 +7,7 @@ class RoleChoices(models.IntegerChoices):
     USER = 1, _("Сотрудник")
     MANAGER = 2, _("Руководитель")
     ADMIN = 3, _("Администратор")
+
 
 class CustomUser(AbstractUser):
     manager = models.ForeignKey("self", models.SET_NULL, null=True, blank=True, verbose_name=_("Руководитель"))

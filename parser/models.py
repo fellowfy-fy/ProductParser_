@@ -1,7 +1,10 @@
+import logging
+from urllib.parse import urlparse
 from django.db import models
 from django.contrib.auth import get_user_model
 from multiselectfield.db.fields import MultiSelectField
 from products.models import Product
+from computedfields.models import ComputedFieldsModel, computed
 
 User = get_user_model()
 
@@ -44,12 +47,9 @@ class NotificationTargetChoices(models.TextChoices):
 
 
 class ParseTask(models.Model):
-    status = models.IntegerField(
-        "Статус", choices=TaskStatusChoices.choices, default=TaskStatusChoices.CREATED
-    )
-    author = models.ForeignKey(
-        User, models.CASCADE, related_name="tasks", verbose_name="Автор задачи"
-    )
+    name = models.CharField("Название задачи", max_length=100, null=True, blank=False)
+    status = models.IntegerField("Статус", choices=TaskStatusChoices.choices, default=TaskStatusChoices.CREATED)
+    author = models.ForeignKey(User, models.CASCADE, related_name="tasks", verbose_name="Автор задачи")
 
     period = MultiSelectField(
         "Периодичность мониторинга",
@@ -60,12 +60,8 @@ class ParseTask(models.Model):
     period_date1 = models.DateField("Дата 1", null=True, blank=True)
     period_date2 = models.DateField("Дата 2", null=True, blank=True)
 
-    monitoring_mode = MultiSelectField(
-        "Режим мониторинга", choices=MonitorinTypeChoices.choices, max_length=20
-    )
-    monitoring_type = MultiSelectField(
-        "Тип мониторинга", choices=MonitorinTypeChoices.choices, max_length=20
-    )
+    monitoring_mode = MultiSelectField("Режим мониторинга", choices=MonitorinTypeChoices.choices, max_length=20)
+    monitoring_type = MultiSelectField("Тип мониторинга", choices=MonitorinTypeChoices.choices, max_length=20)
     work_mode = models.IntegerField("Режим работы", choices=WorkModeChoices.choices)
     products = models.ManyToManyField(Product, related_name="tasks", blank=True)
     urls = models.TextField("URL сайтов", null=True, blank=False)
@@ -86,17 +82,24 @@ class ParseTask(models.Model):
         verbose_name = "Задача парсера"
         verbose_name_plural = "Задачи парсера"
 
+    def __str__(self):
+        return self.name
 
-class SiteParseSettings(models.Model):
+
+class SiteParseSettings(ComputedFieldsModel, models.Model):
     class ParseMode(models.IntegerChoices):
         HTML = 1, "HTML"
         JSON = 2, "JSON"
 
-    url = models.URLField("Адрес страницы")
+    class HTTPMethod(models.TextChoices):
+        GET = "GET", "GET"
+        POST = "POST", "POST"
 
-    parse_mode = models.PositiveSmallIntegerField(
-        "Режим парсинга", choices=ParseMode.choices, default=ParseMode.HTML
-    )
+    url = models.URLField("Адрес страницы запроса", max_length=500)
+    url_match = models.URLField("Адрес страницы задачи", max_length=500, null=True, blank=True)
+
+    parse_mode = models.PositiveSmallIntegerField("Режим парсинга", choices=ParseMode.choices, default=ParseMode.HTML)
+    request_method = models.CharField("HTTP метод", max_length=5, choices=HTTPMethod.choices, default=HTTPMethod.GET)
     request_headers = models.JSONField(
         "Заголовки запроса",
         null=True,
@@ -111,6 +114,21 @@ class SiteParseSettings(models.Model):
     path_title = models.TextField("Путь к названию товара")
     path_price = models.TextField("Путь к цене товара")
 
+    # Path value can be either jsonpath or css expression depending on parse mode
+    # Path supports variables
+    force_parser_url = models.BooleanField("Принудительно использовать URL парсера", default=False)
+
+    @computed(models.CharField(max_length=100, null=True), depends=[("self", ["url"])])
+    def domain(self):
+        try:
+            return urlparse(self.url).netloc
+        except Exception as e:
+            logging.warning("URL parse exception", exc_info=e)
+            return ""
+
     class Meta:
         verbose_name = "Настройки парсинга сайта"
         verbose_name_plural = "Настройки парсинга сайта"
+
+    def __str__(self):
+        return self.domain or self.url

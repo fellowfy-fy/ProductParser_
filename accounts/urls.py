@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework import routers
 
-from accounts.views import CustomUserRegisterViewset, CustomUserViewset, email_activate
+from accounts.views import CustomUserViewset, email_activate
 
 
 router = routers.DefaultRouter()
