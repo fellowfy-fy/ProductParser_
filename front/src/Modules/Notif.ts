@@ -16,5 +16,6 @@ export function notifyDeleted() {
 }
 
 export function promiseFunc(promise: Promise<unknown>, func: CallableFunction) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   void promise.then(() => func())
 }
