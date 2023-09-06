@@ -216,6 +216,7 @@ SPECTACULAR_SETTINGS = {
     "SCHEMA_PATH_PREFIX": "/api/v1",
     "SERVE_PERMISSIONS": [] if DEBUG else ["rest_framework.permissions.IsAuthenticated"],
     "COMPONENT_SPLIT_PATCH": True,
+    "ENUM_ADD_EXPLICIT_BLANK_NULL_CHOICE": False,
 }
 
 HUEY = {

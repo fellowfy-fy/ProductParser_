@@ -13,11 +13,11 @@ class CustomUserRegisterSerializer(serializers.ModelSerializer):
         fields = [
             "first_name",
             "last_name",
+            "middle_name",
             "username",
             "email",
             "password",
             "token",
-            "invite_code",
         ]
 
     def get_token(self, instance):

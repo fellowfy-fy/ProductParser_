@@ -88,7 +88,7 @@ class CustomUserViewset(viewsets.ModelViewSet):
         responses={200: CustomUserSerializer},
     )
     @decorators.action(["GET"], detail=False, permission_classes=[permissions.IsAuthenticated])
-    def current_user_info(self, request):
+    def current(self, request):
         user = request.user
 
         return response.Response(CustomUserSelfEditSerializer(user).data)

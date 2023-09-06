@@ -1,6 +1,10 @@
 <template>
   <div class="window-width window-height row justify-center items-center">
-    <q-card class="login-card col-xs-12 col-sm-6 col-md-4 q-pa-md">
+    <q-card
+      class="login-card col-xs-12 col-sm-6 col-md-4 q-pa-md"
+      flat
+      bordered
+    >
       <q-card-section>
         <h4 class="text-center no-margin">
           Авторизация
@@ -37,7 +41,9 @@
           label="Войти"
           size="md"
           form="loginForm"
-          class="q-px-lg"
+          class="q-px-md"
+          no-caps
+          unelevated
         />
       </q-card-actions>
     </q-card>

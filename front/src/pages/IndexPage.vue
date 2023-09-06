@@ -1,25 +1,27 @@
 <template>
-  <q-page class="flex flex-center"> Главная</q-page>
+  <div>
+    <!--  -->
+  </div>
 </template>
 
-<script>
-import { useAuthStore } from 'src/stores/auth';
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import { useAuthStore } from "src/stores/auth"
+import { onMounted } from "vue"
+import { useRouter } from "vue-router"
 
-export default defineComponent({
-  name: 'IndexPage',
-  components: {},
-  data() {
-    const storeAuth = useAuthStore();
-    return {
-      storeAuth,
-    };
-  },
-  methods: {},
-  computed: {
-    user() {
-      return this.storeAuth.account;
-    },
-  },
-});
+const store = useAuthStore()
+const $router = useRouter()
+
+onMounted(() => {
+  switch (store.userRole) {
+    case "manager":
+      void $router.push({ name: "manager_index" })
+
+      break
+
+    default:
+      void $router.push({ name: "manager_index" })
+      break
+  }
+})
 </script>

@@ -1,10 +1,10 @@
 import { route } from "quasar/wrappers";
 import { useAuthStore } from "src/stores/auth";
 import {
-  createMemoryHistory,
   createRouter,
-  createWebHashHistory,
+  createMemoryHistory,
   createWebHistory,
+  createWebHashHistory,
 } from "vue-router";
 import routes from "./routes";
 
@@ -33,43 +33,60 @@ export default route(function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
+  const store = useAuthStore();
 
   Router.beforeEach((to, from, next) => {
-    let store = useAuthStore();
-    let isAuthorized = store.isAuthenticated;
+    const isAuthorized = store.isAuthenticated;
+    const isAdmin = store.isAdmin;
+    store.pageLoading = true;
+    // console.debug("To: ", to, isAuthorized)
 
     if (isAuthorized && !store.account) {
       store
         .loadAccountInfo()
-        .then()
+        .then((resp) => {
+          console.debug("Loaded account info: ", resp);
+        })
         .catch((err) => {
-          if (
-            !err.response &&
-            (!err.code ||
-              err.code === "ERR_NETWORK" ||
-              err.code == "ERR_INTERNET_DISCONNECTED")
-          ) {
-          } else {
-            store.logout().then(() => {
-              Router.push({ name: "login", query: { next: to.fullPath } });
+          if (!store.account) {
+            console.warn(
+              "Authorized but no accountInfo! Performing logout...",
+              err
+            );
+
+            void store.logout().then(() => {
+              void Router.push({
+                name: "login",
+                query: { next: to.fullPath },
+              });
             });
           }
         });
     }
+
+    const requiresAdmin =
+      to.matched.some((record) => record.meta.requiresAdmin) ||
+      to.path.startsWith("manage");
 
     if (
       to.matched.some((record) => record.meta.requiresAuth) &&
       !isAuthorized
     ) {
       next({ name: "login", query: { next: to.fullPath } });
+    } else if (requiresAdmin && !isAdmin) {
+      console.debug("Admin required, redirected to login");
+      next("/");
     } else if (to.name === "login" && isAuthorized) {
+      console.debug("Already authorized");
       next({ name: "index" });
     } else {
       next();
     }
   });
-  // Router.afterEach(() => {
-  // })
+
+  Router.afterEach(() => {
+    store.pageLoading = false;
+  });
 
   return Router;
 });
