@@ -1,11 +1,10 @@
-from dataclasses import dataclass
 import logging
-from typing import Callable
+from dataclasses import dataclass
 from parser.models import ParseTask, SiteParseSettings, TaskStatusChoices
 from parser.services.request import send_request
 from parser.services.response import ParseResult, parse_result
-from parser.services.utils import extract_domain, process_variables
-from django.db.models import Q
+from parser.services.utils import detect_url_settings, extract_urls, process_variables
+from typing import Callable
 
 from products.models import Product, ProductPriceHistory
 
@@ -18,15 +17,6 @@ class ProcessResult:
     settings: SiteParseSettings
     task: ParseTask
     product: Product | None = None
-
-
-def detect_url_settings(url: str) -> SiteParseSettings | None:
-    """Detect SiteParseSettings by url"""
-    matching_settings = SiteParseSettings.objects.filter(
-        Q(domain=extract_domain(url)) | Q(url_match__startswith=extract_domain(url)) | Q(url_match__startswith=url)
-    ).all()
-
-    return matching_settings[0] if matching_settings else None  # TODO: better settings detect algorithm
 
 
 def process_parse_result(res: ProcessResult):
@@ -72,7 +62,7 @@ def process_task_url(task: ParseTask, url: str, product: Product | None = None) 
 
 def process_task(task: ParseTask, callback: Callable | None = None):
     """Process parse task"""
-    urls = list(filter(None, task.urls.split(" ")))
+    urls = extract_urls(task.urls)
     res: list[ProcessResult | None] = []
 
     task.status = TaskStatusChoices.RUN

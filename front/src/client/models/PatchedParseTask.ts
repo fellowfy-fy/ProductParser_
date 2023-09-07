@@ -28,4 +28,5 @@ export type PatchedParseTask = {
     notifications_enable?: boolean;
     readonly created_at?: string | null;
     readonly updated_at?: string | null;
+    readonly invalid_urls?: Record<string, any> | null;
 };

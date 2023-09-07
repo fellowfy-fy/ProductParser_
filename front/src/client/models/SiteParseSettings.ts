@@ -4,11 +4,9 @@
 
 import type { ParseModeEnum } from './ParseModeEnum';
 import type { RequestMethodEnum } from './RequestMethodEnum';
-import type { ShortUser } from './ShortUser';
 
 export type SiteParseSettings = {
     readonly id: number;
-    readonly author: ShortUser;
     url: string;
     url_match?: string | null;
     parse_mode?: ParseModeEnum;

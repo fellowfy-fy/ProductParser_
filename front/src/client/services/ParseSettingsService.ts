@@ -16,11 +16,15 @@ export class ParseSettingsService {
      * @throws ApiError
      */
     public static parseSettingsList({
+forceParserUrl,
 ordering,
 page,
 pageSize,
+parseMode,
+requestMethod,
 search,
 }: {
+forceParserUrl?: boolean,
 /**
  * Which field to use when ordering the results.
  */
@@ -34,6 +38,16 @@ page?: number,
  */
 pageSize?: number,
 /**
+ * * `1` - HTML
+ * * `2` - JSON
+ */
+parseMode?: 1 | 2,
+/**
+ * * `GET` - GET
+ * * `POST` - POST
+ */
+requestMethod?: 'GET' | 'POST',
+/**
  * A search term.
  */
 search?: string,
@@ -42,9 +56,12 @@ search?: string,
             method: 'GET',
             url: '/api/v1/parse_settings/',
             query: {
+                'force_parser_url': forceParserUrl,
                 'ordering': ordering,
                 'page': page,
                 'page_size': pageSize,
+                'parse_mode': parseMode,
+                'request_method': requestMethod,
                 'search': search,
             },
         });

@@ -50,7 +50,7 @@ class NotificationTargetChoices(models.TextChoices):
     PRICE_INCREASED = "incr", "Цена конкурента увеличилась"
 
 
-class ParseTask(models.Model):
+class ParseTask(ComputedFieldsModel, models.Model):
     name = models.CharField("Название задачи", max_length=100, null=True, blank=False)
     status = models.IntegerField("Статус", choices=TaskStatusChoices.choices, default=TaskStatusChoices.CREATED)
     author = models.ForeignKey(User, models.CASCADE, related_name="tasks", verbose_name="Автор задачи")
@@ -82,6 +82,22 @@ class ParseTask(models.Model):
 
     created_at = models.DateTimeField("Дата создания", auto_now_add=True, null=True)
     updated_at = models.DateTimeField("Дата редактирования", auto_now=True, null=True)
+
+    @computed(models.JSONField(null=True, blank=True), depends=[("self", ["urls"])])
+    def invalid_urls(self):
+        from parser.services.utils import validate_urls
+
+        try:
+            return validate_urls(self.urls)
+        except Exception as e:
+            logging.warning("URL validation exception", exc_info=e)
+            return False
+
+    def is_urls_valid(self):
+        return not self.invalid_urls
+
+    is_urls_valid.boolean = True  # noqa
+    is_urls_valid.verbose_name = "Валидные URL"  # noqa
 
     class Meta:
         verbose_name = "Задача парсера"

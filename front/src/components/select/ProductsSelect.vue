@@ -3,6 +3,7 @@
     v-model="model"
     :loading="loading"
     :options="products"
+    label="Товары"
     options-dense
     option-label="name"
     option-value="id"

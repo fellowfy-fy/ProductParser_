@@ -11,6 +11,7 @@
       @submit="saveData"
     >
       <template #info>
+        <is-urls-valid :urls="item.invalid_urls" />
         <q-input
           :model-value="TaskStatus.get(item.status) || item.status"
           label="Статус"
@@ -41,14 +42,16 @@
           readonly
           dense
         />
+
       </template>
+
+      <!-- Form -->
       <q-input
         v-model="item.name"
         :rules="[ruleRequired]"
         hide-bottom-space
         label="Название"
         outlined
-        required
       />
 
 
@@ -97,10 +100,10 @@
 
       <q-input
         v-model="item.urls"
+        :rules="[ruleRequired]"
         type="textarea"
         label="URL сайтов"
         outlined
-        required
       />
 
       <template #actions>
@@ -119,6 +122,7 @@
 </template>
 
 <script setup lang="ts">
+import IsUrlsValid from '../../components/task/IsUrlsValid.vue'
 import BaseForm from '../../components/form/BaseForm.vue'
 import ProductsSelect from '../../components/select/ProductsSelect.vue'
 import WorkModeSelect from '../../components/select/WorkModeSelect.vue'
@@ -154,10 +158,16 @@ const isExists = computed(() => Boolean(item.value?.id))
 const defaultData = {
   id: null,
   name: "",
-  period: 'onetime',
+  period: 1,
   period_date1: null,
   period_date2: null,
+  monitoring_mode: 1,
+  work_mode: 1,
+  notifications_enable: false,
+  notifications_target: [],
+
 }
+
 
 function loadData() {
   if (itemId.value == "new") {
@@ -172,7 +182,7 @@ function saveData() {
   const exists = isExists.value
   const payload = Object.assign({}, item.value)
 
-  payload.products_write = payload.products?.map(p => p.id)
+  payload.products_write = payload.products?.map(p => p.id) || []
 
   const prom = exists ? store.updateParseTask(payload.id, payload) : store.createParseTask(payload)
 
