@@ -39,6 +39,21 @@ const routes = [
           }
         ]
       },
+      {
+        path: "category",
+        children: [
+          {
+            path: "",
+            component: () => import("pages/user/CategoryList.vue"),
+            name: "user_categories"
+          },
+          {
+            path: ":id",
+            component: () => import("pages/user/CategoryView.vue"),
+            name: "user_category"
+          }
+        ]
+      },
     ],
   },
 

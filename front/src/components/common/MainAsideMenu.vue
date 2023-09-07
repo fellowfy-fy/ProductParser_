@@ -15,11 +15,24 @@
     >
       <q-item-section avatar>
         <q-icon
-          name="list_alt"
+          name="inventory"
         />
       </q-item-section>
       <q-item-section>
         Товары
+      </q-item-section>
+    </q-item>
+    <q-item
+      clickable
+      :to="{name: 'user_categories'}"
+    >
+      <q-item-section avatar>
+        <q-icon
+          name="category"
+        />
+      </q-item-section>
+      <q-item-section>
+        Разделы
       </q-item-section>
     </q-item>
   </template>

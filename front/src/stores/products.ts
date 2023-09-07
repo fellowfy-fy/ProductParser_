@@ -1,11 +1,13 @@
 import { defineStore } from "pinia"
-import { PaginatedProductList, Product, ProductService } from "src/client"
+import { Category, CategoryService, PaginatedCategoryList, PaginatedProductList, Product, ProductService } from "src/client"
 import { storeShortcut } from "src/modules/StoreCrud"
 
 export const useProductsStore = defineStore("products", {
   state: () => ({
     product: null as Product | null,
     products: null as Product[] | null,
+    category: null as Category | null,
+    categories: null as Category[] | null,
   }),
 
   getters: {},
@@ -30,7 +32,7 @@ export const useProductsStore = defineStore("products", {
     deleteProduct(id: number): Promise<Product> {
       return storeShortcut({
         promise: ProductService.productDestroy({ id }),
-        setValue: (resp) => {
+        setValue: () => {
           this.product = null
         },
       })
@@ -48,6 +50,47 @@ export const useProductsStore = defineStore("products", {
         promise: ProductService.productUpdate({ id, requestBody: payload }),
         setValue: (resp: Product) => {
           this.product = resp
+        },
+      })
+    },
+    // Categories
+    loadCategories(payload: object): Promise<PaginatedCategoryList> {
+      return storeShortcut({
+        promise: CategoryService.categoryList(payload),
+        setValue: (resp: PaginatedCategoryList) => {
+          this.categories = resp.results as []
+        },
+      })
+    },
+    loadCategory(id: number): Promise<Category> {
+      return storeShortcut({
+        promise: CategoryService.categoryRetrieve({ id }),
+        setValue: (resp: Category) => {
+          this.category = resp
+        },
+      })
+    },
+    deleteCategory(id: number): Promise<Category> {
+      return storeShortcut({
+        promise: CategoryService.categoryDestroy({ id }),
+        setValue: () => {
+          this.category = null
+        },
+      })
+    },
+    createCategory(payload: Category): Promise<Category> {
+      return storeShortcut({
+        promise: CategoryService.categoryCreate({ requestBody: payload }),
+        setValue: (resp: Category) => {
+          this.category = resp
+        },
+      })
+    },
+    updateCategory(id: number, payload: Category): Promise<Category> {
+      return storeShortcut({
+        promise: CategoryService.categoryUpdate({ id, requestBody: payload }),
+        setValue: (resp: Category) => {
+          this.category = resp
         },
       })
     },
