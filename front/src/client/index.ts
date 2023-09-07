@@ -10,7 +10,6 @@ export type { AuthToken } from './models/AuthToken';
 export type { Category } from './models/Category';
 export type { CustomUser } from './models/CustomUser';
 export type { CustomUserSelfEdit } from './models/CustomUserSelfEdit';
-export { MonitoringModeEnum } from './models/MonitoringModeEnum';
 export { MonitoringTypeEnum } from './models/MonitoringTypeEnum';
 export { NotificationsTargetEnum } from './models/NotificationsTargetEnum';
 export type { PaginatedCategoryList } from './models/PaginatedCategoryList';
@@ -27,7 +26,7 @@ export type { PatchedProductPriceHistory } from './models/PatchedProductPriceHis
 export { PeriodEnum } from './models/PeriodEnum';
 export type { Product } from './models/Product';
 export type { ProductPriceHistory } from './models/ProductPriceHistory';
-export { RoleEnum } from './models/RoleEnum';
+export type { ShortUser } from './models/ShortUser';
 export { StatusEnum } from './models/StatusEnum';
 export { WorkModeEnum } from './models/WorkModeEnum';
 

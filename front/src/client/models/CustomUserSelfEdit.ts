@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { RoleEnum } from './RoleEnum';
+import type { WorkModeEnum } from './WorkModeEnum';
 
 export type CustomUserSelfEdit = {
     readonly id: number;
@@ -25,6 +25,6 @@ export type CustomUserSelfEdit = {
     is_active?: boolean;
     readonly date_joined: string;
     middle_name?: string | null;
-    role?: RoleEnum;
+    role?: WorkModeEnum;
     manager?: number | null;
 };

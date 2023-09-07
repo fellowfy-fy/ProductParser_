@@ -54,6 +54,21 @@ const routes = [
           }
         ]
       },
+      {
+        path: "tasks",
+        children: [
+          {
+            path: "",
+            component: () => import("pages/user/TaskList.vue"),
+            name: "user_tasks"
+          },
+          {
+            path: ":id",
+            component: () => import("pages/user/TaskView.vue"),
+            name: "user_task"
+          }
+        ]
+      },
     ],
   },
 

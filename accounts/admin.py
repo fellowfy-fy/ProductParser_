@@ -7,6 +7,7 @@ from accounts.models import CustomUser
 def get_custom_user_fieldsets() -> list:
     fieldsets = list(UserAdmin.fieldsets)
     fieldsets[1][1]["fields"] = list(fieldsets[1][1]["fields"])
+    fieldsets[1][1]["fields"].insert(2, "middle_name")
     fieldsets[1][1]["fields"].extend(["role", "manager"])
     return fieldsets
 

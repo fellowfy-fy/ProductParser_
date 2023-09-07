@@ -27,14 +27,15 @@ class TaskPeriodChoices(models.IntegerChoices):
     ONETIME = 5, "Единоразово"
 
 
-class MonitorinTypeChoices(models.TextChoices):
+class MonitoringTypeChoices(models.TextChoices):
     REPORTS = "report", "Отчеты"
     EXPORT = "export", "Выгрузка"
 
 
-class MonitorinModeChoices(models.TextChoices):
+class MonitoringModeChoices(models.IntegerChoices):
     STRICT = 1, "Строгий мониторинг"
     FLEXIBLE = 2, "Гибкий мониторинг"
+    CATALOG = 3, "Получение каталогов"
 
 
 class WorkModeChoices(models.IntegerChoices):
@@ -53,17 +54,18 @@ class ParseTask(models.Model):
     status = models.IntegerField("Статус", choices=TaskStatusChoices.choices, default=TaskStatusChoices.CREATED)
     author = models.ForeignKey(User, models.CASCADE, related_name="tasks", verbose_name="Автор задачи")
 
-    period = MultiSelectField(
+    period = models.PositiveSmallIntegerField(
         "Периодичность мониторинга",
         choices=TaskPeriodChoices.choices,
         default=TaskPeriodChoices.DAILY,
-        max_length=20,
     )
     period_date1 = models.DateField("Дата 1", null=True, blank=True)
     period_date2 = models.DateField("Дата 2", null=True, blank=True)
 
-    monitoring_mode = MultiSelectField("Режим мониторинга", choices=MonitorinTypeChoices.choices, max_length=20)
-    monitoring_type = MultiSelectField("Тип мониторинга", choices=MonitorinTypeChoices.choices, max_length=20)
+    monitoring_mode = models.PositiveSmallIntegerField(
+        "Режим мониторинга", choices=MonitoringModeChoices.choices, default=MonitoringModeChoices.STRICT
+    )
+    monitoring_type = MultiSelectField("Тип мониторинга", choices=MonitoringTypeChoices.choices, max_length=20)
     work_mode = models.IntegerField("Режим работы", choices=WorkModeChoices.choices)
     products = models.ManyToManyField(Product, related_name="tasks", blank=True)
     urls = models.TextField("URL сайтов", null=True, blank=False)

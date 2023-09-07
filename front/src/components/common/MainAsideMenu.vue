@@ -35,6 +35,19 @@
         Разделы
       </q-item-section>
     </q-item>
+    <q-item
+      clickable
+      :to="{name: 'user_tasks'}"
+    >
+      <q-item-section avatar>
+        <q-icon
+          name="task"
+        />
+      </q-item-section>
+      <q-item-section>
+        Задачи
+      </q-item-section>
+    </q-item>
   </template>
 </template>
 

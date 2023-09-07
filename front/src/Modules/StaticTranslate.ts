@@ -1,4 +1,13 @@
+import { CustomUser, ShortUser } from "src/client"
 import { TUserRole } from "src/stores/auth"
+
+export const TaskStatus = new Map([
+  [1, "Создана"],
+  [2, "В работе"],
+  [3, "Отменена"],
+  [4, "Пауза"],
+  [5, "Остановлена"],
+])
 
 export function UserRoleFromNum(role: TUserRole) {
   switch (role) {
@@ -24,4 +33,11 @@ export function UserRoleReadable(role: number | undefined): string {
     default:
       return "Сотрудник"
   }
+}
+
+export function userReadable(user: CustomUser | ShortUser): string {
+  if (user.first_name) {
+    return [user.first_name, user.last_name, user.middle_name].join(" ")
+  }
+  return "@" + user.username
 }

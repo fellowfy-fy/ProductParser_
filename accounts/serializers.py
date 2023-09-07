@@ -54,3 +54,9 @@ class CustomUserSelfEditSerializer(CustomUserSerializer):
             return ""
         token, created = Token.objects.get_or_create(user=instance)
         return token.key
+
+
+class ShortUserSerializer(CustomUserSerializer):
+    class Meta(CustomUserSerializer.Meta):
+        exclude = None
+        fields = ["username", "id", "first_name", "last_name", "middle_name"]
