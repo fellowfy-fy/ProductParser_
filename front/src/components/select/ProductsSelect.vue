@@ -12,6 +12,7 @@
     use-chips
     use-input
     v-bind="$attrs"
+    style="max-width: 100%"
     @filter="onFilter"
   />
 </template>
