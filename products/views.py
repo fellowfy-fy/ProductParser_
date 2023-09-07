@@ -7,6 +7,7 @@ from products.serializers import CategorySerializer, ProductPriceHistorySerializ
 class ProductViewset(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
+    search_fields = ["name", "synonyms"]
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -15,6 +16,7 @@ class ProductViewset(viewsets.ModelViewSet):
 class CategoryViewset(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
+    search_fields = ["name"]
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)

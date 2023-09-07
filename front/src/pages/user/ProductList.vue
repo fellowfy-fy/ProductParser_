@@ -30,7 +30,21 @@
       bordered
       @request="onRequest"
       @row-click="onRowClick"
-    />
+    >
+      <template #top-right>
+        <q-input
+          v-model="filters.search"
+          borderless
+          dense
+          debounce="300"
+          placeholder="Поиск"
+        >
+          <template #append>
+            <q-icon name="search" />
+          </template>
+        </q-input>
+      </template>
+    </q-table>
   </q-page>
 </template>
 
