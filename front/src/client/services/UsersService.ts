@@ -16,11 +16,14 @@ export class UsersService {
      * @throws ApiError
      */
     public static usersList({
+isActive,
 ordering,
 page,
 pageSize,
+role,
 search,
 }: {
+isActive?: boolean,
 /**
  * Which field to use when ordering the results.
  */
@@ -34,6 +37,12 @@ page?: number,
  */
 pageSize?: number,
 /**
+ * * `1` - Сотрудник
+ * * `2` - Руководитель
+ * * `3` - Администратор
+ */
+role?: 1 | 2 | 3,
+/**
  * A search term.
  */
 search?: string,
@@ -42,9 +51,11 @@ search?: string,
             method: 'GET',
             url: '/api/v1/users/',
             query: {
+                'is_active': isActive,
                 'ordering': ordering,
                 'page': page,
                 'page_size': pageSize,
+                'role': role,
                 'search': search,
             },
         });

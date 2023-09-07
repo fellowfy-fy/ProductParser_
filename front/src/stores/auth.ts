@@ -74,11 +74,13 @@ export const useAuthStore = defineStore("auth", {
       })
     },
 
-    async loadUser(id: number): Promise<CustomUser> {
+    async loadUser(id: number, noSave = false): Promise<CustomUser> {
       return storeShortcut({
         promise: UsersService.usersRetrieve({ id }),
         setValue: (resp: CustomUser) => {
-          this.user = resp
+          if (!noSave) {
+            this.user = resp
+          }
         },
       })
     },

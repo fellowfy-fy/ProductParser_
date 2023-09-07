@@ -15,6 +15,8 @@ import logging
 from django.db import transaction
 from drf_spectacular.utils import extend_schema
 
+from accounts.utils import get_user_role
+
 
 class AccountActivationTokenGenerator(PasswordResetTokenGenerator):
     def _make_hash_value(self, user, timestamp):
@@ -71,8 +73,12 @@ class CustomUserRegisterViewset(viewsets.ModelViewSet):
 class CustomUserViewset(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
+    search_fields = ["username", "email", "first_name", "last_name", "middle_name"]
+    filterset_fields = ["is_active", "role"]
 
     def get_queryset(self):
+        if get_user_role(self.request.user) >= 3:
+            return self.queryset
         return self.queryset.filter(id=self.request.user.pk)
 
     def get_object(self):

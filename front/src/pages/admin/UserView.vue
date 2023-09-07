@@ -53,6 +53,13 @@
       />
       <user-role-select v-model="item.role" />
       <user-status-select v-model="item.is_active" />
+      <template v-if="item.role == 1">
+        <user-select
+          v-model="item.manager"
+          :params="{role: 2}"
+          label="Непосредственный руководитель"
+        />
+      </template>
 
 
 
@@ -73,6 +80,7 @@
 </template>
 
 <script setup lang="ts">
+import UserSelect from '../../components/select/UserSelect.vue'
 import UserRoleSelect from '../../components/select/UserRoleSelect.vue'
 import UserStatusSelect from '../../components/select/UserStatusSelect.vue'
 import BaseForm from '../../components/form/BaseForm.vue'
