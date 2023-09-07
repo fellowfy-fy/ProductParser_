@@ -7,7 +7,7 @@
     >
       <q-card-section>
         <q-btn
-          label="Создать новый"
+          label="Создать"
           color="positive"
           icon="add"
           size="sm"
@@ -19,7 +19,7 @@
 
     <q-table
       v-model:pagination="tablePagination"
-      title="Продукты"
+      title="Товары"
       :rows="products || []"
       :columns="tableColumns"
       :loading="loading"

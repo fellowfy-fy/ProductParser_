@@ -31,6 +31,27 @@
         readonly
       />
 
+      <q-input
+        :model-value="userReadable(item.author)"
+        label="Автор"
+        outlined
+        readonly
+        dense
+      />
+      <q-input
+        :model-value="formatDateTime(item.created_at)"
+        label="Дата создания"
+        outlined
+        readonly
+        dense
+      />
+      <q-input
+        :model-value="formatDateTime(item.updated_at)"
+        label="Дата редактирования"
+        outlined
+        readonly
+        dense
+      />
 
       <form-actions
         class="q-mt-lg"
@@ -55,6 +76,7 @@ import { useProductsStore } from "src/stores/products"
 import { computed, onMounted, ref } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { formatDateTime } from "src/modules/Utils"
+import { userReadable } from "src/modules/StaticTranslate"
 
 const $route = useRoute()
 const $router = useRouter()

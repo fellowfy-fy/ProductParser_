@@ -7,41 +7,63 @@
     </h4> -->
 
     <q-form
-      v-if="product"
+      v-if="item"
       class="row column q-gutter-y-md"
-      style="max-width: 600px"
       @submit="saveData"
     >
       <q-input
-        v-model="product.name"
+        v-model="item.name"
         label="Название"
         outlined
         required
       />
 
       <categories-select
-        v-model="product.categories"
+        v-model="item.categories"
         label="Категории"
       />
 
       <q-input
-        v-model.number="product.price"
+        v-model.number="item.price"
         type="number"
         label="Цена"
         outlined
         required
       />
       <q-input
-        v-model="product.linked_id"
+        v-model="item.linked_id"
         label="Связь"
         outlined
       />
       <q-input
-        v-model="product.synonyms"
+        v-model="item.synonyms"
         type="textarea"
         label="Синонимы"
         outlined
         autogrow
+      />
+
+
+      <q-input
+        :model-value="userReadable(item.author)"
+        label="Автор"
+        outlined
+        readonly
+        dense
+      />
+      <q-input
+        :model-value="formatDateTime(item.created_at)"
+        label="Дата создания"
+        outlined
+        readonly
+        dense
+      />
+      <q-input
+        :model-value="formatDateTime(item.updated_at)"
+        label="Дата редактирования"
+        outlined
+        readonly
+        dense
       />
 
       <form-actions
@@ -67,19 +89,21 @@ import { promiseFunc, notifyDeleted, notifySaved } from "src/modules/Notif"
 import { useProductsStore } from "src/stores/products"
 import { computed, onMounted, ref } from "vue"
 import { useRoute, useRouter } from "vue-router"
+import { formatDateTime } from 'src/modules/Utils'
+import { userReadable } from 'src/modules/StaticTranslate'
 
 const $route = useRoute()
 const $router = useRouter()
 
 const store = useProductsStore()
-const { product } = storeToRefs(store)
+const { product: item } = storeToRefs(store)
 const loading = ref(false)
 const saving = ref(false)
 const deleting = ref(false)
 
 const productId = computed(() => $route.params.id as unknown as string)
 
-const isExists = computed(() => Boolean(product.value?.id))
+const isExists = computed(() => Boolean(item.value?.id))
 
 const defaultData = {
   id: null,
@@ -89,7 +113,7 @@ const defaultData = {
 
 function loadData() {
   if (productId.value == "new") {
-    product.value = Object.assign({}, defaultData)
+    item.value = Object.assign({}, defaultData)
     return
   }
   const prom = store.loadProduct(parseInt(productId.value))
@@ -98,7 +122,7 @@ function loadData() {
 
 function saveData() {
   const exists = isExists.value
-  const payload = Object.assign({}, product.value)
+  const payload = Object.assign({}, item.value)
 
   const prom = exists ? store.updateProduct(payload.id, payload) : store.createProduct(payload)
 
@@ -117,7 +141,7 @@ function saveData() {
 }
 
 function onDelete() {
-  const prom = store.deleteProduct(product.value.id)
+  const prom = store.deleteProduct(item.value.id)
 
   promiseSetLoading(prom, deleting)
   void prom.then(() => {

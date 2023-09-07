@@ -35,7 +35,10 @@ export function UserRoleReadable(role: number | undefined): string {
   }
 }
 
-export function userReadable(user: CustomUser | ShortUser): string {
+export function userReadable(user: CustomUser | ShortUser | null): string {
+  if (!user) {
+    return "-"
+  }
   if (user.first_name) {
     return [user.first_name, user.last_name, user.middle_name].join(" ")
   }

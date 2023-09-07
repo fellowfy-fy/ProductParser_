@@ -53,9 +53,10 @@ import { Ref, computed, onMounted, ref, watch } from 'vue';
 import { useTasksStore } from 'src/stores/tasks';
 import { promiseSetLoading } from 'src/modules/StoreCrud';
 import { QTableProps } from 'quasar';
-import { ParseTask } from "src/client"
+import { ParseTask, ShortUser } from "src/client"
 import {formatDateTime} from 'src/modules/utils'
 import { useRouter } from 'vue-router';
+import { TaskStatus, userReadable } from 'src/modules/StaticTranslate';
 
 const router = useRouter()
 
@@ -83,6 +84,26 @@ const tableColumns = [
     label: 'Название',
     field: 'name',
     align: 'left',
+    sortable: true,
+  },
+  {
+    name: 'status',
+    label: 'Статус',
+    field: 'status',
+    align: 'left',
+    format(val:number) {
+        return TaskStatus.get(val) || val
+    },
+    sortable: true,
+  },
+  {
+    name: 'author',
+    label: 'Автор',
+    field: 'author',
+    align: 'left',
+    format(val:ShortUser) {
+        return userReadable(val)
+    },
     sortable: true,
   },
   {
