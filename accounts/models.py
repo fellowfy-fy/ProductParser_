@@ -16,6 +16,7 @@ class CustomUser(AbstractUser):
 
     class Meta(AbstractUser.Meta):
         db_table = "auth_user"
+        ordering = ("-date_joined",)
 
     def get_str(self):
         if self.first_name:

@@ -76,3 +76,6 @@ if settings.DEBUG:
             },
         ),
     ]
+
+if settings.DEBUGBAR:
+    urlpatterns += [path("__debug__/", include("debug_toolbar.urls"))]

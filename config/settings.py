@@ -37,6 +37,7 @@ SECRET_KEY = os.environ.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", False)
 PRODUCTION = os.environ.get("PRODUCTION", False)
+DEBUGBAR = os.environ.get("DEBUGBAR", False)
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 USE_X_FORWARDED_HOST = True
@@ -96,6 +97,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
+
+INTERNAL_IPS = ["127.0.0.1", *os.getenv("INTERNAL_IPS", "").split(",")]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1",
@@ -188,6 +191,11 @@ MEDIA_ROOT = BASE_DIR / "media"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+if DEBUGBAR:
+    INSTALLED_APPS += ["debug_toolbar"]
+    MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
+
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (

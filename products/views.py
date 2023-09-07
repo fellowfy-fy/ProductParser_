@@ -2,9 +2,10 @@ from rest_framework import viewsets, exceptions
 
 from products.models import Category, Product, ProductPriceHistory
 from products.serializers import CategorySerializer, ProductPriceHistorySerializer, ProductSerializer
+from django_auto_prefetching import AutoPrefetchViewSetMixin
 
 
-class ProductViewset(viewsets.ModelViewSet):
+class ProductViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
     search_fields = ["name", "synonyms"]
@@ -13,7 +14,7 @@ class ProductViewset(viewsets.ModelViewSet):
         serializer.save(author=self.request.user)
 
 
-class CategoryViewset(viewsets.ModelViewSet):
+class CategoryViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
     search_fields = ["name"]
@@ -27,6 +28,6 @@ class CategoryViewset(viewsets.ModelViewSet):
         return super().perform_destroy(instance)
 
 
-class ProductPriceHistoryViewset(viewsets.ModelViewSet):
+class ProductPriceHistoryViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
     serializer_class = ProductPriceHistorySerializer
     queryset = ProductPriceHistory.objects.all()
