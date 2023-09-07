@@ -19,6 +19,11 @@
         required
       />
 
+      <categories-select
+        v-model="product.categories"
+        label="Категории"
+      />
+
       <q-input
         v-model.number="product.price"
         type="number"
@@ -53,6 +58,7 @@
 </template>
 
 <script setup lang="ts">
+import CategoriesSelect from '../../components/select/CategoriesSelect.vue'
 import BackBtn from "../../components/form/BackBtn.vue"
 import FormActions from "../../components/form/FormActions.vue"
 import { storeToRefs } from "pinia"
