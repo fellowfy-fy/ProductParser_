@@ -7,11 +7,12 @@
     option-label="name"
     option-value="id"
     map-options
-    emit-value
     outlined
     multiple
     use-chips
+    use-input
     v-bind="$attrs"
+    @filter="onFilter"
   />
 </template>
 
@@ -35,6 +36,7 @@ const store = useProductsStore()
 const {products} = storeToRefs(store)
 
 const loading = ref(false)
+const search = ref("")
 
 const model = computed({
   get(){
@@ -47,9 +49,18 @@ const model = computed({
 
 function loadData() {
   const payload = {
+    search: search.value,
   }
   const prom = store.loadProducts(payload)
   promiseSetLoading(prom, loading)
+  return prom;
+}
+
+function onFilter(value: string, update: CallableFunction){
+  search.value = value
+  update(() => {
+    void loadData()
+  })
 }
 
 onMounted(() => loadData())

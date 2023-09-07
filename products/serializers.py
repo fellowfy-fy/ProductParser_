@@ -5,7 +5,7 @@ from products.models import Category, Product, ProductPriceHistory
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    author = ShortUserSerializer()
+    author = ShortUserSerializer(read_only=True)
 
     class Meta:
         model = Product
@@ -14,7 +14,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    author = ShortUserSerializer()
+    author = ShortUserSerializer(read_only=True)
 
     class Meta:
         model = Category
@@ -23,7 +23,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ProductPriceHistorySerializer(serializers.ModelSerializer):
-    author = ShortUserSerializer()
+    author = ShortUserSerializer(read_only=True)
 
     class Meta:
         model = ProductPriceHistory

@@ -6,7 +6,7 @@ import type { ShortUser } from './ShortUser';
 
 export type PatchedProductPriceHistory = {
     readonly id?: number;
-    author?: ShortUser;
+    readonly author?: ShortUser;
     readonly created_at?: string | null;
     readonly updated_at?: string | null;
     price?: number;
