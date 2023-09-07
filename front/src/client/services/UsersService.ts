@@ -2,9 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CustomUser } from '../models/CustomUser';
-import type { CustomUserSelfEdit } from '../models/CustomUserSelfEdit';
-import type { PaginatedCustomUserSelfEditList } from '../models/PaginatedCustomUserSelfEditList';
-import type { PatchedCustomUserSelfEdit } from '../models/PatchedCustomUserSelfEdit';
+import type { PaginatedCustomUserList } from '../models/PaginatedCustomUserList';
+import type { PatchedCustomUser } from '../models/PatchedCustomUser';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -13,7 +12,7 @@ import { request as __request } from '../core/request';
 export class UsersService {
 
     /**
-     * @returns PaginatedCustomUserSelfEditList 
+     * @returns PaginatedCustomUserList 
      * @throws ApiError
      */
     public static usersList({
@@ -38,7 +37,7 @@ pageSize?: number,
  * A search term.
  */
 search?: string,
-}): CancelablePromise<PaginatedCustomUserSelfEditList> {
+}): CancelablePromise<PaginatedCustomUserList> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/users/',
@@ -52,14 +51,14 @@ search?: string,
     }
 
     /**
-     * @returns CustomUserSelfEdit 
+     * @returns CustomUser 
      * @throws ApiError
      */
     public static usersCreate({
 requestBody,
 }: {
-requestBody: CustomUserSelfEdit,
-}): CancelablePromise<CustomUserSelfEdit> {
+requestBody: CustomUser,
+}): CancelablePromise<CustomUser> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/v1/users/',
@@ -69,7 +68,7 @@ requestBody: CustomUserSelfEdit,
     }
 
     /**
-     * @returns CustomUserSelfEdit 
+     * @returns CustomUser 
      * @throws ApiError
      */
     public static usersRetrieve({
@@ -79,7 +78,7 @@ id,
  * A unique integer value identifying this пользователь.
  */
 id: number,
-}): CancelablePromise<CustomUserSelfEdit> {
+}): CancelablePromise<CustomUser> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/users/{id}/',
@@ -90,7 +89,7 @@ id: number,
     }
 
     /**
-     * @returns CustomUserSelfEdit 
+     * @returns CustomUser 
      * @throws ApiError
      */
     public static usersUpdate({
@@ -101,8 +100,8 @@ requestBody,
  * A unique integer value identifying this пользователь.
  */
 id: number,
-requestBody: CustomUserSelfEdit,
-}): CancelablePromise<CustomUserSelfEdit> {
+requestBody: CustomUser,
+}): CancelablePromise<CustomUser> {
         return __request(OpenAPI, {
             method: 'PUT',
             url: '/api/v1/users/{id}/',
@@ -115,7 +114,7 @@ requestBody: CustomUserSelfEdit,
     }
 
     /**
-     * @returns CustomUserSelfEdit 
+     * @returns CustomUser 
      * @throws ApiError
      */
     public static usersPartialUpdate({
@@ -126,8 +125,8 @@ requestBody,
  * A unique integer value identifying this пользователь.
  */
 id: number,
-requestBody?: PatchedCustomUserSelfEdit,
-}): CancelablePromise<CustomUserSelfEdit> {
+requestBody?: PatchedCustomUser,
+}): CancelablePromise<CustomUser> {
         return __request(OpenAPI, {
             method: 'PATCH',
             url: '/api/v1/users/{id}/',
@@ -161,7 +160,7 @@ id: number,
     }
 
     /**
-     * @returns CustomUserSelfEdit 
+     * @returns CustomUser 
      * @throws ApiError
      */
     public static usersSetPasswordCreate({
@@ -172,8 +171,8 @@ requestBody,
  * A unique integer value identifying this пользователь.
  */
 id: number,
-requestBody: CustomUserSelfEdit,
-}): CancelablePromise<CustomUserSelfEdit> {
+requestBody: CustomUser,
+}): CancelablePromise<CustomUser> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/v1/users/{id}/set_password/',

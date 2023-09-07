@@ -4,13 +4,28 @@ const routes = [
     path: "/manager",
     component: () => import("layouts/MainLayout.vue"),
     meta: {
-      requiresAdmin: true,
+      requiresManager: true,
     },
     children: [
       {
         path: "",
         component: () => import("pages/manager/IndexPage.vue"),
         name: "manager_index",
+      },
+      {
+        path: "user",
+        children: [
+          {
+            path: "",
+            component: () => import("pages/admin/UserList.vue"),
+            name: "admin_users"
+          },
+          {
+            path: ":id",
+            component: () => import("pages/admin/UserView.vue"),
+            name: "admin_user"
+          }
+        ]
       },
     ],
   },

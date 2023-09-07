@@ -4,9 +4,8 @@
 
 import type { WorkModeEnum } from './WorkModeEnum';
 
-export type PatchedCustomUserSelfEdit = {
+export type PatchedCustomUser = {
     readonly id?: number;
-    readonly auth_token?: string;
     readonly last_login?: string | null;
     /**
      * Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.
@@ -14,7 +13,7 @@ export type PatchedCustomUserSelfEdit = {
     username?: string;
     first_name?: string;
     last_name?: string;
-    readonly email?: string;
+    email?: string;
     /**
      * Отметьте, если пользователь может входить в административную часть сайта.
      */

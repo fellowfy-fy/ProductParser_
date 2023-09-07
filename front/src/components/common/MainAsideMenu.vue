@@ -1,6 +1,19 @@
 <template>
   <template v-if="userRole == TUserRole.admin">
     <!-- Admin -->
+    <q-item
+      clickable
+      :to="{name: 'admin_users'}"
+    >
+      <q-item-section avatar>
+        <q-icon
+          name="manage_accounts"
+        />
+      </q-item-section>
+      <q-item-section>
+        Пользователи
+      </q-item-section>
+    </q-item>
   </template>
 
   <template v-if="userRole == TUserRole.manager">

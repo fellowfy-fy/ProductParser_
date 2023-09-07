@@ -1,7 +1,7 @@
+import { useLocalStorage } from "@vueuse/core"
 import { defineStore } from "pinia"
 import { LocalStorage } from "quasar"
-import { AuthService, AuthToken, OpenAPI, CustomUser, UsersService } from "src/client"
-import { UserRoleFromNum } from "src/modules/StaticTranslate"
+import { AuthService, AuthToken, OpenAPI, CustomUser, UsersService, PaginatedCustomUserList } from "src/client"
 import { storeShortcut } from "src/modules/StoreCrud"
 
 // eslint-disable-next-line @typescript-eslint/require-await
@@ -10,8 +10,6 @@ const getToken = async () => {
 }
 
 OpenAPI.TOKEN = getToken
-
-const cachedPermissions: string[] = LocalStorage.getItem("cachedPermissions") || []
 
 export enum TUserRole {
   user = 1,
@@ -23,9 +21,12 @@ export const useAuthStore = defineStore("auth", {
   state: () => ({
     authToken: localStorage.getItem("authToken"),
     user: null as CustomUser | null,
+    users: null as CustomUser[] | null,
     account: null as CustomUser | null,
     notifications: null as Notification[] | null,
     pageLoading: false,
+
+    cachedAccount: LocalStorage.getItem("cachedAccount", null) as unknown as CustomUser | null,
   }),
 
   getters: {
@@ -34,10 +35,14 @@ export const useAuthStore = defineStore("auth", {
     },
     userRole(state): TUserRole {
       const acc = state.account
-      return (acc.role as TUserRole | undefined) || TUserRole.user
+      const accCached = state.cachedAccount
+      return (acc.role as TUserRole | undefined) || (accCached.role as TUserRole | undefined) || TUserRole.user
     },
     isAdmin(state) {
       return state.account?.is_staff || (state.account?.role && state.account?.role >= 3)
+    },
+    isManager(state) {
+      return state.account?.role && state.account?.role >= 2
     },
     // permissions(state): Array<string> {
     //   return state.account?.permissions || []
@@ -95,12 +100,29 @@ export const useAuthStore = defineStore("auth", {
         },
       })
     },
+    async deleteUser(id: number): Promise<CustomUser> {
+      return storeShortcut({
+        promise: UsersService.usersDestroy({ id }),
+        setValue: (resp: CustomUser) => {
+          this.user = resp
+        },
+      })
+    },
 
     async loadAccountInfo(): Promise<CustomUser> {
       return storeShortcut({
         promise: UsersService.usersCurrentRetrieve(),
         setValue: (user: CustomUser) => {
           this.account = user
+          LocalStorage.set("cachedAccount", user)
+        },
+      })
+    },
+    async loadUsers(payload: object): Promise<PaginatedCustomUserList> {
+      return storeShortcut({
+        promise: UsersService.usersList(payload),
+        setValue: (resp: PaginatedCustomUserList) => {
+          this.users = resp.results as CustomUser[]
         },
       })
     },

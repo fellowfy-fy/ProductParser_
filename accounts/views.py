@@ -70,7 +70,7 @@ class CustomUserRegisterViewset(viewsets.ModelViewSet):
 
 class CustomUserViewset(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
-    serializer_class = CustomUserSelfEditSerializer
+    serializer_class = CustomUserSerializer
 
     def get_queryset(self):
         return self.queryset.filter(id=self.request.user.pk)

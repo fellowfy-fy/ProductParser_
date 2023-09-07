@@ -38,6 +38,7 @@ export default route(function (/* { store, ssrContext } */) {
   Router.beforeEach(async (to, from, next) => {
     const isAuthorized = store.isAuthenticated
     const isAdmin = store.isAdmin
+    const isManager = store.isManager
     store.pageLoading = true
     // console.debug("To: ", to, isAuthorized)
 
@@ -61,12 +62,16 @@ export default route(function (/* { store, ssrContext } */) {
         })
     }
 
-    const requiresAdmin = to.matched.some((record) => record.meta.requiresAdmin) || to.path.startsWith("manage")
+    const requiresAdmin = to.matched.some((record) => record.meta.requiresAdmin) || to.path.startsWith("admin")
+    const requiresManager = to.matched.some((record) => record.meta.requiredManager) || to.path.startsWith("manage")
 
     if (to.matched.some((record) => record.meta.requiresAuth) && !isAuthorized) {
       next({ name: "login", query: { next: to.fullPath } })
     } else if (requiresAdmin && !isAdmin) {
       console.debug("Admin required, redirected to login")
+      next("/")
+    } else if (requiresManager && !isManager) {
+      console.debug("Manager required, redirected to login")
       next("/")
     } else if (to.name === "login" && isAuthorized) {
       console.debug("Already authorized")
