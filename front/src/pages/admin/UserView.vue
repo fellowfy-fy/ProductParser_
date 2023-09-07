@@ -51,7 +51,10 @@
         label="Email"
         outlined
       />
-      <user-role-select v-model="item.role" />
+      <user-role-select
+        v-model="item.role"
+        :disable="isSelf"
+      />
       <user-status-select v-model="item.is_active" />
       <template v-if="item.role == 1">
         <user-select
@@ -108,6 +111,8 @@ const deleting = ref(false)
 const itemId = computed(() => route.params.id as unknown as string)
 
 const isExists = computed(() => Boolean(item.value?.id))
+
+const isSelf = computed(() => item.value?.id == store.account?.id)
 
 const defaultData = {
   id: null,
