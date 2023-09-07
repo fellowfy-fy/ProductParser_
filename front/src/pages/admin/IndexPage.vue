@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    Manager index
+    Admin index
   </q-page>
 </template>
 

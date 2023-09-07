@@ -1,8 +1,8 @@
 from rest_framework import viewsets
 from accounts.utils import get_user_role
-from parser.models import ParseTask
+from parser.models import ParseTask, SiteParseSettings
 
-from parser.serializers import ParseTaskSerializer
+from parser.serializers import ParseTaskSerializer, SiteParseSettingsSerializer
 from django_auto_prefetching import AutoPrefetchViewSetMixin
 from django.db.models import Q
 
@@ -23,3 +23,10 @@ class ParseTaskViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
+
+class SiteParseSettingsViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
+    serializer_class = SiteParseSettingsSerializer
+    queryset = SiteParseSettings.objects.all()
+    search_fields = ["domain", "url", "url_match"]
+    filterset_fields = ["parse_mode", "request_method", "force_parser_url"]

@@ -1,19 +1,17 @@
 <template>
   <template v-if="userRole == TUserRole.admin">
     <!-- Admin -->
-    <q-item
-      clickable
+     <menu-item
       :to="{name: 'admin_users'}"
-    >
-      <q-item-section avatar>
-        <q-icon
-          name="manage_accounts"
-        />
-      </q-item-section>
-      <q-item-section>
-        Пользователи
-      </q-item-section>
-    </q-item>
+      icon="manage_accounts"
+      label="Пользователи"
+    />
+     <menu-item
+      :to="{name: 'admin_parse_settings'}"
+      icon="memory"
+      label="Парсеры"
+    />
+    <q-separator />
   </template>
 
   <template v-if="userRole == TUserRole.manager">
@@ -22,19 +20,11 @@
 
   <template v-if="true">
     <!-- Common -->
-    <q-item
-      clickable
+    <menu-item
       :to="{name: 'user_products'}"
-    >
-      <q-item-section avatar>
-        <q-icon
-          name="inventory"
-        />
-      </q-item-section>
-      <q-item-section>
-        Товары
-      </q-item-section>
-    </q-item>
+      icon="inventory"
+      label="Товары"
+    />
     <q-item
       clickable
       :to="{name: 'user_categories'}"
@@ -65,6 +55,7 @@
 </template>
 
 <script setup lang="ts">
+import MenuItem from './MenuItem.vue'
 import { storeToRefs } from 'pinia';
 import { TUserRole, useAuthStore } from 'src/stores/auth';
 

@@ -22,7 +22,7 @@ class ParseTaskSerializer(serializers.ModelSerializer):
 
 
 class SiteParseSettingsSerializer(serializers.ModelSerializer):
-    author = ShortUserSerializer(read_only=True)
+    # author = ShortUserSerializer(read_only=True)
 
     class Meta:
         model = SiteParseSettings

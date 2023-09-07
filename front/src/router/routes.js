@@ -27,6 +27,21 @@ const routes = [
           }
         ]
       },
+      {
+        path: "parse_settings",
+        children: [
+          {
+            path: "",
+            component: () => import("pages/admin/TaskSettingsList.vue"),
+            name: "admin_parse_settings"
+          },
+          {
+            path: ":id",
+            component: () => import("pages/admin/TaskSettingsView.vue"),
+            name: "admin_parse_setting"
+          }
+        ]
+      },
     ],
   },
   // User
