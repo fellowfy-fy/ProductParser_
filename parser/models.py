@@ -17,6 +17,7 @@ class TaskStatusChoices(models.IntegerChoices):
     CANCELLED = 3, "Отменена"
     PAUSED = 4, "Пауза"
     STOPPED = 5, "Остановлена"
+    SETTINGS = 6, "Настройка"
 
 
 class TaskPeriodChoices(models.IntegerChoices):

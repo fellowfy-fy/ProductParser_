@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import logging
 from typing import Callable
-from parser.models import ParseTask, SiteParseSettings
+from parser.models import ParseTask, SiteParseSettings, TaskStatusChoices
 from parser.services.request import send_request
 from parser.services.response import ParseResult, parse_result
 from parser.services.utils import extract_domain, process_variables
@@ -75,6 +75,9 @@ def process_task(task: ParseTask, callback: Callable | None = None):
     urls = list(filter(None, task.urls.split(" ")))
     res: list[ProcessResult | None] = []
 
+    task.status = TaskStatusChoices.RUN
+    task.save(update_fields=["status"])
+
     if task.products:  # Products detect mode
         url = urls[0]
         assert url is not None, "URL list empty"
@@ -93,5 +96,7 @@ def process_task(task: ParseTask, callback: Callable | None = None):
                 callback(i, len(urls))
 
     process_parse_results(res)
+    task.status = TaskStatusChoices.PAUSED
+    task.save(update_fields=["status"])
 
     return res

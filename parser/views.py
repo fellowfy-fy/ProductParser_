@@ -4,6 +4,7 @@ from parser.models import ParseTask
 
 from parser.serializers import ParseTaskSerializer
 from django_auto_prefetching import AutoPrefetchViewSetMixin
+from django.db.models import Q
 
 
 class ParseTaskViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
@@ -15,8 +16,8 @@ class ParseTaskViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
         role = get_user_role(user)
         if role == 3:
             return self.queryset
-        # elif role == 2:
-        #     return self.queryset.filter(author=user)
+        elif role == 2:
+            return self.queryset.filter(Q(author=user) | Q(author__manager=user))
         else:
             return self.queryset.filter(author=user)
 

@@ -6,7 +6,7 @@ from huey_monitor.tasks import TaskModel
 from huey_monitor.tqdm import ProcessInfo
 from django.db.models import Q
 
-from parser.models import ParseTask, TaskPeriodChoices
+from parser.models import ParseTask, TaskPeriodChoices, TaskStatusChoices
 from parser.services.parse import process_task
 
 log = logging.getLogger(__name__)
@@ -14,7 +14,12 @@ log = logging.getLogger(__name__)
 
 def run_periodic_now(period_choice: TaskPeriodChoices, task: TaskModel):
     """Run periodic tasks now"""
-    parse_tasks = ParseTask.objects.filter(period=period_choice)
+
+    run_states = [
+        TaskStatusChoices.PAUSED,
+        TaskStatusChoices.RUN,
+    ]
+    parse_tasks = ParseTask.objects.filter(period=period_choice).filter(status__in=run_states)
 
     if period_choice == TaskPeriodChoices.ONETIME:
         parse_tasks = parse_tasks.filter(period_date1=datetime.today())

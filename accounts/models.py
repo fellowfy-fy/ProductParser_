@@ -10,7 +10,9 @@ class RoleChoices(models.IntegerChoices):
 
 
 class CustomUser(AbstractUser):
-    manager = models.ForeignKey("self", models.SET_NULL, null=True, blank=True, verbose_name=_("Руководитель"))
+    manager = models.ForeignKey(
+        "self", models.SET_NULL, null=True, blank=True, verbose_name=_("Руководитель"), related_name="manager_users"
+    )
     middle_name = models.CharField(_("Отчество"), max_length=255, null=True, blank=True)
     role = models.PositiveSmallIntegerField(_("Роль"), choices=RoleChoices.choices, default=RoleChoices.USER)
 
