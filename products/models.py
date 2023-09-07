@@ -59,6 +59,7 @@ class Category(WithDates, models.Model):
     author = models.ForeignKey(
         User, models.CASCADE, related_name="categories", verbose_name="Автор задачи", null=True, blank=True
     )
+    products: models.QuerySet["Product"]
 
     class Meta:
         verbose_name = "Раздел"
