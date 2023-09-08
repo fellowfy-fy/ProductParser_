@@ -107,7 +107,7 @@
         </q-stepper>
 
         <div
-          v-if="isAdmin"
+          v-if="isAdmin && isExists"
           class="row justify-around"
         >
           <q-btn
