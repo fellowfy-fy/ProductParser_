@@ -156,4 +156,4 @@ class SiteParseSettings(ComputedFieldsModel, models.Model):
         verbose_name_plural = "Настройки парсинга сайта"
 
     def __str__(self):
-        return self.domain or self.url
+        return f"#{self.pk} ({self.domain or self.url})"

@@ -1,5 +1,6 @@
 import logging
 from django.shortcuts import get_object_or_404
+from accounts.models import RoleChoices
 from parser.models import ParseTask, SiteParseSettings, TaskStatusChoices
 from parser.serializers import ParseTaskSerializer, SiteParseSettingsSerializer, TestRunResultsSerializer
 from parser.services.task_steps import change_task_status, check_task_steps
@@ -22,9 +23,9 @@ class ParseTaskViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
     def get_prefetchable_queryset(self):
         user = self.request.user
         role = get_user_role(user)
-        if role == 3:
+        if role == RoleChoices.ADMIN:
             return self.queryset
-        elif role == 2:
+        elif role == RoleChoices.MANAGER:
             return self.queryset.filter(Q(author=user) | Q(author__manager=user))
         else:
             return self.queryset.filter(author=user)

@@ -29,6 +29,9 @@ def process_css(settings: SiteParseSettings, res: str, task: ParseTask, multiple
     res: list[ParseResult] = []
     log.debug(f"CSS Process result: {res_title} | {res_price}")
 
+    if len(res_title) != len(res_price):
+        task.log.warning(f"Parsed titles ({len(res_title)}) count differs from price {len(res_price)}.")
+
     for title, price in zip(res_title, res_price):
         try:
             res.append(ParseResult(title=title.text, price=extract_number(price.text)))
@@ -48,6 +51,9 @@ def process_json(settings: SiteParseSettings, res: dict, task: ParseTask, multip
     res_price = path_price.find(res)
 
     res: list[ParseResult] = []
+
+    if len(res_title) != len(res_price):
+        task.log.warning(f"Parsed titles ({len(res_title)}) count differs from price {len(res_price)}.")
 
     for title, price in zip(res_title, res_price):
         try:

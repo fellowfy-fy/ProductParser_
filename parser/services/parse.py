@@ -63,6 +63,7 @@ def process_task_url(task: ParseTask, url: str, product: Product | None = None) 
     if not settings:
         task.log.warning(f"Settings not found for url: '{url}' ({task})")
         return None
+    task.log.debug(f"Selected settings: {settings}")
     ##
     request_url = settings.url if settings.force_parser_url else url or settings.url
     full_url = process_variables(settings, request_url, product=product)
