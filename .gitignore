@@ -16,6 +16,8 @@ Pipfile
 Pipfile.lock
 __pycache__
 media
+coverage.xml
+.coverage
 # migrations
 # migrations/*
 

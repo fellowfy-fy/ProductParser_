@@ -18,6 +18,7 @@ def run_periodic_now(period_choice: TaskPeriodChoices, task: TaskModel):
     run_states = [
         TaskStatusChoices.PAUSED,
         TaskStatusChoices.RUN,
+        TaskStatusChoices.ERROR,  # Task will retry
     ]
     parse_tasks = ParseTask.objects.filter(period=period_choice).filter(status__in=run_states)
 
@@ -50,8 +51,8 @@ def run_quarterly(task: TaskModel):
 
 
 @db_task(context=True)
-def run_now(task: TaskModel, parse_task: ParseTask, parent_task_id: int | None = None):
-    process_info = ProcessInfo(task, desc="Обработка задачи", total=1, parent_task_id=parent_task_id)
+def run_now(task: TaskModel, parse_task: ParseTask, parent_task_id: int | None = None, test: bool = False):
+    process_info = ProcessInfo(task, desc="task-" + str(parse_task.pk), total=1, parent_task_id=parent_task_id)
 
     def callback(curr: int, total: int):
         if not process_info.total:
@@ -59,4 +60,9 @@ def run_now(task: TaskModel, parse_task: ParseTask, parent_task_id: int | None =
 
         process_info.update()
 
-    process_task(parse_task, callback=callback)
+    res = process_task(parse_task, callback=callback, test=test)
+
+    return {
+        "logs": parse_task.log.logs,
+        "data": res,
+    }

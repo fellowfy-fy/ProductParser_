@@ -1,7 +1,11 @@
+from dataclasses import dataclass
 from rest_framework import serializers, fields
 from accounts.serializers import ShortUserSerializer
+from rest_framework_dataclasses.serializers import DataclassSerializer
 
 from parser.models import MonitoringTypeChoices, NotificationTargetChoices, ParseTask, SiteParseSettings
+from parser.services.log import CachedLog
+from parser.services.parse import ProcessResult
 from products.models import Product
 from products.serializers import ProductSerializer
 
@@ -27,3 +31,14 @@ class SiteParseSettingsSerializer(serializers.ModelSerializer):
     class Meta:
         model = SiteParseSettings
         exclude = ()
+
+
+@dataclass
+class TestRunResultsData:
+    logs: list[CachedLog]
+    data: list[ProcessResult]
+
+
+class TestRunResultsSerializer(DataclassSerializer):
+    class Meta:
+        dataclass = TestRunResultsData

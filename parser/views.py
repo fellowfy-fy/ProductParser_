@@ -1,16 +1,18 @@
+import logging
 from django.shortcuts import get_object_or_404
 from parser.models import ParseTask, SiteParseSettings, TaskStatusChoices
-from parser.serializers import ParseTaskSerializer, SiteParseSettingsSerializer
+from parser.serializers import ParseTaskSerializer, SiteParseSettingsSerializer, TestRunResultsSerializer
 from parser.services.task_steps import change_task_status, check_task_steps
 
 from computedfields.models import compute
 from django.db.models import Q
 from django_auto_prefetching import AutoPrefetchViewSetMixin
-from drf_spectacular.utils import extend_schema, inline_serializer
-from rest_framework import decorators, viewsets, fields
+from drf_spectacular.utils import extend_schema, inline_serializer, OpenApiParameter
+from rest_framework import decorators, viewsets, fields, exceptions
 from rest_framework.response import Response
 
 from accounts.utils import get_user_role
+from parser.tasks import run_now
 
 
 class ParseTaskViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
@@ -48,6 +50,28 @@ class ParseTaskViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
         status = request.data.get("status")
         change_task_status(task, status)
         return Response(ParseTaskSerializer(task).data)
+
+    @extend_schema(request=None, responses={200: TestRunResultsSerializer}, parameters=[OpenApiParameter("test", bool)])
+    @decorators.action(["POST"], detail=True)
+    def test(self, request, pk=None):
+        task = get_object_or_404(ParseTask, pk=pk)
+        test = bool(request.GET.get("test"))
+
+        task.log.clear()
+
+        logging.info("Running test task...")
+        bg_task = run_now(parse_task=task, test=test)
+        logging.info(f"Waiting task: {bg_task}")
+        try:
+            res = bg_task(blocking=True)
+        except Exception as e:
+            logging.error("Test task failed", exc_info=e)
+            raise exceptions.APIException(str(e))
+
+        logging.info(f"Test task completed: {bg_task}")
+        logging.debug(f"Test task completed. Result ({type(res)}): {res}")
+
+        return Response(TestRunResultsSerializer(res).data)
 
 
 class SiteParseSettingsViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):

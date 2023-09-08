@@ -5,6 +5,7 @@ import type { PaginatedParseTaskList } from '../models/PaginatedParseTaskList';
 import type { ParseTask } from '../models/ParseTask';
 import type { PatchedParseTask } from '../models/PatchedParseTask';
 import type { TaskChangeStatus } from '../models/TaskChangeStatus';
+import type { TestRunResultsData } from '../models/TestRunResultsData';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -182,6 +183,32 @@ requestBody: TaskChangeStatus,
             },
             body: requestBody,
             mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * @returns TestRunResultsData 
+     * @throws ApiError
+     */
+    public static parseTaskTestCreate({
+id,
+test,
+}: {
+/**
+ * A unique integer value identifying this Задача парсера.
+ */
+id: number,
+test?: boolean,
+}): CancelablePromise<TestRunResultsData> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/parse_task/{id}/test/',
+            path: {
+                'id': id,
+            },
+            query: {
+                'test': test,
+            },
         });
     }
 

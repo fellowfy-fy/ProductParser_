@@ -5,6 +5,7 @@ from computedfields.models import ComputedFieldsModel, computed
 from django.contrib.auth import get_user_model
 from django.db import models
 from multiselectfield.db.fields import MultiSelectField
+from parser.services.log import CacheLogger
 
 from products.models import Product
 
@@ -18,6 +19,7 @@ class TaskStatusChoices(models.IntegerChoices):
     PAUSED = 4, "Пауза"
     STOPPED = 5, "Остановлена"
     SETTINGS = 6, "Настройка"
+    ERROR = 7, "Ошибка"
 
 
 class TaskPeriodChoices(models.IntegerChoices):
@@ -98,6 +100,8 @@ class ParseTask(ComputedFieldsModel, models.Model):
 
     is_urls_valid.boolean = True  # noqa
     is_urls_valid.verbose_name = "Валидные URL"  # noqa
+
+    log = CacheLogger()
 
     class Meta:
         verbose_name = "Задача парсера"

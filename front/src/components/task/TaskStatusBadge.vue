@@ -33,6 +33,8 @@ const color = computed(() => {
       return 'warning'
     case 6:
       return 'accent'
+    case 7:
+      return 'negative'
 
     default:
       return 'info'

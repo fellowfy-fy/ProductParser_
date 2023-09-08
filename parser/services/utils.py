@@ -1,5 +1,6 @@
 from parser.models import SiteParseSettings
 from urllib.parse import urlparse
+import re
 
 from django.template import Context, Template
 
@@ -27,7 +28,9 @@ def process_variables(settings: SiteParseSettings, text: str, product: Product |
 def detect_url_settings(url: str) -> SiteParseSettings | None:
     """Detect SiteParseSettings by url"""
     matching_settings = SiteParseSettings.objects.filter(
-        Q(domain=extract_domain(url)) | Q(url_match__startswith=extract_domain(url)) | Q(url_match__startswith=url)
+        Q(domain=extract_domain(url))
+        | Q(url_match__startswith="https://" + extract_domain(url))
+        | Q(url_match__startswith=url)
     ).all()
 
     return matching_settings[0] if matching_settings else None  # TODO: better settings detect algorithm
@@ -35,7 +38,7 @@ def detect_url_settings(url: str) -> SiteParseSettings | None:
 
 def extract_urls(text: str) -> list[str]:
     """Split text into urls"""
-    return list(filter(None, text.split(" ")))
+    return list(filter(None, text.split("\n")))
 
 
 def validate_urls(text: str):
@@ -49,3 +52,14 @@ def validate_urls(text: str):
             undetected.append(url)
 
     return undetected
+
+
+def extract_number(text: str) -> float:
+    """Clear string from non-digits. Clears all non digits outside, keeps dot inside."""
+    cleared_str: str = re.sub("[^0-9,.]", "", text).replace(",", ".")
+    if re_match := re.search("[0-9]", cleared_str):
+        start_index = re_match.start()
+        end_index = len(cleared_str) - re.search("[0-9]", cleared_str[::-1]).start()
+        cleared_str = cleared_str[start_index:end_index].strip()
+
+    return float(cleared_str)

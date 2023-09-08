@@ -130,6 +130,14 @@
             no-caps
             @click="changeStatus(6)"
           />
+          <q-btn
+            label="Протестировать задачу"
+            icon="play_arrow"
+            color="primary"
+            :to="{name: 'user_task_test', params: {id: itemId}}"
+            unelevated
+            no-caps
+          />
         </div>
       </template>
 
@@ -304,7 +312,7 @@ const defaultData = {
   work_mode: 1,
   notifications_enable: false,
   notifications_target: [],
-
+  invalid_urls: [],
 }
 
 

@@ -96,6 +96,11 @@ const routes = [
             path: ":id",
             component: () => import("pages/user/TaskView.vue"),
             name: "user_task"
+          },
+          {
+            path: ":id/test",
+            component: () => import("pages/user/TaskTest.vue"),
+            name: "user_task_test"
           }
         ]
       },

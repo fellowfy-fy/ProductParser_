@@ -8,6 +8,7 @@ export const TaskStatus = new Map([
   [4, "Пауза"],
   [5, "Остановлена"],
   [6, "Настройка"],
+  [7, "Ошибка парсинга"],
 ])
 
 export function UserRoleFromNum(role: TUserRole) {

@@ -7,7 +7,7 @@
       flat
       bordered
     >
-      <q-card-section class="row justify-around q-col-gutter-x-sm q-col-gutter-y-md">
+      <q-card-section class="row justify-start q-col-gutter-x-md q-col-gutter-y-md">
         <!-- Form content -->
         <div
           class="col-12 col-md-6 col-lg-4 row column q-col-gutter-y-md"
@@ -15,6 +15,7 @@
         >
           <slot name="default" />
         </div>
+        <q-space />
 
         <!-- Aside info -->
         <div class="col-12 col-md-6 col-lg-4">
@@ -28,9 +29,10 @@
             <!-- TODO: last run background tasks info / logs -->
           </q-expansion-item>
         </div>
+        <q-space />
       </q-card-section>
       <q-card-actions justify="start">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 col-lg-4">
           <!-- Actions -->
           <slot name="actions" />
         </div>
