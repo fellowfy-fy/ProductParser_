@@ -12,6 +12,119 @@
     >
       <template #info>
         <is-urls-valid :urls="item.invalid_urls" />
+
+        <q-stepper
+          :model-value="step"
+          class="q-mt-sm"
+          color="info"
+          vertical
+          flat
+          bordered
+        >
+          <q-step
+            title="Создание задачи"
+            icon="add_circle"
+            :name="1"
+            :done="isExists"
+          />
+          <q-step
+            title="Утверждение задачи"
+            icon="verified"
+            :name="2"
+            :done="isVerified"
+          >
+            <template v-if="isManager">
+              Вы можете утвердить задачу
+
+              <template v-if="isTaskManager">
+                <q-badge
+                  color="positive"
+                  class="text-subtitle2"
+                >
+                  Вы руководитель этого сотрудника
+                </q-badge>
+              </template>
+              <template v-else>
+                <q-badge
+                  color="negative"
+                  class="text-subtitle2"
+                >
+                  Вы не руководитель этого сотрудника
+                </q-badge>
+              </template>
+              <q-stepper-navigation>
+                <q-btn
+                  label="Утвердить"
+                  color="primary"
+                  :loading="changingStatus"
+                  unelevated
+                  no-caps
+                  @click="changeStatus(6)"
+                />
+              </q-stepper-navigation>
+            </template>
+          </q-step>
+          <q-step
+            title="Настройка задачи"
+            icon="tune"
+            :name="3"
+            :done="isSetup"
+          >
+            <template v-if="isAdmin">
+              <template v-if="item.invalid_urls.length > 0">
+                <q-badge
+                  color="warning"
+                  class="text-subtitle2"
+                >
+                  Для завершения настройки требуется настройка парсеров
+                </q-badge>
+              </template>
+              <q-stepper-navigation>
+                <q-btn
+                  label="Завершить настройку"
+                  color="primary"
+                  :loading="changingStatus"
+                  :disable="item.invalid_urls.length > 0"
+                  unelevated
+                  no-caps
+                  @click="changeStatus(2)"
+                />
+              </q-stepper-navigation>
+            </template>
+          </q-step>
+          <q-step
+            title="Парсинг"
+            icon="memory"
+            :name="4"
+          />
+        </q-stepper>
+
+        <div
+          v-if="isAdmin"
+          class="row justify-around"
+        >
+          <q-btn
+            v-if="item.status != 3"
+            label="Отменить задачу"
+            icon="cancell"
+            color="negative"
+            :loading="changingStatus"
+            unelevated
+            no-caps
+            @click="changeStatus(3)"
+          />
+          <q-btn
+            v-else
+            label="Восстановить задачу"
+            icon="restart_alt"
+            color="info"
+            :loading="changingStatus"
+            unelevated
+            no-caps
+            @click="changeStatus(6)"
+          />
+        </div>
+
         <q-input
           :model-value="TaskStatus.get(item.status) || item.status"
           label="Статус"
@@ -42,7 +155,6 @@
           readonly
           dense
         />
-
       </template>
 
       <!-- Form -->
@@ -133,27 +245,47 @@ import BackBtn from "src/components/form/BackBtn.vue"
 import FormActions from "src/components/form/FormActions.vue"
 import { storeToRefs } from "pinia"
 import { promiseSetLoading } from "src/modules/StoreCrud"
-import { promiseFunc, notifyDeleted, notifySaved } from "src/modules/Notif"
+import { promiseFunc, notifyDeleted, notifySaved, notifyTaskStatusUpdated } from "src/modules/Notif"
 import { computed, onMounted, ref } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { useTasksStore } from "src/stores/tasks"
 import { TaskStatus, userReadable } from 'src/modules/StaticTranslate'
 import { ruleRequired } from 'src/Modules/Globals'
 import { formatDateTime } from 'src/modules/Utils'
+import { useAuthStore } from 'src/stores/auth'
 
 const route = useRoute()
 const router = useRouter()
 
 const store = useTasksStore()
+
+const storeAuth = useAuthStore()
+
 const { parseTask: item } = storeToRefs(store)
+const { isAdmin, isManager } = storeToRefs(storeAuth)
 const loading = ref(false)
 const saving = ref(false)
 const deleting = ref(false)
+const changingStatus = ref(false)
 
 
 const itemId = computed(() => route.params.id as unknown as string)
 
 const isExists = computed(() => Boolean(item.value?.id))
+
+const isVerified = computed(() => Boolean(item.value?.status!=1))
+const isSetup = computed(() => [1,6].indexOf(item.value?.status||1) === -1)
+const isTaskManager = computed(() => item.value?.author?.manager == storeAuth.account?.id)
+
+const step = computed(() => {
+  if (isSetup.value){
+    return 4
+  } else if (isVerified.value){
+    return 3;
+  } else {
+    return 2;
+  }
+})
 
 const defaultData = {
   id: null,
@@ -198,6 +330,16 @@ function saveData() {
 
     promiseFunc(prom, notifySaved)
   })
+}
+
+function changeStatus(status: number){
+  if (!item.value){
+    return
+  }
+  const prom = store.updateParseTaskStatus(item.value.id, status)
+
+  promiseSetLoading(prom, changingStatus)
+  promiseFunc(prom, notifyTaskStatusUpdated)
 }
 
 function onDelete() {

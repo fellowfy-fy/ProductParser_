@@ -59,4 +59,4 @@ class CustomUserSelfEditSerializer(CustomUserSerializer):
 class ShortUserSerializer(CustomUserSerializer):
     class Meta(CustomUserSerializer.Meta):
         exclude = None
-        fields = ["username", "id", "first_name", "last_name", "middle_name"]
+        fields = ["username", "id", "first_name", "last_name", "middle_name", "manager"]

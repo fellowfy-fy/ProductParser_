@@ -32,6 +32,7 @@ export { RequestMethodEnum } from './models/RequestMethodEnum';
 export type { ShortUser } from './models/ShortUser';
 export type { SiteParseSettings } from './models/SiteParseSettings';
 export { StatusEnum } from './models/StatusEnum';
+export type { TaskChangeStatus } from './models/TaskChangeStatus';
 export { WorkModeEnum } from './models/WorkModeEnum';
 
 export { ApiService } from './services/ApiService';

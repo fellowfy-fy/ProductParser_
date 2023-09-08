@@ -4,6 +4,7 @@
 import type { PaginatedParseTaskList } from '../models/PaginatedParseTaskList';
 import type { ParseTask } from '../models/ParseTask';
 import type { PatchedParseTask } from '../models/PatchedParseTask';
+import type { TaskChangeStatus } from '../models/TaskChangeStatus';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -156,6 +157,31 @@ id: number,
             path: {
                 'id': id,
             },
+        });
+    }
+
+    /**
+     * @returns ParseTask 
+     * @throws ApiError
+     */
+    public static parseTaskChangeStatusCreate({
+id,
+requestBody,
+}: {
+/**
+ * A unique integer value identifying this Задача парсера.
+ */
+id: number,
+requestBody: TaskChangeStatus,
+}): CancelablePromise<ParseTask> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/parse_task/{id}/change_status/',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 

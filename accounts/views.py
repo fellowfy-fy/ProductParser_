@@ -1,5 +1,13 @@
 import json
-from rest_framework import viewsets, permissions, exceptions, response, decorators
+import logging
+
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.db import transaction
+from django.http import HttpResponseRedirect
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_decode
+from drf_spectacular.utils import extend_schema
+from rest_framework import decorators, exceptions, permissions, response, viewsets
 
 from accounts.models import CustomUser
 from accounts.serializers import (
@@ -7,14 +15,6 @@ from accounts.serializers import (
     CustomUserSelfEditSerializer,
     CustomUserSerializer,
 )
-from django.utils.encoding import force_str
-from django.utils.http import urlsafe_base64_decode
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.http import HttpResponseRedirect
-import logging
-from django.db import transaction
-from drf_spectacular.utils import extend_schema
-
 from accounts.utils import get_user_role
 
 

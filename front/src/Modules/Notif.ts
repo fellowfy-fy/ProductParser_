@@ -7,6 +7,13 @@ export function notifySaved() {
   })
 }
 
+export function notifyTaskStatusUpdated() {
+  Notify.create({
+    type: "positive",
+    message: "Статус задачи успешно изменен",
+  })
+}
+
 export function notifyDeleted() {
   Notify.create({
     type: "positive",

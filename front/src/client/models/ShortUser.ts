@@ -11,4 +11,5 @@ export type ShortUser = {
     first_name?: string;
     last_name?: string;
     middle_name?: string | null;
+    manager?: number | null;
 };
