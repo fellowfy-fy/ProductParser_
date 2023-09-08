@@ -1,8 +1,8 @@
-from rest_framework import viewsets, exceptions
+from django_auto_prefetching import AutoPrefetchViewSetMixin
+from rest_framework import exceptions, viewsets
 
 from products.models import Category, Product, ProductPriceHistory
 from products.serializers import CategorySerializer, ProductPriceHistorySerializer, ProductSerializer
-from django_auto_prefetching import AutoPrefetchViewSetMixin
 
 
 class ProductViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):

@@ -1,7 +1,7 @@
+import logging
 from dataclasses import dataclass
 from datetime import datetime
 from functools import partialmethod
-import logging
 
 log = logging.getLogger(__name__)
 

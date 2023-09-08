@@ -6,10 +6,12 @@ from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
-from drf_spectacular.utils import extend_schema
+from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view
+from dynamic_preferences.api.viewsets import GlobalPreferencesViewSet
 from rest_framework import decorators, exceptions, permissions, response, viewsets
 
 from accounts.models import CustomUser
+from accounts.permissions import AdminOnlyPermission
 from accounts.serializers import (
     CustomUserRegisterSerializer,
     CustomUserSelfEditSerializer,
@@ -120,3 +122,12 @@ class CustomUserViewset(viewsets.ModelViewSet):
         user.save(update_fields=["password"])
 
         return response.Response({"ok": True})
+
+
+@extend_schema_view(
+    retrieve=extend_schema(parameters=[OpenApiParameter("id", str, OpenApiParameter.PATH)]),
+    update=extend_schema(parameters=[OpenApiParameter("id", str, OpenApiParameter.PATH)]),
+    partial_update=extend_schema(parameters=[OpenApiParameter("id", str, OpenApiParameter.PATH)]),
+)
+class GlobalPreferencesOverrideViewSet(GlobalPreferencesViewSet):
+    permission_classes = [AdminOnlyPermission]

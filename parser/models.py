@@ -1,11 +1,11 @@
 import logging
+from parser.services.log import CacheLogger
 from urllib.parse import urlparse
 
 from computedfields.models import ComputedFieldsModel, computed
 from django.contrib.auth import get_user_model
 from django.db import models
 from multiselectfield.db.fields import MultiSelectField
-from parser.services.log import CacheLogger
 
 from products.models import Product
 

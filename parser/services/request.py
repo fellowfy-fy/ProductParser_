@@ -1,9 +1,8 @@
 import logging
 from parser.models import SiteParseSettings
+from parser.services.utils import process_variables
 
 import httpx
-
-from parser.services.utils import process_variables
 
 log = logging.getLogger(__name__)
 

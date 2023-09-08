@@ -1,19 +1,19 @@
 import logging
-from django.shortcuts import get_object_or_404
-from accounts.models import RoleChoices
 from parser.models import ParseTask, SiteParseSettings, TaskStatusChoices
 from parser.serializers import ParseTaskSerializer, SiteParseSettingsSerializer, TestRunResultsSerializer
 from parser.services.task_steps import change_task_status, check_task_steps
+from parser.tasks import run_now
 
 from computedfields.models import compute
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
 from django_auto_prefetching import AutoPrefetchViewSetMixin
-from drf_spectacular.utils import extend_schema, inline_serializer, OpenApiParameter
-from rest_framework import decorators, viewsets, fields, exceptions
+from drf_spectacular.utils import OpenApiParameter, extend_schema, inline_serializer
+from rest_framework import decorators, exceptions, fields, viewsets
 from rest_framework.response import Response
 
+from accounts.models import RoleChoices
 from accounts.utils import get_user_role
-from parser.tasks import run_now
 
 
 class ParseTaskViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):

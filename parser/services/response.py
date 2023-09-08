@@ -1,11 +1,10 @@
-from dataclasses import dataclass
 import logging
-
+from dataclasses import dataclass
 from parser.models import ParseTask, SiteParseSettings
+from parser.services.utils import extract_number
+
 from jsonpath_ng import parse
 from lxml import html
-
-from parser.services.utils import extract_number
 
 log = logging.getLogger(__name__)
 

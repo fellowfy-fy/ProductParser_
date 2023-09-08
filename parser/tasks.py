@@ -1,13 +1,13 @@
-from datetime import datetime
 import logging
-from huey.contrib.djhuey import db_periodic_task, db_task
-from huey import crontab
-from huey_monitor.tasks import TaskModel
-from huey_monitor.tqdm import ProcessInfo
-from django.db.models import Q
-
+from datetime import datetime
 from parser.models import ParseTask, TaskPeriodChoices, TaskStatusChoices
 from parser.services.parse import process_task
+
+from django.db.models import Q
+from huey import crontab
+from huey.contrib.djhuey import db_periodic_task, db_task
+from huey_monitor.tasks import TaskModel
+from huey_monitor.tqdm import ProcessInfo
 
 log = logging.getLogger(__name__)
 

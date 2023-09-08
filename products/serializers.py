@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from accounts.serializers import ShortUserSerializer
 
+from accounts.serializers import ShortUserSerializer
 from products.models import Category, Product, ProductPriceHistory
 
 

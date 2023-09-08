@@ -1,11 +1,11 @@
+import re
 from parser.models import SiteParseSettings
 from urllib.parse import urlparse
-import re
 
+from django.db.models import Q
 from django.template import Context, Template
 
 from products.models import Product
-from django.db.models import Q
 
 
 def extract_domain(url: str) -> str:

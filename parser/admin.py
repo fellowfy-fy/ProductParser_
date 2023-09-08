@@ -1,6 +1,6 @@
-from django.contrib import admin
-
 from parser.models import ParseTask, SiteParseSettings
+
+from django.contrib import admin
 
 
 @admin.register(ParseTask)

@@ -1,6 +1,7 @@
-import pytest
 from parser.services import response
 from parser.tests.factories.parse_settings import SiteParseSettingsFactory
+
+import pytest
 
 
 @pytest.mark.unittest

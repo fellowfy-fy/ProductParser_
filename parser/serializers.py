@@ -1,11 +1,12 @@
 from dataclasses import dataclass
-from rest_framework import serializers, fields
-from accounts.serializers import ShortUserSerializer
-from rest_framework_dataclasses.serializers import DataclassSerializer
-
 from parser.models import MonitoringTypeChoices, NotificationTargetChoices, ParseTask, SiteParseSettings
 from parser.services.log import CachedLog
 from parser.services.parse import ProcessResult
+
+from rest_framework import fields, serializers
+from rest_framework_dataclasses.serializers import DataclassSerializer
+
+from accounts.serializers import ShortUserSerializer
 from products.models import Product
 from products.serializers import ProductSerializer
 

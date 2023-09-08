@@ -1,10 +1,11 @@
+from django.core.cache import cache
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.core.cache import cache
+
 
 class Settings(models.Model):
-    key = models.CharField(_("Ключ"), max_length=255, db_index=True )
-    value = models.CharField(_("Значение"), max_length=255, db_index=True )
+    key = models.CharField(_("Ключ"), max_length=255, db_index=True)
+    value = models.CharField(_("Значение"), max_length=255, db_index=True)
 
     class Meta:
         verbose_name = _("Настройки")

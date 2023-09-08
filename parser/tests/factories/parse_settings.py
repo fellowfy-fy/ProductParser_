@@ -1,7 +1,7 @@
-from factory.django import DjangoModelFactory
-import factory
-
 from parser.models import SiteParseSettings
+
+import factory
+from factory.django import DjangoModelFactory
 
 
 class SiteParseSettingsFactory(DjangoModelFactory):

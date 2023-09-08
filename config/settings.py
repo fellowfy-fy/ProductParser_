@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     "huey.contrib.djhuey",
     "bx_django_utils",  # Required by huey_monitor
     "huey_monitor",
+    "dynamic_preferences",
     # custom
     "parser",
     "products",

@@ -1,6 +1,6 @@
+from drf_spectacular.contrib.django_filters import DjangoFilterExtension
 from drf_spectacular.openapi import AutoSchema
 from rest_flex_fields import FlexFieldsModelSerializer
-from drf_spectacular.contrib.django_filters import DjangoFilterExtension
 
 
 class DRFFlexFieldsSchema(DjangoFilterExtension):
