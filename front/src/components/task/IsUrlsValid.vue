@@ -51,6 +51,6 @@ const isValid = computed(() => !(props.urls && props.urls.length > 0))
 
 const icon = computed(() => isValid.value? 'check_circle' : 'error')
 const bannerClass = computed(() => isValid.value? 'bg-primary' : 'bg-warning')
-const text = computed(() => isValid.value? 'Все URL валидны' : 'У некоторых URL нет парсеров:')
+const text = computed(() => isValid.value? 'Все парсеры настроены' : 'У некоторых URL нет парсеров:')
 
 </script>
