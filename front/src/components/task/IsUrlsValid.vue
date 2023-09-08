@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-banner
-      class="q-my-md text-white"
+      class="q-my-sm text-white"
       :class="bannerClass"
       inline-actions
       rounded

@@ -11,6 +11,13 @@
       @submit="saveData"
     >
       <template #info>
+        <div>
+          <key-value-info :data="infoData">
+            <template #value-status="props">
+              <task-status-badge :status="props.value" />
+            </template>
+          </key-value-info>
+        </div>
         <is-urls-valid :urls="item.invalid_urls" />
 
         <q-stepper
@@ -124,37 +131,6 @@
             @click="changeStatus(6)"
           />
         </div>
-
-        <q-input
-          :model-value="TaskStatus.get(item.status) || item.status"
-          label="Статус"
-          outlined
-          readonly
-          dense
-        />
-        <q-input
-          :model-value="userReadable(item.author)"
-          label="Автор"
-          outlined
-          readonly
-          dense
-        />
-
-
-        <q-input
-          :model-value="formatDateTime(item.created_at)"
-          label="Дата создания"
-          outlined
-          readonly
-          dense
-        />
-        <q-input
-          :model-value="formatDateTime(item.updated_at)"
-          label="Дата редактирования"
-          outlined
-          readonly
-          dense
-        />
       </template>
 
       <!-- Form -->
@@ -234,6 +210,8 @@
 </template>
 
 <script setup lang="ts">
+import TaskStatusBadge from '../../components/task/TaskStatusBadge.vue'
+import KeyValueInfo from '../../components/form/KeyValueInfo.vue'
 import IsUrlsValid from '../../components/task/IsUrlsValid.vue'
 import BaseForm from '../../components/form/BaseForm.vue'
 import ProductsSelect from '../../components/select/ProductsSelect.vue'
@@ -285,6 +263,35 @@ const step = computed(() => {
   } else {
     return 2;
   }
+})
+
+const infoData = computed(() => {
+  if (!item.value){
+    return []
+  }
+  const i = item.value
+  return [
+    {
+      label: "Статус",
+      name: "status",
+      value: i.status,
+    },
+    {
+      label: "Автор",
+      name: "author",
+      value: userReadable(i.author),
+    },
+    {
+      label: "Дата создания",
+      name: "created_at",
+      value: formatDateTime(i.created_at),
+    },
+    {
+      label: "Дата редактирования",
+      name: "updated_at",
+      value: formatDateTime(i.updated_at),
+    },
+  ]
 })
 
 const defaultData = {

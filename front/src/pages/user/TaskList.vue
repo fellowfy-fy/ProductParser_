@@ -44,11 +44,17 @@
           </template>
         </q-input>
       </template>
+      <template #body-cell-status="props">
+        <q-td>
+          <task-status-badge :status="props.value" />
+        </q-td>
+      </template>
     </q-table>
   </q-page>
 </template>
 
 <script setup lang="ts">
+import TaskStatusBadge from '../../components/task/TaskStatusBadge.vue'
 import { Ref, computed, onMounted, ref, watch } from 'vue';
 import { useTasksStore } from 'src/stores/tasks';
 import { promiseSetLoading } from 'src/modules/StoreCrud';
@@ -91,9 +97,9 @@ const tableColumns = [
     label: 'Статус',
     field: 'status',
     align: 'left',
-    format(val:number) {
-        return TaskStatus.get(val) || val
-    },
+    // format(val:number) {
+    //     return TaskStatus.get(val) || val
+    // },
     sortable: true,
   },
   {
