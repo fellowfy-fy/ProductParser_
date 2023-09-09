@@ -35,7 +35,7 @@ export const useAuthStore = defineStore("auth", {
     userRole(state): TUserRole {
       const acc = state.account
       const accCached = state.cachedAccount
-      return (acc.role as TUserRole | undefined) || (accCached.role as TUserRole | undefined) || TUserRole.user
+      return (acc?.role as TUserRole | undefined) || (accCached?.role as TUserRole | undefined) || TUserRole.user
     },
     isAdmin(state) {
       return state.account?.is_staff || (state.account?.role && state.account?.role >= 3)
