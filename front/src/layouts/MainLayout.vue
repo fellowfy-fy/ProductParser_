@@ -24,7 +24,7 @@
       show-if-above
       bordered
     >
-      <q-list class="flex column full-height">
+      <q-list class="flex column text-grey-9 full-height">
         <!-- <q-item-label header>База рецептов</q-item-label> -->
 
         <q-item class="cursor-pointer">
