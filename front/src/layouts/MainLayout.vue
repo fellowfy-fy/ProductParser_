@@ -147,7 +147,6 @@ const userRole = computed(() => {
   if (!user.value){
     return
   }
-  console.debug(user.value.role)
   return UserRoleReadable(user.value.role)
 })
 
@@ -159,10 +158,10 @@ function askLogout() {
     persistent: true,
   }).onOk(() => {
     logout()
+    void $router.go(0)
   })
 }
 function logout() {
   void store.logout()
-  void $router.push({ name: "login" })
 }
 </script>

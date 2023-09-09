@@ -1,4 +1,11 @@
 <template>
+  <menu-item
+    :to="homePage"
+    icon="home"
+    label="Главная"
+    exact
+  />
+
   <template v-if="userRole == TUserRole.admin">
     <!-- Admin -->
     <menu-item
@@ -58,9 +65,20 @@
 import MenuItem from './MenuItem.vue'
 import { storeToRefs } from 'pinia';
 import { TUserRole, useAuthStore } from 'src/stores/auth';
+import { computed } from 'vue';
 
 
 const store = useAuthStore()
 const {userRole} = storeToRefs(store)
+
+const homePage = computed(() => {
+  if (userRole.value == TUserRole.admin){
+    return {"name": "manager_index"}
+  }
+  else if (userRole.value == TUserRole.manager){
+    return {"name": "manager_index"}
+  }
+  return {"name": "user_index"}
+})
 
 </script>

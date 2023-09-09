@@ -86,7 +86,13 @@ export default defineComponent({
         .login(payload)
         .then(() => {
           this.loading = false;
-          void this.$router.push({ name: 'index' });
+          const next = this.$route.query.next
+          if (next){
+            console.debug("Redirecting to next url")
+            void this.$router.push(next as string)
+          } else {
+            void this.$router.push({ name: 'index' });
+          }
         })
         .catch((err) => {
           this.loading = false;

@@ -5,6 +5,7 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     meta: {
       requiresManager: true,
+      requiresAuth: true,
     },
     children: [
       {
@@ -48,6 +49,9 @@ const routes = [
   {
     path: "/user",
     component: () => import("layouts/MainLayout.vue"),
+    meta: {
+      requiresAuth: true,
+    },
     children: [
       {
         path: "",
@@ -109,6 +113,7 @@ const routes = [
 
   {
     path: "",
+    name: "index",
     component: () => import("pages/IndexPage.vue"),
   },
 

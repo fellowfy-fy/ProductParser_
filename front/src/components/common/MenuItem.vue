@@ -2,6 +2,7 @@
   <q-item
     clickable
     :to="to"
+    v-bind="$attrs"
   >
     <q-item-section avatar>
       <q-icon
@@ -15,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
+defineProps({
   to: {
     type: Object,
     required: true,
