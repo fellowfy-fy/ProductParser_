@@ -54,7 +54,7 @@ import { useProductsStore } from 'src/stores/products';
 import { promiseSetLoading } from 'src/Modules/StoreCrud';
 import { QTableProps } from 'quasar';
 import { Product } from "src/client"
-import {formatDateTime} from 'src/Modules/utils'
+import {formatDateTime} from 'src/Modules/Utils'
 import { useRouter } from 'vue-router';
 
 const $router = useRouter()

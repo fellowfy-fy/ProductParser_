@@ -60,7 +60,7 @@ import { useTasksStore } from 'src/stores/tasks';
 import { promiseSetLoading } from 'src/Modules/StoreCrud';
 import { QTableProps } from 'quasar';
 import { ParseTask, ShortUser } from "src/client"
-import {formatDateTime} from 'src/Modules/utils'
+import {formatDateTime} from 'src/Modules/Utils'
 import { useRouter } from 'vue-router';
 import { userReadable } from 'src/Modules/StaticTranslate';
 
