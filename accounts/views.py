@@ -10,7 +10,7 @@ from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema
 from dynamic_preferences.api.viewsets import GlobalPreferencesViewSet
 from rest_framework import decorators, exceptions, permissions, response, viewsets
 
-from accounts.models import CustomUser
+from accounts.models import CustomUser, RoleChoices
 from accounts.permissions import AdminOnlyPermission
 from accounts.serializers import (
     CustomUserRegisterSerializer,
@@ -79,7 +79,7 @@ class CustomUserViewset(viewsets.ModelViewSet):
     filterset_fields = ["is_active", "role"]
 
     def get_queryset(self):
-        if get_user_role(self.request.user) >= 3:
+        if get_user_role(self.request.user) >= RoleChoices.ADMIN:
             return self.queryset
         return self.queryset.filter(id=self.request.user.pk)
 
