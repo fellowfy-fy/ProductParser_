@@ -12,8 +12,8 @@
 *local*
 *.env
 *.db*
-Pipfile
-Pipfile.lock
+# Pipfile
+# Pipfile.lock
 __pycache__
 media
 coverage.xml
