@@ -17,8 +17,7 @@ FROM base as build
 WORKDIR /app
 COPY front/ .
 COPY --from=dependencies /app/node_modules ./node_modules
-RUN pnpm run build
-RUN pnpm prune --prod
+RUN pnpm run build && pnpm prune --prod
 
 
 FROM nginx:1.21.6-alpine as deploy
