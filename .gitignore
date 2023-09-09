@@ -18,6 +18,7 @@ __pycache__
 media
 coverage.xml
 .coverage
+!front/*.json
 # migrations
 # migrations/*
 
