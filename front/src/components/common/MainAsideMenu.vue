@@ -6,26 +6,7 @@
     exact
   />
 
-  <template v-if="userRole == TUserRole.admin">
-    <!-- Admin -->
-    <menu-item
-      :to="{name: 'admin_users'}"
-      icon="manage_accounts"
-      label="Пользователи"
-    />
-    <menu-item
-      :to="{name: 'admin_parse_settings'}"
-      icon="memory"
-      label="Парсеры"
-    />
-    <q-separator />
-  </template>
-
-  <template v-if="userRole == TUserRole.manager">
-    <!-- Manager -->
-  </template>
-
-  <template v-if="true">
+  <template v-if="1">
     <!-- Common -->
     <menu-item
       :to="{name: 'user_products'}"
@@ -58,6 +39,30 @@
         Задачи
       </q-item-section>
     </q-item>
+  </template>
+
+  <template v-if="userRole == TUserRole.admin">
+    <q-separator />
+    <!-- Admin -->
+    <menu-item
+      :to="{name: 'admin_users'}"
+      icon="manage_accounts"
+      label="Пользователи"
+    />
+    <menu-item
+      :to="{name: 'admin_parse_settings'}"
+      icon="memory"
+      label="Парсеры"
+    />
+    <menu-item
+      :to="{name: 'admin_preferences'}"
+      icon="settings"
+      label="Настройки"
+    />
+  </template>
+
+  <template v-if="userRole == TUserRole.manager">
+    <!-- Manager -->
   </template>
 </template>
 

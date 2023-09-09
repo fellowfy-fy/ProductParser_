@@ -16,6 +16,8 @@ export enum TUserRole {
   admin = 3,
 }
 
+const cachedAccount = LocalStorage.getItem("cachedAccount", null)
+
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     authToken: localStorage.getItem("authToken"),
@@ -25,7 +27,7 @@ export const useAuthStore = defineStore("auth", {
     notifications: null as Notification[] | null,
     pageLoading: false,
 
-    cachedAccount: LocalStorage.getItem("cachedAccount", null) as unknown as CustomUser | null,
+    cachedAccount: cachedAccount as unknown as CustomUser | null,
   }),
 
   getters: {
@@ -38,10 +40,12 @@ export const useAuthStore = defineStore("auth", {
       return (acc?.role as TUserRole | undefined) || (accCached?.role as TUserRole | undefined) || TUserRole.user
     },
     isAdmin(state) {
-      return state.account?.is_staff || (state.account?.role && state.account?.role >= 3)
+      const acc = state.cachedAccount || state.account
+      return acc?.is_staff || (acc?.role && acc?.role >= 3)
     },
     isManager(state) {
-      return state.account?.role && state.account?.role >= 2
+      const acc = state.cachedAccount || state.account
+      return acc?.role && acc?.role >= 2
     },
     // permissions(state): Array<string> {
     //   return state.account?.permissions || []

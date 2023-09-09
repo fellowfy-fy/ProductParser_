@@ -15,6 +15,9 @@ const routes = [
       },
       {
         path: "user",
+        meta: {
+          requiresAdmin: true,
+        },
         children: [
           {
             path: "",
@@ -30,6 +33,9 @@ const routes = [
       },
       {
         path: "parse_settings",
+        meta: {
+          requiresAdmin: true,
+        },
         children: [
           {
             path: "",
@@ -40,6 +46,24 @@ const routes = [
             path: ":id",
             component: () => import("pages/admin/TaskSettingsView.vue"),
             name: "admin_parse_setting"
+          }
+        ]
+      },
+      {
+        path: "preferences",
+        meta: {
+          requiresAdmin: true,
+        },
+        children: [
+          {
+            path: "",
+            component: () => import("pages/admin/PreferencesList.vue"),
+            name: "admin_preferences"
+          },
+          {
+            path: ":id",
+            component: () => import("pages/admin/PreferenceView.vue"),
+            name: "admin_preference"
           }
         ]
       },
