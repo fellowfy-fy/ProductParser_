@@ -43,7 +43,7 @@
 
 <script setup lang="ts">
 
-const props = defineProps({
+defineProps({
   contentClass: {
     type: String,
     default: ""

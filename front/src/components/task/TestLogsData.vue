@@ -46,7 +46,7 @@ import { formatDateTimeSeconds } from 'src/Modules/utils';
 import { PropType } from 'vue';
 
 
-const props = defineProps({
+defineProps({
   data: {
     type: Array as PropType<Array<CachedLog>>,
       required: true,

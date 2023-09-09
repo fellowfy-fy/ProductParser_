@@ -62,7 +62,7 @@ import { QTableProps } from 'quasar';
 import { ParseTask, ShortUser } from "src/client"
 import {formatDateTime} from 'src/Modules/utils'
 import { useRouter } from 'vue-router';
-import { TaskStatus, userReadable } from 'src/Modules/StaticTranslate';
+import { userReadable } from 'src/Modules/StaticTranslate';
 
 const router = useRouter()
 

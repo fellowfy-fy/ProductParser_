@@ -44,7 +44,7 @@ interface RowInfo {
 
 export type DataType = RowInfo[];
 
-const props = defineProps({
+defineProps({
   data: {
     type: Array as PropType<RowInfo[]>,
     required: true,

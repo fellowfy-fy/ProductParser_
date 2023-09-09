@@ -64,12 +64,11 @@
 <script setup lang="ts">
 import TestParsedData from '../../components/task/TestParsedData.vue'
 import TestLogsData from "../../components/task/TestLogsData.vue"
-import BaseForm from "../../components/form/BaseForm.vue"
 import BackBtn from "src/components/form/BackBtn.vue"
 import { storeToRefs } from "pinia"
 import { promiseSetLoading } from "src/Modules/StoreCrud"
 import { Ref, computed, onMounted, ref } from "vue"
-import { useRoute, useRouter } from "vue-router"
+import { useRoute } from "vue-router"
 import { useTasksStore } from "src/stores/tasks"
 import { useNow } from "@vueuse/core"
 

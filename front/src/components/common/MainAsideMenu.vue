@@ -1,12 +1,12 @@
 <template>
   <template v-if="userRole == TUserRole.admin">
     <!-- Admin -->
-     <menu-item
+    <menu-item
       :to="{name: 'admin_users'}"
       icon="manage_accounts"
       label="Пользователи"
     />
-     <menu-item
+    <menu-item
       :to="{name: 'admin_parse_settings'}"
       icon="memory"
       label="Парсеры"

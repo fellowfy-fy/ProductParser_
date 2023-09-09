@@ -35,7 +35,7 @@ import { ProcessResult } from 'src/client';
 import { PropType } from 'vue';
 
 
-const props = defineProps({
+defineProps({
   data: {
     type: Array as PropType<ProcessResult[]>,
       required: true,

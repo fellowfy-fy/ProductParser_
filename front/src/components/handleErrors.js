@@ -1,4 +1,4 @@
-export let handleErrors = {
+export const handleErrors = {
   data() {
     return { isOnLine: navigator.onLine };
   },
@@ -19,7 +19,7 @@ export let handleErrors = {
         title = "Ошибка загрузки данных";
       }
 
-      let data = err.response?.data || {};
+      const data = err.response?.data || {};
       let respText;
 
       if (
@@ -41,11 +41,11 @@ export let handleErrors = {
           for (const [key, val] of Object.entries(data)) {
             // console.debug(key, val);
 
-            let errJoin = val.join(", ");
+            const errJoin = val.join(", ");
             errValidation += `${key}: ${errJoin}<br/>`;
           }
         } catch (err) {
-          let errJoin = JSON.stringify(data);
+          const errJoin = JSON.stringify(data);
         }
       }
       this.$q.notify({

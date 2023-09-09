@@ -235,7 +235,7 @@ import { promiseFunc, notifyDeleted, notifySaved, notifyTaskStatusUpdated } from
 import { computed, onMounted, ref } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { useTasksStore } from "src/stores/tasks"
-import { TaskStatus, userReadable } from 'src/Modules/StaticTranslate'
+import { userReadable } from 'src/Modules/StaticTranslate'
 import { ruleRequired } from 'src/Modules/Globals'
 import { formatDateTime } from 'src/Modules/Utils'
 import { useAuthStore } from 'src/stores/auth'

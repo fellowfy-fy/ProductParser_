@@ -6,14 +6,6 @@
   </q-layout>
 </template>
 
-<script>
-import { ref } from 'vue';
+<script setup lang="ts">
 
-export default {
-  name: 'EmptyLayout',
-
-  setup() {
-    return {};
-  },
-};
 </script>
