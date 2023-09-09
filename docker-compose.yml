@@ -39,14 +39,14 @@ services:
             start_period: 10s
             retries: 3
 
-    qcluster:
+    huey:
         build:
             context: .
             dockerfile: Dockerfile.django
         restart: unless-stopped
         volumes:
             - ./:/app
-        entrypoint: ["python3", "manage.py", "qcluster"]
+        entrypoint: ["python3", "manage.py", "run_huey"]
 
 volumes:
     redis_data:
