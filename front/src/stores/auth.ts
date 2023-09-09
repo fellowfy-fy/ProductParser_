@@ -1,8 +1,7 @@
-import { useLocalStorage } from "@vueuse/core"
 import { defineStore } from "pinia"
 import { LocalStorage } from "quasar"
 import { AuthService, AuthToken, OpenAPI, CustomUser, UsersService, PaginatedCustomUserList } from "src/client"
-import { storeShortcut } from "src/modules/StoreCrud"
+import { storeShortcut } from "src/Modules/StoreCrud"
 
 // eslint-disable-next-line @typescript-eslint/require-await
 const getToken = async () => {
