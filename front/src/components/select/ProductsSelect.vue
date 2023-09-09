@@ -22,7 +22,7 @@
 import { PropType, computed, onMounted, ref } from 'vue';
 import { useProductsStore } from "src/stores/products"
 import { storeToRefs } from 'pinia';
-import { promiseSetLoading } from 'src/modules/StoreCrud';
+import { promiseSetLoading } from 'src/Modules/StoreCrud';
 
 const props = defineProps({
   modelValue: {

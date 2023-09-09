@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { TaskStatus } from 'src/modules/StaticTranslate';
+import { TaskStatus } from 'src/Modules/StaticTranslate';
 import { computed } from 'vue';
 
 

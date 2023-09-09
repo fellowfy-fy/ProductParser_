@@ -70,13 +70,13 @@
 import BackBtn from "../../components/form/BackBtn.vue"
 import FormActions from "../../components/form/FormActions.vue"
 import { storeToRefs } from "pinia"
-import { promiseSetLoading } from "src/modules/StoreCrud"
-import { promiseFunc, notifyDeleted, notifySaved } from "src/modules/Notif"
+import { promiseSetLoading } from "src/Modules/StoreCrud"
+import { promiseFunc, notifyDeleted, notifySaved } from "src/Modules/Notif"
 import { useProductsStore } from "src/stores/products"
 import { computed, onMounted, ref } from "vue"
 import { useRoute, useRouter } from "vue-router"
-import { formatDateTime } from "src/modules/Utils"
-import { userReadable } from "src/modules/StaticTranslate"
+import { formatDateTime } from "src/Modules/Utils"
+import { userReadable } from "src/Modules/StaticTranslate"
 
 const $route = useRoute()
 const $router = useRouter()

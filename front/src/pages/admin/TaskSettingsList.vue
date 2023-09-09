@@ -66,10 +66,10 @@
 
 <script setup lang="ts">
 import { Ref, computed, onMounted, ref, watch } from 'vue';
-import { promiseSetLoading } from 'src/modules/StoreCrud';
+import { promiseSetLoading } from 'src/Modules/StoreCrud';
 import { QTableProps } from 'quasar';
 import { ParseTask } from "src/client"
-import {formatDateTime} from 'src/modules/utils'
+import {formatDateTime} from 'src/Modules/utils'
 import { useRouter } from 'vue-router';
 import { useAuthStore } from 'src/stores/auth';
 import { useTasksStore } from 'src/stores/tasks';

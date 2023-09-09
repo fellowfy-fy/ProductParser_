@@ -51,10 +51,10 @@
 <script setup lang="ts">
 import { Ref, computed, onMounted, ref, watch } from 'vue';
 import { useProductsStore } from 'src/stores/products';
-import { promiseSetLoading } from 'src/modules/StoreCrud';
+import { promiseSetLoading } from 'src/Modules/StoreCrud';
 import { QTableProps } from 'quasar';
 import { Product } from "src/client"
-import {formatDateTime} from 'src/modules/utils'
+import {formatDateTime} from 'src/Modules/utils'
 import { useRouter } from 'vue-router';
 
 const $router = useRouter()

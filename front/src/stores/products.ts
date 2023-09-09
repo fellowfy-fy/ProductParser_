@@ -1,6 +1,6 @@
 import { defineStore } from "pinia"
 import { Category, CategoryService, PaginatedCategoryList, PaginatedProductList, Product, ProductService } from "src/client"
-import { storeShortcut } from "src/modules/StoreCrud"
+import { storeShortcut } from "src/Modules/StoreCrud"
 
 export const useProductsStore = defineStore("products", {
   state: () => ({

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia"
 import { PaginatedParseTaskList, PaginatedSiteParseSettingsList, ParseSettingsService, ParseTask, ParseTaskService, SiteParseSettings, StatusEnum, TestRunResultsData } from "src/client"
-import { storeShortcut } from "src/modules/StoreCrud"
+import { storeShortcut } from "src/Modules/StoreCrud"
 
 export const useTasksStore = defineStore("tasks", {
   state: () => ({

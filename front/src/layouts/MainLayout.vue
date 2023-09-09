@@ -83,10 +83,10 @@
 </template>
 
 <script lang="ts" setup>
-import { UserRoleReadable } from "src/modules/StaticTranslate"
+import { UserRoleReadable } from "src/Modules/StaticTranslate"
 import MainAsideMenu from "../components/common/MainAsideMenu.vue"
 import { useQuasar } from "quasar"
-import { TUserRole, useAuthStore } from "src/stores/auth"
+import { useAuthStore } from "src/stores/auth"
 import { computed, ref } from "vue"
 import { useRouter } from "vue-router"
 

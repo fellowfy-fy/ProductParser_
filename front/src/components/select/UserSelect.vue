@@ -19,9 +19,9 @@
 <script setup lang="ts">
 import { Ref, computed, onMounted, ref } from "vue"
 import { storeToRefs } from "pinia"
-import { promiseSetLoading } from "src/modules/StoreCrud"
+import { promiseSetLoading } from "src/Modules/StoreCrud"
 import { useAuthStore } from "src/stores/auth"
-import { userReadable } from "src/modules/StaticTranslate"
+import { userReadable } from "src/Modules/StaticTranslate"
 import { CustomUser } from "src/client"
 
 const props = defineProps({

@@ -42,7 +42,7 @@
 <script setup lang="ts">
 import { copyToClipboard } from 'quasar';
 import { CachedLog } from 'src/client';
-import { formatDateTimeSeconds } from 'src/modules/utils';
+import { formatDateTimeSeconds } from 'src/Modules/utils';
 import { PropType } from 'vue';
 
 

@@ -230,14 +230,14 @@ import MonitoringModeSelect from 'src/components/select/MonitoringModeSelect.vue
 import BackBtn from "src/components/form/BackBtn.vue"
 import FormActions from "src/components/form/FormActions.vue"
 import { storeToRefs } from "pinia"
-import { promiseSetLoading } from "src/modules/StoreCrud"
-import { promiseFunc, notifyDeleted, notifySaved, notifyTaskStatusUpdated } from "src/modules/Notif"
+import { promiseSetLoading } from "src/Modules/StoreCrud"
+import { promiseFunc, notifyDeleted, notifySaved, notifyTaskStatusUpdated } from "src/Modules/Notif"
 import { computed, onMounted, ref } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { useTasksStore } from "src/stores/tasks"
-import { TaskStatus, userReadable } from 'src/modules/StaticTranslate'
+import { TaskStatus, userReadable } from 'src/Modules/StaticTranslate'
 import { ruleRequired } from 'src/Modules/Globals'
-import { formatDateTime } from 'src/modules/Utils'
+import { formatDateTime } from 'src/Modules/Utils'
 import { useAuthStore } from 'src/stores/auth'
 
 const route = useRoute()

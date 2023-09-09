@@ -6,7 +6,6 @@
  * quasar.config.js > pwa > workboxMode is set to "injectManifest"
  */
 
-import { runBackgroundSyncProductList } from "src/modules/WorkerSync";
 import { clientsClaim } from "workbox-core";
 import {
   precacheAndRoute,

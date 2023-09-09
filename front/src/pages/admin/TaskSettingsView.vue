@@ -168,8 +168,8 @@ import BaseForm from '../../components/form/BaseForm.vue'
 import BackBtn from "src/components/form/BackBtn.vue"
 import FormActions from "src/components/form/FormActions.vue"
 import { storeToRefs } from "pinia"
-import { promiseSetLoading } from "src/modules/StoreCrud"
-import { promiseFunc, notifyDeleted, notifySaved } from "src/modules/Notif"
+import { promiseSetLoading } from "src/Modules/StoreCrud"
+import { promiseFunc, notifyDeleted, notifySaved } from "src/Modules/Notif"
 import { computed, onMounted, ref } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { ruleRequired, ruleValidJSON, ruleValidURL } from 'src/Modules/Globals'
