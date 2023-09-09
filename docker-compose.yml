@@ -1,10 +1,10 @@
 version: "3.4"
 services:
-    redis:
-        image: redis:7-alpine
-        volumes:
-            - redis_data:/data
-        restart: always
+    # redis:
+    #     image: redis:7-alpine
+    #     volumes:
+    #         - redis_data:/data
+    #     restart: always
 
     web:
         build:
