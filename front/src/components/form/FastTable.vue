@@ -73,6 +73,10 @@ const props = defineProps({
   defaultPagination: {
     type: Object as PropType<QTableProps["pagination"]>,
     default: null,
+  },
+  alwaysInit: {
+    type: Boolean,
+    default: true,
   }
 })
 
@@ -124,7 +128,7 @@ function onRequest(data:{pagination: QTableProps["pagination"]}){
 }
 
 onMounted(() => {
-  if (!props.data){
+  if (!props.data || props.alwaysInit){
     loadData()
   }
 })

@@ -4,6 +4,8 @@
 import type { CustomUser } from '../models/CustomUser';
 import type { PaginatedCustomUserList } from '../models/PaginatedCustomUserList';
 import type { PatchedCustomUser } from '../models/PatchedCustomUser';
+import type { StatusOk } from '../models/StatusOk';
+import type { UserSetPassword } from '../models/UserSetPassword';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -171,7 +173,7 @@ id: number,
     }
 
     /**
-     * @returns CustomUser 
+     * @returns StatusOk 
      * @throws ApiError
      */
     public static usersSetPasswordCreate({
@@ -182,8 +184,8 @@ requestBody,
  * A unique integer value identifying this пользователь.
  */
 id: number,
-requestBody: CustomUser,
-}): CancelablePromise<CustomUser> {
+requestBody: UserSetPassword,
+}): CancelablePromise<StatusOk> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/v1/users/{id}/set_password/',

@@ -6,6 +6,7 @@ import type { WorkModeEnum } from './WorkModeEnum';
 
 export type PatchedCustomUser = {
     readonly id?: number;
+    readonly password_set?: string;
     readonly last_login?: string | null;
     /**
      * Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.

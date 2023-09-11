@@ -123,6 +123,11 @@ export const useAuthStore = defineStore("auth", {
         },
       })
     },
+    async setUserPassword(id: number, password: string): Promise<CustomUser> {
+      return storeShortcut({
+        promise: UsersService.usersSetPasswordCreate({ id, requestBody: { password: password } }),
+      })
+    },
     async loadUsers(payload: object): Promise<PaginatedCustomUserList> {
       return storeShortcut({
         promise: UsersService.usersList(payload),

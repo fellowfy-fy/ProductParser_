@@ -30,6 +30,8 @@ class CustomUserRegisterSerializer(serializers.ModelSerializer):
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
+    password_set = serializers.SerializerMethodField()
+
     class Meta:
         model = CustomUser
         exclude = [
@@ -39,6 +41,9 @@ class CustomUserSerializer(serializers.ModelSerializer):
             "password",
         ]
         read_only_fields = ["last_login", "date_joined", "is_staff", "is_superuser"]
+
+    def get_password_set(self, instance: CustomUser):
+        return bool(instance.has_usable_password() and instance.password)
 
 
 class CustomUserSelfEditSerializer(CustomUserSerializer):

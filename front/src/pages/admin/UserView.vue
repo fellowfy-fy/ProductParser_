@@ -8,7 +8,22 @@
     >
       <template #info>
         <div>
-          <key-value-info :data="infoData" />
+          <key-value-info :data="infoData">
+            <template #value-password_set="props">
+              <q-badge
+                v-if="props.value"
+                color="positive"
+              >
+                Да
+              </q-badge>
+              <q-badge
+                v-else
+                color="negative"
+              >
+                Нет
+              </q-badge>
+            </template>
+          </key-value-info>
         </div>
       </template>
 
@@ -67,7 +82,15 @@
           :deleting="deleting"
           :btn-delete="isExists"
           @delete="onDelete"
-        />
+        >
+          <template #after>
+            <user-set-password-dialog
+              v-if="isExists && item"
+              :user-id="item.id"
+              @update="loadData()"
+            />
+          </template>
+        </form-actions>
       </template>
     </base-form>
 
@@ -76,6 +99,7 @@
 </template>
 
 <script setup lang="ts">
+import UserSetPasswordDialog from '../../components/admin/UserSetPasswordDialog.vue'
 import KeyValueInfo from "../../components/form/KeyValueInfo.vue"
 import UserSelect from "../../components/select/UserSelect.vue"
 import UserRoleSelect from "../../components/select/UserRoleSelect.vue"
@@ -119,6 +143,11 @@ const infoData = computed(() => {
     {
       label: "Дата последней авторизации",
       value: item.value?.last_login ? formatDateTime(item.value?.last_login) : '-',
+    },
+    {
+      label: "Пароль задан",
+      value: item.value?.password_set,
+      name: "password_set",
     },
   ]
 })

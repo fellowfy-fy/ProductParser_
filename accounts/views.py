@@ -6,9 +6,9 @@ from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
-from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view
+from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view, inline_serializer
 from dynamic_preferences.api.viewsets import GlobalPreferencesViewSet
-from rest_framework import decorators, exceptions, permissions, response, viewsets
+from rest_framework import decorators, exceptions, fields, permissions, response, viewsets
 
 from accounts.models import CustomUser, RoleChoices
 from accounts.permissions import AdminOnlyPermission
@@ -18,6 +18,7 @@ from accounts.serializers import (
     CustomUserSerializer,
 )
 from accounts.utils import get_user_role
+from products.serializers import StatusOkSerializer
 
 
 class AccountActivationTokenGenerator(PasswordResetTokenGenerator):
@@ -101,6 +102,10 @@ class CustomUserViewset(viewsets.ModelViewSet):
 
         return response.Response(CustomUserSelfEditSerializer(user).data)
 
+    @extend_schema(
+        request=inline_serializer("UserSetPassword", fields={"password": fields.CharField()}),
+        responses={200: StatusOkSerializer},
+    )
     @decorators.action(["POST"], detail=True, permission_classes=[permissions.IsAuthenticated])
     def set_password(self, request, pk=None):
         try:
@@ -108,7 +113,7 @@ class CustomUserViewset(viewsets.ModelViewSet):
         except ValueError:
             raise exceptions.APIException("Invalid body", "invalid_body")
         try:
-            if request.user.is_staff and pk not in ["current", "me"]:
+            if get_user_role(request.user) >= RoleChoices.ADMIN and pk not in ["current", "me"]:
                 user = CustomUser.objects.get(pk=pk)
             else:
                 user = request.user

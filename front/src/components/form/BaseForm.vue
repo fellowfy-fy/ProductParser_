@@ -32,7 +32,7 @@
         <q-space />
       </q-card-section>
       <q-card-actions justify="start">
-        <div class="col-12 col-md-6 col-lg-4">
+        <div class="form-col col-12 col-md-6 col-lg-4">
           <!-- Actions -->
           <slot name="actions" />
         </div>
@@ -57,6 +57,6 @@ const emit = defineEmits(["submit"])
 <style lang="scss" scoped>
 .form-col{
   flex-grow: 1;
-  max-width: 700px;
+  max-width: 600px;
 }
 </style>

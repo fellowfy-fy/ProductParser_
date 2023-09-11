@@ -1,5 +1,6 @@
 <template>
   <div class="row justify-around">
+    <slot name="before" />
     <q-btn
       v-if="btnSave"
       type="submit"
@@ -12,6 +13,7 @@
       :disable="anyLoading"
       @click="$emit('save', $event)"
     />
+    <slot name="center" />
     <q-btn
       v-if="btnDelete"
       label="Удалить"
@@ -23,6 +25,7 @@
       :disable="anyLoading"
       @click="onDelete"
     />
+    <slot name="after" />
   </div>
 </template>
 
