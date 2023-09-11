@@ -1,4 +1,25 @@
-import { Notify } from "quasar"
+import { Notify, QNotifyCreateOptions } from "quasar"
+
+type NotifyParams = QNotifyCreateOptions
+
+export function notify(params: NotifyParams | string, def?: NotifyParams) {
+  if (typeof params == "string") {
+    params = { message: params }
+  }
+  return Notify.create(Object.assign({}, def, params))
+}
+
+export function notifySuccess(params: NotifyParams | string) {
+  return notify(params, {
+    type: "positive",
+  })
+}
+
+export function notifyError(params: NotifyParams | string) {
+  return notify(params, {
+    type: "negative",
+  })
+}
 
 export function notifySaved() {
   Notify.create({

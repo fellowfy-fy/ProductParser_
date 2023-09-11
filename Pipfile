@@ -26,6 +26,8 @@ django-auto-prefetching = "*"
 djangorestframework-dataclasses = "*"
 django-dynamic-preferences = "*"
 daphne = "*"
+openpyxl = "*"
+cachetools = "*"
 
 [dev-packages]
 pytest = "*"

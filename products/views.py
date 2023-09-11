@@ -1,8 +1,17 @@
+from parser.services.excel_import import extract_import_products
+
 from django_auto_prefetching import AutoPrefetchViewSetMixin
-from rest_framework import exceptions, viewsets
+from drf_spectacular.utils import extend_schema
+from rest_framework import decorators, exceptions, parsers, viewsets
+from rest_framework.response import Response
 
 from products.models import Category, Product, ProductPriceHistory
-from products.serializers import CategorySerializer, ProductPriceHistorySerializer, ProductSerializer
+from products.serializers import (
+    CategorySerializer,
+    ProductPriceHistorySerializer,
+    ProductSerializer,
+    StatusOkCountSerializer,
+)
 
 
 class ProductViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
@@ -13,11 +22,30 @@ class ProductViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
+    @extend_schema(
+        # request=inline_serializer(
+        #     "ImportFile", {"file": fields.FileField}
+        # ),
+        request={
+            "multipart/form-data": {"type": "object", "properties": {"file": {"type": "string", "format": "binary"}}},
+        },
+        responses={200: StatusOkCountSerializer},
+    )
+    @decorators.action(["POST"], detail=False)
+    def import_products(self, request):
+        contents = request.FILES.get("file")
+        if not contents:
+            raise exceptions.APIException("Файл не загружен")
+        count = extract_import_products(contents.read(), author=request.user)
+
+        return Response(StatusOkCountSerializer(dict(ok=True, count=count)).data)
+
 
 class CategoryViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
     search_fields = ["name"]
+    parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.FileUploadParser)
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)

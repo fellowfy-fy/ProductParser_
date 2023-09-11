@@ -4,6 +4,7 @@
 import type { PaginatedProductList } from '../models/PaginatedProductList';
 import type { PatchedProduct } from '../models/PatchedProduct';
 import type { Product } from '../models/Product';
+import type { StatusOkCount } from '../models/StatusOkCount';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -156,6 +157,25 @@ id: number,
             path: {
                 'id': id,
             },
+        });
+    }
+
+    /**
+     * @returns StatusOkCount 
+     * @throws ApiError
+     */
+    public static productImportProductsCreate({
+formData,
+}: {
+formData?: {
+file?: Blob;
+},
+}): CancelablePromise<StatusOkCount> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/product/import_products/',
+            formData: formData,
+            mediaType: 'multipart/form-data',
         });
     }
 

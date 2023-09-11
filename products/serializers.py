@@ -28,3 +28,12 @@ class ProductPriceHistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductPriceHistory
         exclude = ()
+
+
+class StatusOkSerializer(serializers.Serializer):
+    ok = serializers.BooleanField(default=True)
+
+
+class StatusOkCountSerializer(serializers.Serializer):
+    ok = serializers.BooleanField(default=True)
+    count = serializers.IntegerField()

@@ -5,7 +5,7 @@
       flat
       bordered
     >
-      <q-card-section>
+      <q-card-section class="row q-gutter-sm">
         <q-btn
           label="Создать"
           color="positive"
@@ -14,6 +14,7 @@
           unelevated
           @click="onCreateNew"
         />
+        <products-import @update="loadData()" />
       </q-card-section>
     </q-card>
 
@@ -49,6 +50,7 @@
 </template>
 
 <script setup lang="ts">
+import ProductsImport from '../../components/products/ProductsImport.vue'
 import { Ref, computed, onMounted, ref, watch } from 'vue';
 import { useProductsStore } from 'src/stores/products';
 import { promiseSetLoading } from 'src/Modules/StoreCrud';

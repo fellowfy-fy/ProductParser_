@@ -55,15 +55,15 @@ search?: string,
      * @throws ApiError
      */
     public static categoryCreate({
-requestBody,
+formData,
 }: {
-requestBody: Category,
+formData: Category,
 }): CancelablePromise<Category> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/v1/category/',
-            body: requestBody,
-            mediaType: 'application/json',
+            formData: formData,
+            mediaType: 'application/x-www-form-urlencoded',
         });
     }
 
@@ -94,13 +94,13 @@ id: number,
      */
     public static categoryUpdate({
 id,
-requestBody,
+formData,
 }: {
 /**
  * A unique integer value identifying this Раздел.
  */
 id: number,
-requestBody: Category,
+formData: Category,
 }): CancelablePromise<Category> {
         return __request(OpenAPI, {
             method: 'PUT',
@@ -108,8 +108,8 @@ requestBody: Category,
             path: {
                 'id': id,
             },
-            body: requestBody,
-            mediaType: 'application/json',
+            formData: formData,
+            mediaType: 'application/x-www-form-urlencoded',
         });
     }
 
@@ -119,13 +119,13 @@ requestBody: Category,
      */
     public static categoryPartialUpdate({
 id,
-requestBody,
+formData,
 }: {
 /**
  * A unique integer value identifying this Раздел.
  */
 id: number,
-requestBody?: PatchedCategory,
+formData?: PatchedCategory,
 }): CancelablePromise<Category> {
         return __request(OpenAPI, {
             method: 'PATCH',
@@ -133,8 +133,8 @@ requestBody?: PatchedCategory,
             path: {
                 'id': id,
             },
-            body: requestBody,
-            mediaType: 'application/json',
+            formData: formData,
+            mediaType: 'application/x-www-form-urlencoded',
         });
     }
 

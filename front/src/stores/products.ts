@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"
-import { Category, CategoryService, PaginatedCategoryList, PaginatedProductList, Product, ProductService } from "src/client"
+import { Category, CategoryService, PaginatedCategoryList, PaginatedProductList, Product, ProductService, StatusOkCount } from "src/client"
 import { storeShortcut } from "src/Modules/StoreCrud"
 
 export const useProductsStore = defineStore("products", {
@@ -92,6 +92,13 @@ export const useProductsStore = defineStore("products", {
         setValue: (resp: Category) => {
           this.category = resp
         },
+      })
+    },
+
+    //
+    importProducts(file: Blob): Promise<StatusOkCount> {
+      return storeShortcut({
+        promise: ProductService.productImportProductsCreate({ formData: { file: file } }),
       })
     },
   },
