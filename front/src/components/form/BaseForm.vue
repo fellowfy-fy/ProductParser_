@@ -10,15 +10,15 @@
       <q-card-section class="row justify-start q-col-gutter-x-md q-col-gutter-y-md">
         <!-- Form content -->
         <div
-          class="col-12 col-md-6 col-lg-4 row column q-col-gutter-y-md"
+          class="form-col col-12 col-md-6 col-lg-4 row column q-col-gutter-y-md"
           :class="contentClass"
         >
           <slot name="default" />
         </div>
-        <q-space />
+        <q-space v-if="$q.screen.gt.md" />
 
         <!-- Aside info -->
-        <div class="col-12 col-md-6 col-lg-4">
+        <div class="form-col col-12 col-md-6 col-lg-4">
           <q-expansion-item
             label="Доп информация"
             default-opened
@@ -53,3 +53,10 @@ defineProps({
 const emit = defineEmits(["submit"])
 
 </script>
+
+<style lang="scss" scoped>
+.form-col{
+  flex-grow: 1;
+  max-width: 700px;
+}
+</style>

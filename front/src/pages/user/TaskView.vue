@@ -108,7 +108,7 @@
 
         <div
           v-if="isAdmin && isExists"
-          class="row justify-around"
+          class="row justify-around q-gutter-sm"
         >
           <q-btn
             v-if="item.status != 3"
