@@ -78,7 +78,7 @@
             :done="isSetup"
           >
             <template v-if="isAdmin">
-              <template v-if="item.invalid_urls.length > 0">
+              <template v-if="!isUrlsValid">
                 <q-badge
                   color="warning"
                   class="text-subtitle2"
@@ -91,7 +91,7 @@
                   label="Завершить настройку"
                   color="primary"
                   :loading="changingStatus"
-                  :disable="item.invalid_urls.length > 0"
+                  :disable="!isUrlsValid"
                   unelevated
                   no-caps
                   @click="changeStatus(2)"
@@ -262,6 +262,8 @@ const isExists = computed(() => Boolean(item.value?.id))
 const isVerified = computed(() => Boolean(item.value?.status!=1))
 const isSetup = computed(() => [1,6].indexOf(item.value?.status||1) === -1)
 const isTaskManager = computed(() => item.value?.author?.manager == storeAuth.account?.id)
+
+const isUrlsValid = computed(() => item.value?.urls && item.value.urls.length > 0)
 
 const step = computed(() => {
   if (isSetup.value){
