@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <fast-table
-      :table-columns="tableColumns"
+      :columns="tableColumns"
       :data="data"
       :load="loadData"
       @row-click="onRowClick"

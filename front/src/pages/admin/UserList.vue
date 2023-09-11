@@ -17,18 +17,11 @@
       </q-card-section>
     </q-card>
 
-    <q-table
-      v-model:pagination="tablePagination"
+    <fast-table
       title="Пользователи"
-      :rows="data || []"
       :columns="tableColumns"
-      :loading="loading"
-      :rows-per-page-options="[5, 10, 20, 50]"
-      row-key="id"
-      binary-state-sort
-      flat
-      bordered
-      @request="onRequest"
+      :data="data"
+      :load="loadData"
       @row-click="onRowClick"
     >
       <template #top-right>
@@ -60,13 +53,12 @@
           </q-badge>
         </q-td>
       </template>
-    </q-table>
+    </fast-table>
   </q-page>
 </template>
 
 <script setup lang="ts">
-import { Ref, computed, onMounted, ref, watch } from 'vue';
-import { promiseSetLoading } from 'src/Modules/StoreCrud';
+import { computed } from 'vue';
 import { QTableProps } from 'quasar';
 import { ParseTask, } from "src/client"
 import {formatDateTime} from 'src/Modules/Utils'
@@ -77,11 +69,6 @@ const router = useRouter()
 
 const store = useAuthStore()
 
-const loading = ref(false)
-const filters = ref({
-  search: ''
-})
-const tablePagination:Ref<QTableProps["pagination"]> = ref({})
 
 const data = computed(() => store.users)
 
@@ -134,29 +121,11 @@ const tableColumns = [
   }
 ] as QTableProps["columns"]
 
-function loadData(){
-  const payload = {
-    search: filters.value.search,
-    page: tablePagination.value.page || 1,
-    pageSize: tablePagination.value?.rowsPerPage || 20,
-    ordering:  (tablePagination.value?.descending? '-':'')+String(tablePagination.value?.sortBy)
-  }
-
+function loadData(payload: object){
   const prom = store.loadUsers(payload)
-
-  promiseSetLoading(prom, loading)
-  void prom.then((resp) => {
-    if (tablePagination.value){
-      tablePagination.value.rowsNumber = resp.count
-    }
-  })
+  return prom
 }
 
-
-const onRequest = (data:{pagination: QTableProps["pagination"]}) => {
-  tablePagination.value = data.pagination
-  loadData()
-}
 
 function onRowClick(e, data: ParseTask){
   void router.push({
@@ -169,14 +138,5 @@ function onCreateNew(){
     name: 'admin_user', params: {id: 'new'}
   })
 }
-
-
-onMounted(() => {
-  loadData()
-})
-
-watch(filters, () => {
-  loadData()
-}, {deep: true})
 
 </script>

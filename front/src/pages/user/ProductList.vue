@@ -20,7 +20,7 @@
 
     <fast-table
       title="Товары"
-      :table-columns="tableColumns"
+      :columns="tableColumns"
       :data="data"
       :load="loadData"
       :default-pagination="{sortBy: 'created_at',descending: true}"

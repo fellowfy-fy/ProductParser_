@@ -3,7 +3,7 @@
     v-model:pagination="tablePagination"
     title="Настройки"
     :rows="data || []"
-    :columns="tableColumns"
+    :columns="columns"
     :loading="isLoading"
     :rows-per-page-options="[5, 10, 20, 50]"
     row-key="id"
@@ -53,7 +53,7 @@ export interface DRFResponse {
 }
 
 const props = defineProps({
-  tableColumns: {
+  columns: {
     type: Object as PropType<QTableProps["columns"]>,
     required: true,
   },
