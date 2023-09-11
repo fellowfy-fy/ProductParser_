@@ -3,7 +3,10 @@ from datetime import datetime
 from parser.models import ParseTask, TaskPeriodChoices, TaskStatusChoices
 from parser.services.parse import process_task
 
+from django.conf import settings
+from django.core.mail import send_mail
 from django.db.models import Q
+from django.utils.html import strip_tags
 from huey import crontab
 from huey.contrib.djhuey import db_periodic_task, db_task
 from huey_monitor.tasks import TaskModel
@@ -66,3 +69,14 @@ def run_now(task: TaskModel, parse_task: ParseTask, parent_task_id: int | None =
         "logs": parse_task.log.logs,
         "data": res,
     }
+
+
+@db_task()
+def task_send_email(email: str, title: str, template: str):
+    send_mail(
+        title,
+        strip_tags(template),
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        recipient_list=[email],
+        html_message=template,
+    )

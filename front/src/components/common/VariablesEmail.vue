@@ -10,16 +10,20 @@ const data = [
     value: "{{status}}"
   },
   {
+    label: "Старый статус задачи (только изменение статуса)",
+    value: "{{old_status}}"
+  },
+  {
     label: "Автор задачи",
     value: "{{author}}"
   },
   {
-    label: "Текущая цена",
-    value: "{{price}}"
+    label: "Старая цена (только изменение цены)",
+    value: "{{old_price}}"
   },
   {
-    label: "Цена изменена",
-    value: "{{new_price}}"
+    label: "Новая цена (только изменение цены)",
+    value: "{{price}}"
   },
 ]
 </script>

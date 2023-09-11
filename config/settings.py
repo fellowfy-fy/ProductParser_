@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
+import sys
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -38,10 +39,13 @@ SECRET_KEY = os.environ.get(
 DEBUG = os.environ.get("DEBUG", False)
 PRODUCTION = os.environ.get("PRODUCTION", False)
 DEBUGBAR = os.environ.get("DEBUGBAR", False)
+TESTING = "pytest" in sys.modules or "test" in sys.argv or "testserver" in sys.argv
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 USE_X_FORWARDED_HOST = True
 HOSTNAME_OVERRIDE = os.getenv("HOSTNAME_OVERRIDE", None)
+
+PUBLIC_URL = os.getenv("PUBLIC_URL", "http://localhost:8000")
 
 # Application definition
 
@@ -234,7 +238,7 @@ SPECTACULAR_SETTINGS = {
 HUEY = {
     "huey_class": os.getenv("HUEY_CLASS", "huey.RedisHuey"),
     "results": True,
-    "immediate": bool(os.getenv("HUEY_IMMEDIATE", False)),
+    "immediate": bool(os.getenv("HUEY_IMMEDIATE", False)) or TESTING,
     "connection": {},
     "consumer": {
         "workers": 1,
@@ -243,6 +247,18 @@ HUEY = {
 
 if huey_conn := os.getenv("HUEY_CONNECTION", None):
     HUEY["connection"]["url"] = huey_conn
+
+
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS")
+EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL")
+DEFAULT_FROM_EMAIL = os.getenv("FROM_EMAIL")
+
+if TESTING or (DEBUG and not EMAIL_HOST):
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 
 LOGGING = {
