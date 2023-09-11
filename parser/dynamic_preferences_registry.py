@@ -1,6 +1,6 @@
 from dynamic_preferences.preferences import Section
 from dynamic_preferences.registries import global_preferences_registry
-from dynamic_preferences.types import IntegerPreference, LongStringPreference
+from dynamic_preferences.types import IntegerPreference, LongStringPreference, StringPreference
 
 general = Section("general")
 emails = Section("emails")
@@ -16,7 +16,7 @@ class CatalogDepth(IntegerPreference):
 
 
 @global_preferences_registry.register
-class EmailApprovalTitle(LongStringPreference):
+class EmailApprovalTitle(StringPreference):
     section = emails
     name = "approval_title"
     verbose_name = "Письмо утверждение задания (заголовок)"
@@ -34,7 +34,7 @@ class EmailApprovalContent(LongStringPreference):
 
 
 @global_preferences_registry.register
-class EmailStatusTitle(LongStringPreference):
+class EmailStatusTitle(StringPreference):
     section = emails
     name = "status_title"
     verbose_name = "Письмо статус задания (заголовок)"
@@ -52,7 +52,7 @@ class EmailStatusContent(LongStringPreference):
 
 
 @global_preferences_registry.register
-class EmailPricesTitle(LongStringPreference):
+class EmailPricesTitle(StringPreference):
     section = emails
     name = "prices_title"
     verbose_name = "Письмо изменились цены (заголовок)"

@@ -7,15 +7,22 @@
       v-if="item"
       @submit="saveData"
     >
+      <template #info>
+        <div>
+          <key-value-info :data="infoData" />
+        </div>
+      </template>
+
       <h6 class="q-my-md">
         {{ item?.verbose_name }}
       </h6>
       <q-input
         v-model="item.value"
         :type="inputType"
+        :hint="item.help_text"
         label="Значение"
         outlined
-        autogrow
+        :autogrow="inputType == 'textarea'"
       />
 
       <template #actions>
@@ -33,6 +40,7 @@
 </template>
 
 <script setup lang="ts">
+import KeyValueInfo from '../../components/form/KeyValueInfo.vue'
 import BaseForm from '../../components/form/BaseForm.vue'
 import BackBtn from "src/components/form/BackBtn.vue"
 import FormActions from "src/components/form/FormActions.vue"
@@ -66,6 +74,19 @@ const inputType = computed(() => {
     }
   }
   return "text";
+})
+
+const infoData = computed(() => {
+  return [
+    {
+      label: "Распознанный тип поля",
+      value: inputType.value,
+    },
+    {
+      label: "Тип поля",
+      value: item.value?.field?.class as string,
+    },
+  ]
 })
 
 
