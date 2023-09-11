@@ -17,33 +17,13 @@
       </q-card-section>
     </q-card>
 
-    <q-table
-      v-model:pagination="tablePagination"
+    <fast-table
       title="Парсеры"
-      :rows="data || []"
+      :data="data"
+      :load="loadData"
       :columns="tableColumns"
-      :loading="loading"
-      :rows-per-page-options="[5, 10, 20, 50]"
-      row-key="id"
-      binary-state-sort
-      flat
-      bordered
-      @request="onRequest"
       @row-click="onRowClick"
     >
-      <template #top-right>
-        <q-input
-          v-model="filters.search"
-          borderless
-          dense
-          debounce="300"
-          placeholder="Поиск"
-        >
-          <template #append>
-            <q-icon name="search" />
-          </template>
-        </q-input>
-      </template>
       <template #body-cell-is_active="props">
         <q-td>
           <q-badge
@@ -60,27 +40,20 @@
           </q-badge>
         </q-td>
       </template>
-    </q-table>
+    </fast-table>
   </q-page>
 </template>
 
 <script setup lang="ts">
-import { Ref, computed, onMounted, ref, watch } from 'vue';
-import { promiseSetLoading } from 'src/Modules/StoreCrud';
+import FastTable from '../../components/form/FastTable.vue'
+import { computed } from 'vue';
 import { QTableProps } from 'quasar';
 import { ParseTask } from "src/client"
 import { useRouter } from 'vue-router';
 import { useTasksStore } from 'src/stores/tasks';
 
 const router = useRouter()
-
 const store = useTasksStore()
-
-const loading = ref(false)
-const filters = ref({
-  search: ''
-})
-const tablePagination:Ref<QTableProps["pagination"]> = ref({})
 
 const data = computed(() => store.parseSettings)
 
@@ -112,28 +85,9 @@ const tableColumns = [
   // }
 ] as QTableProps["columns"]
 
-function loadData(){
-  const payload = {
-    search: filters.value.search,
-    page: tablePagination.value.page || 1,
-    pageSize: tablePagination.value?.rowsPerPage || 20,
-    ordering:  (tablePagination.value?.descending? '-':'')+String(tablePagination.value?.sortBy)
-  }
-
+function loadData(payload: object){
   const prom = store.loadParseSettings(payload)
-
-  promiseSetLoading(prom, loading)
-  void prom.then((resp) => {
-    if (tablePagination.value){
-      tablePagination.value.rowsNumber = resp.count
-    }
-  })
-}
-
-
-const onRequest = (data:{pagination: QTableProps["pagination"]}) => {
-  tablePagination.value = data.pagination
-  loadData()
+  return prom
 }
 
 function onRowClick(e, data: ParseTask){
@@ -147,14 +101,4 @@ function onCreateNew(){
     name: 'admin_parse_setting', params: {id: 'new'}
   })
 }
-
-
-onMounted(() => {
-  loadData()
-})
-
-watch(filters, () => {
-  loadData()
-}, {deep: true})
-
 </script>

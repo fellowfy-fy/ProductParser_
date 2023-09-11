@@ -1,7 +1,6 @@
 <template>
   <q-table
     v-model:pagination="tablePagination"
-    title="Настройки"
     :rows="data || []"
     :columns="columns"
     :loading="isLoading"
