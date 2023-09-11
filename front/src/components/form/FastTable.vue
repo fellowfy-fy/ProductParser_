@@ -26,7 +26,15 @@
         </template>
       </q-input>
     </template>
-    <slot />
+    <template
+      v-for="(index, name) in $slots"
+      #[name]="data"
+    >
+      <slot
+        :name="name"
+        v-bind="data"
+      />
+    </template>
   </q-table>
 </template>
 
