@@ -7,13 +7,9 @@
       @submit="saveData"
     >
       <template #info>
-        <q-input
-          :model-value="formatDateTime(item.date_joined)"
-          label="Дата регистрации"
-          outlined
-          readonly
-          dense
-        />
+        <div>
+          <key-value-info :data="infoData" />
+        </div>
       </template>
 
       <q-input
@@ -59,13 +55,10 @@
       <template v-if="item.role == 1">
         <user-select
           v-model="item.manager"
-          :params="{role: 2}"
+          :params="{ role: 2 }"
           label="Непосредственный руководитель"
         />
       </template>
-
-
-
 
       <template #actions>
         <form-actions
@@ -83,10 +76,11 @@
 </template>
 
 <script setup lang="ts">
-import UserSelect from '../../components/select/UserSelect.vue'
-import UserRoleSelect from '../../components/select/UserRoleSelect.vue'
-import UserStatusSelect from '../../components/select/UserStatusSelect.vue'
-import BaseForm from '../../components/form/BaseForm.vue'
+import KeyValueInfo from "../../components/form/KeyValueInfo.vue"
+import UserSelect from "../../components/select/UserSelect.vue"
+import UserRoleSelect from "../../components/select/UserRoleSelect.vue"
+import UserStatusSelect from "../../components/select/UserStatusSelect.vue"
+import BaseForm from "../../components/form/BaseForm.vue"
 import BackBtn from "src/components/form/BackBtn.vue"
 import FormActions from "src/components/form/FormActions.vue"
 import { storeToRefs } from "pinia"
@@ -94,9 +88,9 @@ import { promiseSetLoading } from "src/Modules/StoreCrud"
 import { promiseFunc, notifyDeleted, notifySaved } from "src/Modules/Notif"
 import { computed, onMounted, ref } from "vue"
 import { useRoute, useRouter } from "vue-router"
-import { formatDateTime } from 'src/Modules/Utils'
-import { useAuthStore } from 'src/stores/auth'
-import { ruleRequired, ruleValidEmail } from 'src/Modules/Globals'
+import { formatDateTime } from "src/Modules/Utils"
+import { useAuthStore } from "src/stores/auth"
+import { ruleRequired, ruleValidEmail } from "src/Modules/Globals"
 
 const route = useRoute()
 const router = useRouter()
@@ -107,12 +101,27 @@ const loading = ref(false)
 const saving = ref(false)
 const deleting = ref(false)
 
-
 const itemId = computed(() => route.params.id as unknown as string)
 
 const isExists = computed(() => Boolean(item.value?.id))
 
 const isSelf = computed(() => item.value?.id == store.account?.id)
+
+const infoData = computed(() => {
+  if (!item.value) {
+    return []
+  }
+  return [
+    {
+      label: "Дата регистрации",
+      value: formatDateTime(item.value?.date_joined),
+    },
+    {
+      label: "Дата последней авторизации",
+      value: item.value?.last_login ? formatDateTime(item.value?.last_login) : '-',
+    },
+  ]
+})
 
 const defaultData = {
   id: null,
