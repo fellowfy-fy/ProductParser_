@@ -202,6 +202,20 @@
         outlined
       />
 
+      <q-toggle
+        v-model="item.notifications_enable"
+        label="Отправлять уведомления"
+      />
+
+      <template v-if="item.notifications_enable">
+        <q-option-group
+          v-model="item.notifications_target"
+          :options="notificationsOptions"
+          color="primary"
+          type="checkbox"
+        />
+      </template>
+
       <template #actions>
         <form-actions
           class="q-mt-lg"
@@ -264,6 +278,17 @@ const isSetup = computed(() => [1,6].indexOf(item.value?.status||1) === -1)
 const isTaskManager = computed(() => item.value?.author?.manager == storeAuth.account?.id)
 
 const isUrlsValid = computed(() => item.value?.urls && item.value.urls.length > 0)
+
+const notificationsOptions = computed(() => [
+  {
+    label: "Цена увеличилась",
+    value: "incr",
+  },
+  {
+    label: "Цена уменьшилась",
+    value: "decr",
+  },
+])
 
 const step = computed(() => {
   if (isSetup.value){
