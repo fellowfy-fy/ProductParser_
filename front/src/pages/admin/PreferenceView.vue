@@ -11,6 +11,14 @@
         <div>
           <key-value-info :data="infoData" />
         </div>
+        <template v-if="item.section === 'emails'">
+          <h6 class="text-center q-my-sm">
+            Переменные писем
+          </h6>
+          <div>
+            <variables-email />
+          </div>
+        </template>
       </template>
 
       <h6 class="q-my-md">
@@ -40,6 +48,7 @@
 </template>
 
 <script setup lang="ts">
+import VariablesEmail from '../../components/common/VariablesEmail.vue'
 import KeyValueInfo from '../../components/form/KeyValueInfo.vue'
 import BaseForm from '../../components/form/BaseForm.vue'
 import BackBtn from "src/components/form/BackBtn.vue"

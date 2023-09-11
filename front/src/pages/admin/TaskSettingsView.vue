@@ -17,43 +17,52 @@
         <h6 class="text-center q-my-sm">
           Полезные ссылки
         </h6>
-        <q-list
-          dense
-          bordered
-        >
-          <q-item
-            href="https://www.w3schools.com/cssref/css_selectors.php"
-            target="blank"
+        <div>
+          <q-list
+            dense
+            bordered
           >
-            <q-item-section>
-              Информация о CSS selector
-            </q-item-section>
-          </q-item>
-          <q-item
-            href="https://try.jsoup.org/"
-            target="blank"
-          >
-            <q-item-section>
-              Онлайн тестер CSS selector
-            </q-item-section>
-          </q-item>
-          <q-item
-            href="https://support.smartbear.com/alertsite/docs/monitors/api/endpoint/jsonpath.html"
-            target="blank"
-          >
-            <q-item-section>
-              Информация о JSONPath
-            </q-item-section>
-          </q-item>
-          <q-item
-            href="https://jsonpath.com/"
-            target="blank"
-          >
-            <q-item-section>
-              Онлайн тестер JSONPath
-            </q-item-section>
-          </q-item>
-        </q-list>
+            <q-item
+              href="https://www.w3schools.com/cssref/css_selectors.php"
+              target="blank"
+            >
+              <q-item-section>
+                Информация о CSS selector
+              </q-item-section>
+            </q-item>
+            <q-item
+              href="https://try.jsoup.org/"
+              target="blank"
+            >
+              <q-item-section>
+                Онлайн тестер CSS selector
+              </q-item-section>
+            </q-item>
+            <q-item
+              href="https://support.smartbear.com/alertsite/docs/monitors/api/endpoint/jsonpath.html"
+              target="blank"
+            >
+              <q-item-section>
+                Информация о JSONPath
+              </q-item-section>
+            </q-item>
+            <q-item
+              href="https://jsonpath.com/"
+              target="blank"
+            >
+              <q-item-section>
+                Онлайн тестер JSONPath
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </div>
+        <h6 class="text-center q-my-sm">
+          Переменные
+        </h6>
+        <span class="text-subtitle1 text-center text-grey q-pt-xs q-mb-sm">(доступны во всех текстовых полях)</span>
+        <div>
+        <variables-task />
+        </div>
       </template>
 
       <q-input
@@ -164,6 +173,7 @@
 </template>
 
 <script setup lang="ts">
+import VariablesTask from '../../components/common/VariablesTask.vue'
 import BaseForm from '../../components/form/BaseForm.vue'
 import BackBtn from "src/components/form/BackBtn.vue"
 import FormActions from "src/components/form/FormActions.vue"
