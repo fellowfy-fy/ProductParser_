@@ -26,13 +26,14 @@
         </template>
       </q-input>
     </template>
+    <slot />
   </q-table>
 </template>
 
 <script setup lang="ts">
 import { QTableProps } from 'quasar';
 import { promiseSetLoading } from 'src/Modules/StoreCrud';
-import { PropType, Ref, computed, onMounted, ref } from 'vue';
+import { PropType, Ref, computed, onMounted, ref, watch } from 'vue';
 
 
 export type LoadFunction = (payload: object) => Promise<DRFResponse>
@@ -61,14 +62,21 @@ const props = defineProps({
   filters: {
     type: Object,
     default: null,
+  },
+  defaultPagination: {
+    type: Object as PropType<QTableProps["pagination"]>,
+    default: null,
   }
 })
 
 const emit = defineEmits(['row-click'])
 
 const tablePagination:Ref<QTableProps["pagination"]> = ref({
-  rowsPerPage: 20
+  rowsPerPage: 20,
 })
+if (props.defaultPagination){
+  Object.assign(tablePagination.value, props.defaultPagination)
+}
 
 
 const isLoading = ref(false)
@@ -92,7 +100,7 @@ function onRowClick(e, data: object){
 }
 
 function loadData(){
-  const prom = props.load(payload)
+  const prom = props.load(payload.value)
   promiseSetLoading(prom, isLoading)
   void prom.then((resp: DRFResponse) => {
     const count = resp.count
@@ -103,6 +111,7 @@ function loadData(){
 }
 
 function onRequest(data:{pagination: QTableProps["pagination"]}){
+  console.debug("FastTable - onRequest")
   tablePagination.value = data.pagination
   loadData()
 }
@@ -117,5 +126,6 @@ onMounted(() => {
 //   loadData()
 // }, {deep: true})
 
+watch(search, () => loadData())
 
 </script>

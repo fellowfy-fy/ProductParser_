@@ -16,7 +16,7 @@ from products.serializers import (
 
 class ProductViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
     serializer_class = ProductSerializer
-    queryset = Product.objects.all()
+    queryset = Product.objects.order_by("-created_at").all()
     search_fields = ["name", "synonyms"]
 
     def perform_create(self, serializer):
@@ -43,7 +43,7 @@ class ProductViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
 
 class CategoryViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
     serializer_class = CategorySerializer
-    queryset = Category.objects.all()
+    queryset = Category.objects.order_by("-created_at").all()
     search_fields = ["name"]
     parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.FileUploadParser)
 
@@ -58,4 +58,4 @@ class CategoryViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
 
 class ProductPriceHistoryViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
     serializer_class = ProductPriceHistorySerializer
-    queryset = ProductPriceHistory.objects.all()
+    queryset = ProductPriceHistory.objects.order_by("-created_at").all()
