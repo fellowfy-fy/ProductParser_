@@ -16,6 +16,7 @@ services:
             - "${APP_PORT:-8087}:8080"
         volumes:
             - .:/app
+            - ./exports:/app/exports
         restart: unless-stopped # unless-stopped on-failure
 
     quasar:

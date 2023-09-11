@@ -22,6 +22,7 @@ class Product(WithDates, models.Model):
     task = models.ForeignKey(
         "parser.ParseTask",
         models.SET_NULL,
+        related_name="task_created",
         null=True,
         blank=True,
         verbose_name="Создано задачей",

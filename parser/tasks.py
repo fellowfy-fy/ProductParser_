@@ -2,6 +2,7 @@ import logging
 from datetime import datetime
 from parser.models import ParseTask, TaskPeriodChoices, TaskStatusChoices
 from parser.services.parse import process_task
+from parser.services.xml_export import export_products
 
 from django.conf import settings
 from django.core.mail import send_mail
@@ -65,10 +66,20 @@ def run_now(task: TaskModel, parse_task: ParseTask, parent_task_id: int | None =
 
     res = process_task(parse_task, callback=callback, test=test)
 
+    if not test and res:
+        # extracted_products = [i.product for i in res if i.product]
+        if "export" in parse_task.monitoring_type:
+            task_export_products(task.task_id, parse_task=parse_task)
+
     return {
         "logs": parse_task.log.logs,
         "data": res,
     }
+
+
+@db_task(context=True)
+def task_export_products(task: TaskModel, parse_task: ParseTask):
+    export_products(task)
 
 
 @db_task()
