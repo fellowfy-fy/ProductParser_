@@ -24,14 +24,25 @@
       <h6 class="q-my-md">
         {{ item?.verbose_name }}
       </h6>
-      <q-input
-        v-model="item.value"
-        :type="inputType"
-        :hint="item.help_text"
-        label="Значение"
-        outlined
-        :autogrow="inputType == 'textarea'"
-      />
+
+
+      <template v-if="inputType == 'editor'">
+        <q-editor
+          v-model="item.value"
+          :hint="item.help_text"
+        />
+      </template>
+      <template v-else>
+        <q-input
+          v-model="item.value"
+          :type="inputType"
+          :hint="item.help_text"
+          label="Значение"
+          outlined
+          :autogrow="inputType == 'textarea'"
+        />
+      </template>
+
 
       <template #actions>
         <form-actions
@@ -76,7 +87,10 @@ const inputType = computed(() => {
   if (item.value){
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const widgetClass = item.value.field.widget.class as string
-    if (widgetClass == "Textarea"){
+    if (item.value.additional_data.is_editor){
+      return "editor"
+    }
+    else if (widgetClass == "Textarea"){
       return "textarea"
     } else if (widgetClass == "NumberInput"){
       return "number"

@@ -6,6 +6,13 @@ general = Section("general")
 emails = Section("emails")
 
 
+class HTMLEditorMixin:
+    def get_api_additional_data(self):
+        return {
+            "is_editor": True,
+        }
+
+
 @global_preferences_registry.register
 class CatalogDepth(IntegerPreference):
     section = general
@@ -25,7 +32,7 @@ class EmailApprovalTitle(StringPreference):
 
 
 @global_preferences_registry.register
-class EmailApprovalContent(LongStringPreference):
+class EmailApprovalContent(HTMLEditorMixin, LongStringPreference):
     section = emails
     name = "approval_content"
     verbose_name = "Письмо утверждение задания (содержание)"
@@ -43,7 +50,7 @@ class EmailStatusTitle(StringPreference):
 
 
 @global_preferences_registry.register
-class EmailStatusContent(LongStringPreference):
+class EmailStatusContent(HTMLEditorMixin, LongStringPreference):
     section = emails
     name = "status_content"
     verbose_name = "Письмо статус задания (содержание)"
@@ -61,7 +68,7 @@ class EmailPricesTitle(StringPreference):
 
 
 @global_preferences_registry.register
-class EmailPricesContent(LongStringPreference):
+class EmailPricesContent(HTMLEditorMixin, LongStringPreference):
     section = emails
     name = "prices_content"
     verbose_name = "Письмо изменились цены (содержание)"
