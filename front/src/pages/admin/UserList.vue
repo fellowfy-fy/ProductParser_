@@ -24,21 +24,8 @@
       :load="loadData"
       @row-click="onRowClick"
     >
-      <template #top-right>
-        <q-input
-          v-model="filters.search"
-          borderless
-          dense
-          debounce="300"
-          placeholder="Поиск"
-        >
-          <template #append>
-            <q-icon name="search" />
-          </template>
-        </q-input>
-      </template>
       <template #body-cell-is_active="props">
-        <q-td>
+        <q-td :props="props">
           <q-badge
             v-if="props.value"
             color="positive"
@@ -58,6 +45,7 @@
 </template>
 
 <script setup lang="ts">
+import FastTable from '../../components/form/FastTable.vue'
 import { computed } from 'vue';
 import { QTableProps } from 'quasar';
 import { ParseTask, } from "src/client"
@@ -106,8 +94,9 @@ const tableColumns = [
     name: 'is_active',
     label: 'Активен',
     field: 'is_active',
-    align: 'left',
+    align: 'center',
     sortable: true,
+    style: 'width: 20px'
   },
   {
     name: 'date_joined',
