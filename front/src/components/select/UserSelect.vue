@@ -2,7 +2,7 @@
   <q-select
     v-model="model"
     :loading="loading"
-    :options="users"
+    :options="users || []"
     options-dense
     :option-label="userReadable"
     option-value="id"
@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { Ref, computed, onMounted, ref } from "vue"
+import { PropType, Ref, computed, onMounted, ref } from "vue"
 import { storeToRefs } from "pinia"
 import { promiseSetLoading } from "src/Modules/StoreCrud"
 import { useAuthStore } from "src/stores/auth"
@@ -26,13 +26,17 @@ import { CustomUser } from "src/client"
 
 const props = defineProps({
   modelValue: {
-    type: Number,
+    type: Number as PropType<number | null>,
     required: true,
-    default: undefined,
+    default: null,
   },
   params: {
     type: Object,
     default: null,
+  },
+  preload: {
+    type: Boolean,
+    default: true,
   },
 })
 
@@ -99,5 +103,9 @@ function onFilter(value: string, update: CallableFunction) {
   })
 }
 
-onMounted(() => loadData())
+onMounted(() => {
+  if (props.preload) {
+    void loadData()
+  }
+})
 </script>

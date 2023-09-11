@@ -19,20 +19,33 @@
     </q-card>
 
     <fast-table
+      :filters="filters"
       title="Товары"
       :columns="tableColumns"
       :data="data"
       :load="loadData"
       :default-pagination="{sortBy: 'created_at',descending: true}"
       @row-click="onRowClick"
-    />
+      @reset-filters="resetFilters()"
+    >
+      <template #filters>
+        <user-select
+          v-model="filters.author"
+          label="Автор"
+          :preload="false"
+          dense
+          clearable
+        />
+      </template>
+    </fast-table>
   </q-page>
 </template>
 
 <script setup lang="ts">
+import UserSelect from '../../components/select/UserSelect.vue'
 import FastTable from '../../components/form/FastTable.vue'
 import ProductsImport from '../../components/products/ProductsImport.vue'
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useProductsStore } from 'src/stores/products';
 import { QTableProps } from 'quasar';
 import { Product } from "src/client"
@@ -82,6 +95,16 @@ const tableColumns = [
     style: 'width:100px'
   }
 ] as QTableProps["columns"]
+
+const defaultFilters = {
+  author: null as number[] | null,
+}
+
+const filters = ref(defaultFilters)
+
+function resetFilters(){
+  filters.value = defaultFilters
+}
 
 function loadData(payload: object){
   const prom = store.loadProducts(payload)

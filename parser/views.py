@@ -19,6 +19,8 @@ from accounts.utils import get_user_role
 class ParseTaskViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
     serializer_class = ParseTaskSerializer
     queryset = ParseTask.objects.all()
+    search_fields = ["name"]
+    filterset_fields = ["author", "status"]
 
     def get_prefetchable_queryset(self):
         user = self.request.user

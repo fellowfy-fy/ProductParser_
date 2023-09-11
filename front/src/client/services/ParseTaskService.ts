@@ -18,11 +18,14 @@ export class ParseTaskService {
      * @throws ApiError
      */
     public static parseTaskList({
+author,
 ordering,
 page,
 pageSize,
 search,
+status,
 }: {
+author?: number,
 /**
  * Which field to use when ordering the results.
  */
@@ -39,15 +42,27 @@ pageSize?: number,
  * A search term.
  */
 search?: string,
+/**
+ * * `1` - Создана
+ * * `2` - В работе
+ * * `3` - Отменена
+ * * `4` - Пауза
+ * * `5` - Остановлена
+ * * `6` - Настройка
+ * * `7` - Ошибка
+ */
+status?: 1 | 2 | 3 | 4 | 5 | 6 | 7,
 }): CancelablePromise<PaginatedParseTaskList> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/parse_task/',
             query: {
+                'author': author,
                 'ordering': ordering,
                 'page': page,
                 'page_size': pageSize,
                 'search': search,
+                'status': status,
             },
         });
     }

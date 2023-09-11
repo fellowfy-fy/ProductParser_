@@ -17,11 +17,13 @@ export class ProductService {
      * @throws ApiError
      */
     public static productList({
+author,
 ordering,
 page,
 pageSize,
 search,
 }: {
+author?: number,
 /**
  * Which field to use when ordering the results.
  */
@@ -43,6 +45,7 @@ search?: string,
             method: 'GET',
             url: '/api/v1/product/',
             query: {
+                'author': author,
                 'ordering': ordering,
                 'page': page,
                 'page_size': pageSize,
