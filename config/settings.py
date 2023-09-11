@@ -200,7 +200,8 @@ if DEBUGBAR:
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework.authentication.TokenAuthentication",
+        # "rest_framework.authentication.TokenAuthentication",
+        "accounts.backends.ExpiringTokenAuthentication",
         "accounts.backends.CsrfExemptSessionAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": [
@@ -217,6 +218,8 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "PAGE_SIZE": 20,
 }
+
+TOKEN_EXPIRED_AFTER_SECONDS = 60 * 60 * 24 * 30
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "API",
