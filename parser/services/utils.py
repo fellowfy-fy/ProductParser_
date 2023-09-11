@@ -56,7 +56,9 @@ def validate_urls(text: str):
 
 def extract_number(text: str) -> float:
     """Clear string from non-digits. Clears all non digits outside, keeps dot inside."""
-    cleared_str: str = re.sub("[^0-9,.]", "", text).replace(",", ".")
+    numbers = re.findall("[0-9,.]", text)
+    assert numbers is not None, "Numbers not found"
+    cleared_str: str = numbers[0].replace(",", ".")
     if re_match := re.search("[0-9]", cleared_str):
         start_index = re_match.start()
         end_index = len(cleared_str) - re.search("[0-9]", cleared_str[::-1]).start()
