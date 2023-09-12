@@ -14,7 +14,10 @@
         @request="onRequest"
         @row-click="onRowClick"
       >
-        <template #top-right v-if="enableSearch">
+        <template
+          v-if="enableSearch"
+          #top-right
+        >
           <q-input
             v-model="search"
             borderless
@@ -52,32 +55,32 @@
 
 
     <transition
-        appear
-        enter-active-class="animated slideInRight"
-        leave-active-class="animated slideOutRight"
-      >
-    <div
-      v-if="isEnableFilters && showFilters"
-      class="col-grow filters-wrapper"
+      appear
+      enter-active-class="animated slideInRight"
+      leave-active-class="animated slideOutRight"
     >
-      <q-card
-        flat
-        bordered
+      <div
+        v-if="isEnableFilters && showFilters"
+        class="col-grow filters-wrapper"
       >
-        <q-card-section>
-          <slot name="filters_title">
-            <h6 class="text-center q-my-sm">
-              Фильтры
-            </h6>
-          </slot>
+        <q-card
+          flat
+          bordered
+        >
+          <q-card-section>
+            <slot name="filters_title">
+              <h6 class="text-center q-my-sm">
+                Фильтры
+              </h6>
+            </slot>
 
 
-          <div class="q-gutter-y-md">
-            <slot name="filters" />
-          </div>
-        </q-card-section>
-        <q-card-actions align="around">
-          <!-- <q-btn
+            <div class="q-gutter-y-md">
+              <slot name="filters" />
+            </div>
+          </q-card-section>
+          <q-card-actions align="around">
+            <!-- <q-btn
             label="Поиск"
             icon="search"
             color="primary"
@@ -85,19 +88,19 @@
             unelevated
             no-caps
           /> -->
-          <q-btn
-            type="reset"
-            label="Сбросить"
-            icon="delete"
-            color="negative"
-            size="sm"
-            unelevated
-            no-caps
-            @click="resetFilters"
-          />
-        </q-card-actions>
-      </q-card>
-    </div>
+            <q-btn
+              type="reset"
+              label="Сбросить"
+              icon="delete"
+              color="negative"
+              size="sm"
+              unelevated
+              no-caps
+              @click="resetFilters"
+            />
+          </q-card-actions>
+        </q-card>
+      </div>
     </transition>
   </div>
 </template>
