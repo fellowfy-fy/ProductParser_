@@ -20,6 +20,11 @@
         >
           <td>
             {{ item.title }}
+            <q-tooltip>
+              ID Настроек парсера: {{ items.settings }}
+              <br>
+              ID задачи: {{ items.task }}
+            </q-tooltip>
           </td>
           <td>
             {{ `${item.price.toLocaleString()}₽` }}

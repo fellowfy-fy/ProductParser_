@@ -49,6 +49,13 @@ class ProductPriceHistory(WithDates, models.Model):
         blank=True,
         verbose_name="Создано задачей",
     )
+    parse_settings = models.ForeignKey(
+        "parser.SiteParseSettings",
+        models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Использованы настройки парсинга",
+    )
 
     class Meta:
         verbose_name = "История цен"

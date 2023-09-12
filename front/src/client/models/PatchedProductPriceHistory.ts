@@ -12,4 +12,5 @@ export type PatchedProductPriceHistory = {
     price?: number;
     product?: number;
     task?: number | null;
+    parse_settings?: number | null;
 };

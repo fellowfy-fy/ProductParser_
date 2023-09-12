@@ -27,27 +27,27 @@ class ProcessResult:
 def process_parse_result(task: ParseTask, res: ProcessResult):
     """Process single parsing result"""
     if res.task.monitoring_mode == MonitoringModeChoices.CATALOG:
-        task.log.info(f"Updating parsed products: {len(res.parse_result)}")
+        task.log.info(f"Updating parsed products: {len(res.parse_result)} (settings #{res.settings.pk})")
         # Parse products
         for result in res.parse_result:
             product, _ = Product.objects.get_or_create(
-                name=result.title,
+                name__icontains=result.title,
                 default={
                     "price": 0,
                     "task": res.task,
                     "author": res.task.author,
                 },
             )
-            ProductPriceHistory.objects.create(product=product, price=result.price, task=res.task)
+            ProductPriceHistory.objects.create(
+                product=product, price=result.price, task=res.task, parse_settings=res.settings
+            )
     else:  # Update existing product
-        task.log.info(f"Updating existing products: {len(res.parse_result)}")
+        task.log.info(f"Updating existing products: {len(res.parse_result)} (settings #{res.settings.pk})")
         if res.product:
             assert len(res.parse_result) > 0, "No results"
             single_result = res.parse_result[0]
             ProductPriceHistory.objects.create(
-                product=res.product,
-                price=single_result.price,
-                task=res.task,
+                product=res.product, price=single_result.price, task=res.task, parse_settings=res.settings
             )
 
 
@@ -99,15 +99,14 @@ def process_task(task: ParseTask, callback: Callable | None = None, test: bool =
     task.save(update_fields=["status"])
 
     if task.products.count() > 0 and task.monitoring_mode != MonitoringModeChoices.CATALOG:  # Products detect mode
-        url = urls[0]
-        assert url is not None, "URL list empty"
 
         all_products = task.products.all()
-        task.log.info(f"Processing products list ({len(all_products)})...")
-        for i, product in enumerate(all_products):
-            res.append(process_task_url(task, url, product=product))
-            if callback:
-                callback(i, len(all_products))
+        for url in urls:
+            task.log.info(f"Processing products list: {len(all_products)} ({url})...")
+            for i, product in enumerate(all_products):
+                res.append(process_task_url(task, url, product=product))
+                if callback:
+                    callback(i, len(all_products))
 
     else:
         task.log.info(f"Processing URLS list ({len(urls)})...")

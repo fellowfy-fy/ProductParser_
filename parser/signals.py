@@ -44,7 +44,11 @@ def price_post_save(sender, instance: ProductPriceHistory, created: bool = False
     if created and task and task.notifications_enable:
         try:
             last_instance = ProductPriceHistory.objects.order_by("-created_at").get(
-                task=instance.task, product=instance.product, created_at__lt=instance.created_at
+                # Match same parameters
+                task=instance.task,
+                parse_settings=instance.parse_settings,
+                product=instance.product,
+                created_at__lt=instance.created_at,  # Older than current update
             )
         except ProductPriceHistory.DoesNotExist:
             return
