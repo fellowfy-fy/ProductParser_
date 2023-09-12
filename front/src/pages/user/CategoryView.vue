@@ -6,67 +6,40 @@
       {{ product?.name }}
     </h4> -->
 
-    <q-form
+    <base-form
       v-if="item"
-      class="row column q-gutter-y-md"
-      style="max-width: 600px"
       @submit="saveData"
     >
+      <template #info>
+        <div>
+          <key-value-info :data="infoData" />
+        </div>
+      </template>
       <q-input
         v-model="item.name"
         label="Название"
         outlined
         required
       />
-      <q-input
-        :model-value="formatDateTime(item.created_at)"
-        label="Дата создания"
-        outlined
-        readonly
-      />
-      <q-input
-        :model-value="formatDateTime(item.updated_at)"
-        label="Дата редактирования"
-        outlined
-        readonly
-      />
 
-      <q-input
-        :model-value="userReadable(item.author)"
-        label="Автор"
-        outlined
-        readonly
-        dense
-      />
-      <q-input
-        :model-value="formatDateTime(item.created_at)"
-        label="Дата создания"
-        outlined
-        readonly
-        dense
-      />
-      <q-input
-        :model-value="formatDateTime(item.updated_at)"
-        label="Дата редактирования"
-        outlined
-        readonly
-        dense
-      />
-
-      <form-actions
-        class="q-mt-lg"
-        :saving="saving"
-        :deleting="deleting"
-        :btn-delete="isExists"
-        @delete="onDelete"
-      />
-    </q-form>
+      <template #actions>
+        <form-actions
+          class="q-mt-lg"
+          :saving="saving"
+          :deleting="deleting"
+          :btn-delete="isExists"
+          @delete="onDelete"
+        />
+      </template>
+    </base-form>
 
     <q-inner-loading :showing="loading" />
   </q-page>
 </template>
 
 <script setup lang="ts">
+import BaseForm from '../../components/form/BaseForm.vue'
+import KeyValueInfo from '../../components/form/KeyValueInfo.vue'
 import BackBtn from "../../components/form/BackBtn.vue"
 import FormActions from "../../components/form/FormActions.vue"
 import { storeToRefs } from "pinia"
@@ -90,6 +63,30 @@ const deleting = ref(false)
 const itemId = computed(() => $route.params.id as unknown as string)
 
 const isExists = computed(() => Boolean(item.value?.id))
+
+const infoData = computed(() => {
+  if (!item.value){
+    return []
+  }
+  const i = item.value
+  return [
+    {
+      label: "Автор",
+      name: "author",
+      value: userReadable(i.author),
+    },
+    {
+      label: "Дата создания",
+      name: "created_at",
+      value: formatDateTime(i.created_at),
+    },
+    {
+      label: "Дата редактирования",
+      name: "updated_at",
+      value: formatDateTime(i.updated_at),
+    },
+  ]
+})
 
 const defaultData = {
   id: null,
@@ -127,6 +124,7 @@ function saveData() {
 }
 
 function onDelete() {
+  if (!item.value) return;
   const prom = store.deleteCategory(item.value.id)
 
   promiseSetLoading(prom, deleting)
