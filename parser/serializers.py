@@ -11,6 +11,14 @@ from products.models import Product
 from products.serializers import ProductSerializer
 
 
+class SiteParseSettingsSerializer(serializers.ModelSerializer):
+    # author = ShortUserSerializer(read_only=True)
+
+    class Meta:
+        model = SiteParseSettings
+        exclude = ()
+
+
 class ParseTaskSerializer(serializers.ModelSerializer):
     author = ShortUserSerializer(read_only=True)
     monitoring_type = fields.MultipleChoiceField(choices=MonitoringTypeChoices.choices)
@@ -26,12 +34,16 @@ class ParseTaskSerializer(serializers.ModelSerializer):
         read_only_fields = ["author", "status"]
 
 
-class SiteParseSettingsSerializer(serializers.ModelSerializer):
-    # author = ShortUserSerializer(read_only=True)
+class ParseTaskShortSerializer(ParseTaskSerializer):
+    class Meta(ParseTaskSerializer.Meta):
+        fields = ("id", "name")
+        exclude = None
 
-    class Meta:
-        model = SiteParseSettings
-        exclude = ()
+
+class SiteParseSettingsShortSerializer(SiteParseSettingsSerializer):
+    class Meta(SiteParseSettingsSerializer.Meta):
+        fields = ("id", "domain")
+        exclude = None
 
 
 @dataclass

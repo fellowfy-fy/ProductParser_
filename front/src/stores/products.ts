@@ -1,5 +1,16 @@
 import { defineStore } from "pinia"
-import { Category, CategoryService, PaginatedCategoryList, PaginatedProductList, Product, ProductService, StatusOkCount } from "src/client"
+import {
+  Category,
+  CategoryService,
+  PaginatedCategoryList,
+  PaginatedProductList,
+  Product,
+  ProductPriceHistory,
+  ProductPriceService,
+  ProductService,
+  StatusOkCount,
+  PaginatedProductPriceHistoryFullList,
+} from "src/client"
 import { storeShortcut } from "src/Modules/StoreCrud"
 
 export const useProductsStore = defineStore("products", {
@@ -8,11 +19,20 @@ export const useProductsStore = defineStore("products", {
     products: null as Product[] | null,
     category: null as Category | null,
     categories: null as Category[] | null,
+    price_history: null as ProductPriceHistory[] | null,
   }),
 
   getters: {},
 
   actions: {
+    loadPriceHistory(payload: object): Promise<PaginatedProductPriceHistoryFullList> {
+      return storeShortcut({
+        promise: ProductPriceService.productPriceList(payload),
+        setValue: (resp: PaginatedProductPriceHistoryFullList) => {
+          this.price_history = resp.results as []
+        },
+      })
+    },
     loadProducts(payload: object): Promise<PaginatedProductList> {
       return storeShortcut({
         promise: ProductService.productList(payload),

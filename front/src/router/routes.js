@@ -132,6 +132,16 @@ const routes = [
           }
         ]
       },
+      {
+        path: "prices",
+        children: [
+          {
+            path: "",
+            component: () => import("pages/user/PriceHistory.vue"),
+            name: "user_prices"
+          },
+        ]
+      },
     ],
   },
 

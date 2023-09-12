@@ -1,3 +1,7 @@
+from parser.serializers import (
+    ParseTaskShortSerializer,
+    SiteParseSettingsShortSerializer,
+)
 from parser.services.excel_import import extract_import_products
 
 from django_auto_prefetching import AutoPrefetchViewSetMixin
@@ -57,6 +61,12 @@ class CategoryViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
         return super().perform_destroy(instance)
 
 
-class ProductPriceHistoryViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
-    serializer_class = ProductPriceHistorySerializer
+class ProductPriceHistoryFullSerializer(ProductPriceHistorySerializer):
+    parse_settings = SiteParseSettingsShortSerializer()
+    task = ParseTaskShortSerializer()
+
+
+class ProductPriceHistoryViewset(AutoPrefetchViewSetMixin, viewsets.ReadOnlyModelViewSet):
+    serializer_class = ProductPriceHistoryFullSerializer
     queryset = ProductPriceHistory.objects.order_by("-created_at").all()
+    filterset_fields = ["product", "task", "parse_settings"]

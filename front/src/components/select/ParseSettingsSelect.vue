@@ -2,16 +2,15 @@
   <q-select
     v-model="model"
     :loading="loading"
-    :options="products || []"
-    label="Товары"
+    :options="items || []"
+    label="Настройки"
     options-dense
-    option-label="name"
+    option-label="domain"
     option-value="id"
     map-options
     outlined
-    multiple
-    use-chips
     use-input
+    emit-value
     v-bind="$attrs"
     style="max-width: 100%"
     @filter="onFilter"
@@ -19,14 +18,14 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, computed, onMounted, ref } from 'vue';
-import { useProductsStore } from "src/stores/products"
+import { computed, onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { promiseSetLoading } from 'src/Modules/StoreCrud';
+import { useTasksStore } from 'src/stores/tasks';
 
 const props = defineProps({
   modelValue: {
-    type: Array as PropType<number[]>,
+    type: Number,
     required: true,
     default: undefined,
   },
@@ -34,8 +33,8 @@ const props = defineProps({
 
 const $emit = defineEmits(['update:model-value'])
 
-const store = useProductsStore()
-const {products} = storeToRefs(store)
+const store = useTasksStore()
+const {parseSettings: items} = storeToRefs(store)
 
 const loading = ref(false)
 const search = ref("")
@@ -53,7 +52,7 @@ function loadData() {
   const payload = {
     search: search.value,
   }
-  const prom = store.loadProducts(payload)
+  const prom = store.loadParseSettings(payload)
   promiseSetLoading(prom, loading)
   return prom;
 }

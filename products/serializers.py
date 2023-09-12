@@ -13,6 +13,12 @@ class ProductSerializer(serializers.ModelSerializer):
         read_only_fields = ["author"]
 
 
+class ProductShortSerializer(ProductSerializer):
+    class Meta(ProductSerializer.Meta):
+        fields = ("id", "name")
+        exclude = None
+
+
 class CategorySerializer(serializers.ModelSerializer):
     author = ShortUserSerializer(read_only=True)
 
@@ -23,7 +29,9 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ProductPriceHistorySerializer(serializers.ModelSerializer):
-    author = ShortUserSerializer(read_only=True)
+    product = ProductShortSerializer()
+    # task = ParseTaskSerializer()
+    # parse_settings = SiteParseSettingsSerializer()
 
     class Meta:
         model = ProductPriceHistory

@@ -75,7 +75,7 @@
             </slot>
 
 
-            <div class="q-gutter-y-md">
+            <div class="q-gutter-y-md q-mt-md">
               <slot name="filters" />
             </div>
           </q-card-section>

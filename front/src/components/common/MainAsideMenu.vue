@@ -39,6 +39,19 @@
         Задачи
       </q-item-section>
     </q-item>
+    <q-item
+      clickable
+      :to="{name: 'user_prices'}"
+    >
+      <q-item-section avatar>
+        <q-icon
+          name="currency_ruble"
+        />
+      </q-item-section>
+      <q-item-section>
+        Цены товаров
+      </q-item-section>
+    </q-item>
   </template>
 
   <template v-if="userRole == TUserRole.admin">
