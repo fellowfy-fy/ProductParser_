@@ -36,19 +36,26 @@
           dense
           clearable
         />
+        <category-select
+          v-model="filters.categories"
+          :preload="false"
+          dense
+          clearable
+        />
       </template>
     </fast-table>
   </q-page>
 </template>
 
 <script setup lang="ts">
+import CategorySelect from '../../components/select/CategorySelect.vue'
 import UserSelect from '../../components/select/UserSelect.vue'
 import FastTable from '../../components/form/FastTable.vue'
 import ProductsImport from '../../components/products/ProductsImport.vue'
 import { computed, ref } from 'vue';
 import { useProductsStore } from 'src/stores/products';
 import { QTableProps } from 'quasar';
-import { Product } from "src/client"
+import { Product, CategoryShort } from "src/client"
 import {formatDateTime} from 'src/Modules/Utils'
 import { useRouter } from 'vue-router';
 
@@ -72,6 +79,17 @@ const tableColumns = [
     field: 'name',
     align: 'left',
     sortable: true,
+  },
+  {
+    name: 'categories',
+    label: 'Категории',
+    field: 'categories',
+    format(val: CategoryShort[]) {
+        return val.map((c) =>c.name).join(", ")
+    },
+    align: 'left',
+    sortable: true,
+    style: 'width:80px'
   },
   {
     name: 'price',
@@ -98,6 +116,7 @@ const tableColumns = [
 
 const defaultFilters = {
   author: null as number[] | null,
+  categories: null as number[] | null,
 }
 
 const filters = ref(defaultFilters)

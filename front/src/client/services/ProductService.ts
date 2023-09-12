@@ -18,12 +18,14 @@ export class ProductService {
      */
     public static productList({
 author,
+categories,
 ordering,
 page,
 pageSize,
 search,
 }: {
 author?: number,
+categories?: Array<number>,
 /**
  * Which field to use when ordering the results.
  */
@@ -46,6 +48,7 @@ search?: string,
             url: '/api/v1/product/',
             query: {
                 'author': author,
+                'categories': categories,
                 'ordering': ordering,
                 'page': page,
                 'page_size': pageSize,

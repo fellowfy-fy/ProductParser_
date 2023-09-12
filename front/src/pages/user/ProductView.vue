@@ -132,6 +132,7 @@ function loadData() {
 function saveData() {
   const exists = isExists.value
   const payload = Object.assign({}, item.value)
+  payload.categories_write = payload.categories?.map(p => p.id) || []
 
   const prom = exists ? store.updateProduct(payload.id, payload) : store.createProduct(payload)
 

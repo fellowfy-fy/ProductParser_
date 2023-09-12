@@ -22,7 +22,7 @@ class ProductViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     queryset = Product.objects.order_by("-created_at").all()
     search_fields = ["name", "synonyms"]
-    filterset_fields = ["author"]
+    filterset_fields = ["author", "categories"]
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)

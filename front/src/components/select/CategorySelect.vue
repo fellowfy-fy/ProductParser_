@@ -2,38 +2,46 @@
   <q-select
     v-model="model"
     :loading="loading"
-    :options="categories"
+    :options="items || []"
+    label="Категория"
     options-dense
     option-label="name"
     option-value="id"
     map-options
     outlined
-    multiple
-    use-chips
+    use-input
+    emit-value
     v-bind="$attrs"
+    style="max-width: 100%"
+    @filter="onFilter"
   />
 </template>
 
 <script setup lang="ts">
-import { PropType, computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useProductsStore } from "src/stores/products"
 import { storeToRefs } from 'pinia';
 import { promiseSetLoading } from 'src/Modules/StoreCrud';
 
 const props = defineProps({
   modelValue: {
-    type: Array as PropType<number[]>,
+    type: Number,
     required: true,
     default: undefined,
   },
+  preload: {
+    type: Boolean,
+    default: false,
+  }
 })
 
 const $emit = defineEmits(['update:model-value'])
 
 const store = useProductsStore()
-const {categories} = storeToRefs(store)
+const {categories: items} = storeToRefs(store)
 
 const loading = ref(false)
+const search = ref("")
 
 const model = computed({
   get(){
@@ -46,12 +54,24 @@ const model = computed({
 
 function loadData() {
   const payload = {
-    pageSize: 1000
+    search: search.value,
   }
   const prom = store.loadCategories(payload)
   promiseSetLoading(prom, loading)
+  return prom;
 }
 
-onMounted(() => loadData())
+function onFilter(value: string, update: CallableFunction){
+  search.value = value
+  update(() => {
+    void loadData()
+  })
+}
+
+onMounted(() => {
+  if (props.preload){
+    void loadData()
+  }
+})
 
 </script>

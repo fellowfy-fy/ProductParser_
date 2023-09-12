@@ -9,6 +9,7 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 export type { AuthToken } from './models/AuthToken';
 export type { CachedLog } from './models/CachedLog';
 export type { Category } from './models/Category';
+export type { CategoryShort } from './models/CategoryShort';
 export type { CustomUser } from './models/CustomUser';
 export type { GlobalPreference } from './models/GlobalPreference';
 export { MonitoringTypeEnum } from './models/MonitoringTypeEnum';
