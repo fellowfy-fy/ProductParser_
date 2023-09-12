@@ -25,8 +25,12 @@
       @row-click="onRowClick"
     >
       <template #body-cell-status="props">
-        <q-td>
-          <task-status-badge :status="props.value" />
+        <q-td
+          :props="props"
+        >
+          <task-status-badge
+            :status="props.value"
+          />
         </q-td>
       </template>
     </fast-table>
@@ -75,6 +79,7 @@ const tableColumns = [
     //     return TaskStatus.get(val) || val
     // },
     sortable: true,
+    style: 'width:100px'
   },
   {
     name: 'author',
@@ -85,6 +90,7 @@ const tableColumns = [
         return userReadable(val)
     },
     sortable: true,
+    style: 'width:100px'
   },
   {
     name: 'created_at',
@@ -95,7 +101,17 @@ const tableColumns = [
     },
     sortable: true,
     style: 'width:100px'
-  }
+  },
+  {
+    name: 'last_run_at',
+    label: 'Последний запуск',
+    field: 'last_run_at',
+    format(val: string | null){
+      return val ? formatDateTime(val) : "-"
+    },
+    sortable: true,
+    style: 'width:100px'
+  },
 ] as QTableProps["columns"]
 
 function loadData(payload: object){

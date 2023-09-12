@@ -13,13 +13,13 @@ class ParserTaskAdmin(admin.ModelAdmin):
         "work_mode",
         "is_urls_valid",
         "created_at",
-        "updated_at",
+        "last_run_at",
     )
     list_filter = ("status", "author", "period")
     # raw_id_fields = ("products",)
     filter_horizontal = ("products",)
     search_fields = ("urls", "name")
-    readonly_fields = ("created_at", "updated_at", "invalid_urls")
+    readonly_fields = ("created_at", "updated_at", "last_run_at", "invalid_urls")
 
 
 @admin.register(SiteParseSettings)

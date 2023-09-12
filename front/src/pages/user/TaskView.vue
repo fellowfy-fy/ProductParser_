@@ -326,6 +326,11 @@ const infoData = computed(() => {
       name: "updated_at",
       value: formatDateTime(i.updated_at),
     },
+    {
+      label: "Дата последнего запуска",
+      name: "last_run_at",
+      value: i.last_run_at ? formatDateTime(i.last_run_at) : '-',
+    },
   ]
 })
 

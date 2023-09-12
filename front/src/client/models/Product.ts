@@ -7,7 +7,7 @@ import type { ShortUser } from './ShortUser';
 
 export type Product = {
     readonly id: number;
-    categories: Array<CategoryShort>;
+    readonly categories: Array<CategoryShort>;
     categories_write: Array<number>;
     readonly author: ShortUser;
     readonly created_at: string | null;

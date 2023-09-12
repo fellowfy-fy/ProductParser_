@@ -1,5 +1,6 @@
 import logging
 from dataclasses import dataclass
+from datetime import datetime
 from parser.models import (
     MonitoringModeChoices,
     ParseTask,
@@ -96,7 +97,8 @@ def process_task(task: ParseTask, callback: Callable | None = None, test: bool =
     res: list[ProcessResult | None] = []
 
     task.status = TaskStatusChoices.RUN
-    task.save(update_fields=["status"])
+    task.last_run_at = datetime.now()
+    task.save(update_fields=["status", "last_run_at"])
 
     if task.products.count() > 0 and task.monitoring_mode != MonitoringModeChoices.CATALOG:  # Products detect mode
 

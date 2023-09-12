@@ -84,6 +84,7 @@ class ParseTask(ComputedFieldsModel, models.Model):
 
     created_at = models.DateTimeField("Дата создания", auto_now_add=True, null=True)
     updated_at = models.DateTimeField("Дата редактирования", auto_now=True, null=True)
+    last_run_at = models.DateTimeField("Дата последнего запуск", null=True, editable=False)
 
     @computed(models.JSONField(null=True, blank=True), depends=[("self", ["urls"])])
     def invalid_urls(self):
