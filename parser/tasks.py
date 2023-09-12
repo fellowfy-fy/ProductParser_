@@ -56,7 +56,7 @@ def run_quarterly(task: TaskModel):
 
 @db_task(context=True)
 def run_now(task: TaskModel, parse_task: ParseTask, parent_task_id: int | None = None, test: bool = False):
-    process_info = ProcessInfo(task, desc="task-" + str(parse_task.pk), total=1, parent_task_id=parent_task_id)
+    process_info = ProcessInfo(task, desc="task-" + str(parse_task.pk), parent_task_id=parent_task_id)
 
     def callback(curr: int, total: int):
         if not process_info.total:
