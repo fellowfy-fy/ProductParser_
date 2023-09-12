@@ -80,7 +80,7 @@ export const useProductsStore = defineStore("products", {
     },
     createCategory(payload: Category): Promise<Category> {
       return storeShortcut({
-        promise: CategoryService.categoryCreate({ requestBody: payload }),
+        promise: CategoryService.categoryCreate({ formData: payload }),
         setValue: (resp: Category) => {
           this.category = resp
         },
@@ -88,7 +88,7 @@ export const useProductsStore = defineStore("products", {
     },
     updateCategory(id: number, payload: Category): Promise<Category> {
       return storeShortcut({
-        promise: CategoryService.categoryUpdate({ id, requestBody: payload }),
+        promise: CategoryService.categoryUpdate({ id, formData: payload }),
         setValue: (resp: Category) => {
           this.category = resp
         },
