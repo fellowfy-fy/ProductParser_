@@ -119,10 +119,10 @@ const defaultFilters = {
   categories: null as number[] | null,
 }
 
-const filters = ref(defaultFilters)
+const filters = ref(Object.assign({}, defaultFilters))
 
 function resetFilters(){
-  filters.value = defaultFilters
+  filters.value = Object.assign({}, defaultFilters)
 }
 
 function loadData(payload: object){

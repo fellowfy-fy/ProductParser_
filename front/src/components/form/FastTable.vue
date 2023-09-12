@@ -12,12 +12,44 @@
         flat
         bordered
         @request="onRequest"
+        v-bind="$attrs"
         @row-click="onRowClick"
       >
         <template
           v-if="enableSearch"
           #top-right
         >
+          <div class="row q-gutter-x-xs q-mr-sm">
+            <q-btn
+              v-if="isEnableFilters"
+              label="Фильтры"
+              class="btn-filters"
+              color="primary"
+              size="sm"
+              icon="filter_alt"
+              unelevated
+              dense
+              @click="showFilters = !showFilters"
+            >
+              <q-tooltip>
+                Открыть / закрыть панель фильтров
+              </q-tooltip>
+            </q-btn>
+            <q-btn
+              class="btn-reload"
+              color="primary"
+              size="sm"
+              icon="refresh"
+              unelevated
+              dense
+              :disable="isLoading"
+              @click="loadData()"
+            >
+              <q-tooltip>
+                Обновить данные в таблице
+              </q-tooltip>
+            </q-btn>
+          </div>
           <q-input
             v-model="search"
             borderless
@@ -29,17 +61,6 @@
               <q-icon name="search" />
             </template>
           </q-input>
-          <q-btn
-            v-if="isEnableFilters"
-            label="Фильтры"
-            class="q-ml-md btn-filters"
-            color="primary"
-            size="sm"
-            icon="filter_alt"
-            unelevated
-            dense
-            @click="showFilters = !showFilters"
-          />
         </template>
         <template
           v-for="(index, name) in $slots"
@@ -96,7 +117,7 @@
               size="sm"
               unelevated
               no-caps
-              @click="resetFilters"
+              @click="resetFilters()"
             />
           </q-card-actions>
         </q-card>
@@ -109,7 +130,7 @@
 import { useLocalStorage } from '@vueuse/core';
 import { QTableProps } from 'quasar';
 import { promiseSetLoading } from 'src/Modules/StoreCrud';
-import { PropType, Ref, computed, onMounted, ref, useSlots, watch } from 'vue';
+import { PropType, Ref, computed, nextTick, onMounted, ref, useSlots, watch } from 'vue';
 
 
 export type LoadFunction = (payload: object) => Promise<DRFResponse>
@@ -188,10 +209,13 @@ const payload = computed(() => {
 })
 
 function resetFilters(){
+  console.debug("Reset filters")
   emit('reset-filters')
+  void nextTick(() => loadData())
 }
 
 function onRowClick(e, data: object){
+  console.debug("Row click", {data})
   emit('row-click', e,data)
 }
 
