@@ -2,10 +2,14 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { CachedLog } from './CachedLog';
-import type { ProcessResult } from './ProcessResult';
+import type { ParseResult } from './ParseResult';
+import type { ParseTaskShort } from './ParseTaskShort';
+import type { ProductShort } from './ProductShort';
+import type { SiteParseSettingsShort } from './SiteParseSettingsShort';
 
 export type TestRunResultsData = {
-    logs: Array<CachedLog>;
-    data: Array<ProcessResult>;
+    parse_result: Array<ParseResult>;
+    task: ParseTaskShort;
+    settings: SiteParseSettingsShort;
+    product?: ProductShort;
 };

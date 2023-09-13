@@ -39,6 +39,14 @@
               </q-item-section>
             </q-item>
             <q-item
+              href="https://chrome.google.com/webstore/detail/selectorgadget/mhjhnkcfbdhnjickkkdbjoemdmbfginb/related"
+              target="blank"
+            >
+              <q-item-section>
+                Selector Gadget (расширение для поиска CSS selector)
+              </q-item-section>
+            </q-item>
+            <q-item
               href="https://support.smartbear.com/alertsite/docs/monitors/api/endpoint/jsonpath.html"
               target="blank"
             >
@@ -61,7 +69,7 @@
         </h6>
         <span class="text-subtitle1 text-center text-grey q-pt-xs q-mb-sm">(доступны во всех текстовых полях)</span>
         <div>
-        <variables-task />
+          <variables-task />
         </div>
       </template>
 
@@ -82,6 +90,7 @@
         v-model="item.parse_mode"
         label="Тип данных *"
         :rules="[ruleRequired]"
+        :disable="item.use_selenium"
         hide-bottom-space
         :options="optionsParseMethod"
         options-dense
@@ -94,6 +103,7 @@
         v-model="item.request_method"
         label="HTTP метод *"
         :rules="[ruleRequired]"
+        :disable="item.use_selenium"
         hide-bottom-space
         :options="optionsRequestMethod"
         options-dense
@@ -132,6 +142,18 @@
           </label>
         </q-tooltip>
       </q-toggle>
+      <q-toggle
+        v-model="item.use_selenium"
+        label="Использовать драйвер Selenium"
+      >
+        <q-tooltip>
+          <label>
+            Использовать драйвер Selenium эмулирующий браузер Chrome.<br>
+            Помогает в обходе блокировок, если требуется загрузка скриптов.<br>
+            Если включено, нельзя использовать многие параметры запроса.
+          </label>
+        </q-tooltip>
+      </q-toggle>
 
       <q-expansion-item
         label="Дополнительные параметры"
@@ -141,6 +163,7 @@
           <q-input
             v-model="item.request_headers"
             :rules="[ruleValidJSON]"
+            :disable="item.use_selenium"
             type="textarea"
             label="Заголовки запроса"
             outlined
@@ -148,6 +171,7 @@
           <q-input
             v-model="item.request_data"
             :rules="[ruleValidJSON]"
+            :disable="item.use_selenium"
             type="textarea"
             label="Данные запроса (POST body)"
             outlined

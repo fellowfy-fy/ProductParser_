@@ -41,14 +41,14 @@
 
 <script setup lang="ts">
 import { copyToClipboard } from 'quasar';
-import { CachedLog } from 'src/client';
+import { TestRunResultsLog } from 'src/client';
 import { formatDateTimeSeconds } from 'src/Modules/Utils';
 import { PropType } from 'vue';
 
 
 defineProps({
   data: {
-    type: Array as PropType<Array<CachedLog>>,
+    type: Array as PropType<TestRunResultsLog[]>,
       required: true,
   }
 })

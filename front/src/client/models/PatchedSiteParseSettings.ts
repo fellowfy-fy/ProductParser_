@@ -16,5 +16,6 @@ export type PatchedSiteParseSettings = {
     path_title?: string;
     path_price?: string;
     force_parser_url?: boolean;
+    use_selenium?: boolean;
     readonly domain?: string | null;
 };

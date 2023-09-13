@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"
-import { PaginatedParseTaskList, PaginatedSiteParseSettingsList, ParseSettingsService, ParseTask, ParseTaskService, SiteParseSettings, StatusEnum, TestRunResultsData } from "src/client"
+import { PaginatedParseTaskList, PaginatedSiteParseSettingsList, ParseSettingsService, ParseTask, ParseTaskService, SiteParseSettings, StatusEnum, TestRunResults } from "src/client"
 import { storeShortcut } from "src/Modules/StoreCrud"
 
 export const useTasksStore = defineStore("tasks", {
@@ -8,7 +8,7 @@ export const useTasksStore = defineStore("tasks", {
     parseTasks: null as ParseTask[] | null,
     parseSetting: null as SiteParseSettings | null,
     parseSettings: null as SiteParseSettings[] | null,
-    parseTaskTest: null as TestRunResultsData | null,
+    parseTaskTest: null as TestRunResults | null,
   }),
 
   getters: {},
@@ -33,7 +33,7 @@ export const useTasksStore = defineStore("tasks", {
     runTestParseTask(id: number, test: boolean | undefined = undefined): Promise<ParseTask> {
       return storeShortcut({
         promise: ParseTaskService.parseTaskTestCreate({ id, test: test }),
-        setValue: (resp: TestRunResultsData) => {
+        setValue: (resp: TestRunResults) => {
           this.parseTaskTest = resp
         },
       })

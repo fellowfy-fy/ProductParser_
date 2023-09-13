@@ -1,18 +1,12 @@
 import logging
-from dataclasses import dataclass
 from parser.models import ParseTask, SiteParseSettings
+from parser.services.types import ParseResult
 from parser.services.utils import extract_number
 
 from jsonpath_ng import parse
 from lxml import html
 
 log = logging.getLogger(__name__)
-
-
-@dataclass
-class ParseResult:
-    title: str
-    price: float
 
 
 def process_css(settings: SiteParseSettings, res: str, task: ParseTask, multiple: bool = False):

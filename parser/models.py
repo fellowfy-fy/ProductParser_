@@ -143,6 +143,7 @@ class SiteParseSettings(ComputedFieldsModel, models.Model):
     # Path value can be either jsonpath or css expression depending on parse mode
     # Path supports variables
     force_parser_url = models.BooleanField("Принудительно использовать URL парсера", default=False)
+    use_selenium = models.BooleanField("Использовать Selenium", default=False)
 
     @computed(models.CharField(max_length=100, null=True), depends=[("self", ["url"])])
     def domain(self):

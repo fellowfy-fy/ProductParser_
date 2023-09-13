@@ -2,9 +2,9 @@
   <q-page padding>
     <back-btn />
 
-    <!-- <h4 class="q-my-sm q-mb-xl">
-      {{ product?.name }}
-    </h4> -->
+    <h6 class="q-my-sm">
+      Задача <b>{{ parseTask?.name }}</b>
+    </h6>
     <div class="q-my-md">
       <q-btn
         label="Запустить тест"
@@ -76,7 +76,7 @@ const route = useRoute()
 
 const store = useTasksStore()
 
-const { parseTaskTest: item } = storeToRefs(store)
+const { parseTaskTest: item, parseTask } = storeToRefs(store)
 const loading = ref(false)
 const testing = ref(false)
 

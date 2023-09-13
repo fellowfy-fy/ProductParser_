@@ -1,14 +1,10 @@
-from dataclasses import dataclass
 from parser.models import MonitoringTypeChoices, NotificationTargetChoices, ParseTask, SiteParseSettings
-from parser.services.log import CachedLog
-from parser.services.parse import ProcessResult
 
 from rest_framework import fields, serializers
-from rest_framework_dataclasses.serializers import DataclassSerializer
 
 from accounts.serializers import ShortUserSerializer
 from products.models import Product
-from products.serializers import ProductSerializer
+from products.serializers import ProductSerializer, ProductShortSerializer
 
 
 class SiteParseSettingsSerializer(serializers.ModelSerializer):
@@ -46,12 +42,25 @@ class SiteParseSettingsShortSerializer(SiteParseSettingsSerializer):
         exclude = None
 
 
-@dataclass
-class TestRunResultsData:
-    logs: list[CachedLog]
-    data: list[ProcessResult]
+class ParseResultSerializer(serializers.Serializer):
+    title = serializers.CharField()
+    price = serializers.FloatField()
 
 
-class TestRunResultsSerializer(DataclassSerializer):
-    class Meta:
-        dataclass = TestRunResultsData
+class TestRunResultsDataSerializer(serializers.Serializer):
+    parse_result = ParseResultSerializer(many=True)
+    task = ParseTaskShortSerializer()
+    settings = SiteParseSettingsShortSerializer()
+    product = ProductShortSerializer(required=False)
+
+
+class TestRunResultsLogSerializer(serializers.Serializer):
+    level = serializers.CharField()
+    message = serializers.CharField()
+    time = serializers.CharField()
+    exception = serializers.CharField(required=False)
+
+
+class TestRunResultsSerializer(serializers.Serializer):
+    data = TestRunResultsDataSerializer(many=True)
+    logs = TestRunResultsLogSerializer(many=True)

@@ -28,6 +28,8 @@ django-dynamic-preferences = "*"
 daphne = "*"
 openpyxl = "*"
 cachetools = "*"
+selenium = "*"
+selenium-driver-updater = "*"
 
 [dev-packages]
 pytest = "*"

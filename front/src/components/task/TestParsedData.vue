@@ -15,15 +15,15 @@
         v-for="(items) of data"
       >
         <tr
-          v-for="item of items.parse_result"
-          :key="item"
+          v-for="(item, idx) of items.parse_result"
+          :key="idx"
         >
           <td>
             {{ item.title }}
             <q-tooltip>
-              ID Настроек парсера: {{ items.settings }}
+              Настройки парсера : {{ items.settings.domain }} (#{{ items.settings.id }})
               <br>
-              ID задачи: {{ items.task }}
+              Задача: {{ items.task.name }} (#{{ items.task.id }})
             </q-tooltip>
           </td>
           <td>
@@ -36,13 +36,13 @@
 </template>
 
 <script setup lang="ts">
-import { ProcessResult } from 'src/client';
+import { TestRunResultsData } from 'src/client';
 import { PropType } from 'vue';
 
 
 defineProps({
   data: {
-    type: Array as PropType<ProcessResult[]>,
+    type: Array as PropType<TestRunResultsData[]>,
       required: true,
   }
 })

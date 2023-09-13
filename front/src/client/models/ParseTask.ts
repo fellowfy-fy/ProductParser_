@@ -28,6 +28,6 @@ export type ParseTask = {
     notifications_enable?: boolean;
     readonly created_at: string | null;
     readonly updated_at: string | null;
-    last_run_at?: string | null;
+    readonly last_run_at: string | null;
     readonly invalid_urls: Record<string, any> | null;
 };

@@ -1,28 +1,54 @@
 import logging
-from dataclasses import dataclass
 from datetime import datetime
 from parser.models import (
     MonitoringModeChoices,
     ParseTask,
-    SiteParseSettings,
     TaskStatusChoices,
 )
-from parser.services.request import send_request
-from parser.services.response import ParseResult, parse_result
+from parser.services.request.base import BaseRequestHandler
+from parser.services.request.httpx import HttpxRequesthandler
+from parser.services.request.selenium import SeleniumRequesthandler
+from parser.services.response import parse_result
+from parser.services.types import ProcessResult
 from parser.services.utils import detect_url_settings, extract_urls, process_variables
-from typing import Callable
+from typing import Callable, Type
 
 from products.models import Product, ProductPriceHistory
 
 log = logging.getLogger(__name__)
 
 
-@dataclass
-class ProcessResult:
-    parse_result: list[ParseResult]
-    settings: SiteParseSettings
+class CacheRequestHandlers:
+    cache: dict[str, BaseRequestHandler] = dict()
     task: ParseTask
-    product: Product | None = None
+    log: logging.Logger
+
+    def __init__(self, task: ParseTask) -> None:
+        self.cache = dict()
+        self.task = task
+        self.log = logging.getLogger("CacheHandler")
+
+    def get_cache(self, key: str, cls_name: Type[BaseRequestHandler]):
+        if res := self.cache.get(key):
+            self.log.debug(f"Get from cache: {cls_name.__name__}")
+            return res
+
+        self.log.debug(f"Set cache: {cls_name.__name__}")
+        res = cls_name(self.task)
+        self.cache[key] = res
+        return res
+
+    def get_httpx_handler(self):
+        return self.get_cache("httpx", HttpxRequesthandler)
+
+    def get_selenium_handler(self):
+        return self.get_cache("selenium", SeleniumRequesthandler)
+
+    def teardown(self):
+        for name, instance in self.cache.items():
+            self.log.debug(f"Cache teardown: {instance.__class__.__name__}")
+            instance.teardown()
+        self.cache.clear()
 
 
 def process_parse_result(task: ParseTask, res: ProcessResult):
@@ -58,7 +84,9 @@ def process_parse_results(task: ParseTask, res: list[ProcessResult | None]):
             process_parse_result(task, item_res)
 
 
-def process_task_url(task: ParseTask, url: str, product: Product | None = None) -> ProcessResult | None:
+def process_task_url(
+    task: ParseTask, url: str, handler_cache: CacheRequestHandlers, product: Product | None = None
+) -> ProcessResult | None:
     """Process single task url"""
     settings = detect_url_settings(url)
     if not settings:
@@ -70,7 +98,13 @@ def process_task_url(task: ParseTask, url: str, product: Product | None = None) 
     full_url = process_variables(settings, request_url, product=product)
 
     task.log.debug(f"Sending task request {full_url}...")
-    response = send_request(settings, url=full_url)
+
+    if settings.use_selenium:
+        handler = handler_cache.get_selenium_handler()
+    else:
+        handler = handler_cache.get_httpx_handler()
+
+    response = handler.send_request(settings, full_url)
 
     task.log.debug(f"Raw response: {response}")
     result = parse_result(settings, response, task)
@@ -100,22 +134,27 @@ def process_task(task: ParseTask, callback: Callable | None = None, test: bool =
     task.last_run_at = datetime.now()
     task.save(update_fields=["status", "last_run_at"])
 
+    handler_cache = CacheRequestHandlers(task)
+
+    # -- Process task
     if task.products.count() > 0 and task.monitoring_mode != MonitoringModeChoices.CATALOG:  # Products detect mode
 
         all_products = task.products.all()
         for url in urls:
             task.log.info(f"Processing products list: {len(all_products)} ({url})...")
             for i, product in enumerate(all_products):
-                res.append(process_task_url(task, url, product=product))
+                res.append(process_task_url(task, url, product=product, handler_cache=handler_cache))
                 if callback:
                     callback(i, len(all_products))
 
     else:
         task.log.info(f"Processing URLS list ({len(urls)})...")
         for i, url in enumerate(urls):
-            res.append(process_task_url(task, url))
+            res.append(process_task_url(task, url, handler_cache=handler_cache))
             if callback:
                 callback(i, len(urls))
+
+    # -- Task finished
 
     if not test:
         process_parse_results(task, res)

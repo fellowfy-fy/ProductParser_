@@ -345,6 +345,7 @@ const defaultData = {
   notifications_enable: false,
   notifications_target: [],
   invalid_urls: [],
+  use_selenium: false,
 }
 
 

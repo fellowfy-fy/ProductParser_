@@ -19,6 +19,7 @@ media
 coverage.xml
 .coverage
 !front/*.json
+drivers
 # migrations
 # migrations/*
 

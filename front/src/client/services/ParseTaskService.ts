@@ -5,7 +5,7 @@ import type { PaginatedParseTaskList } from '../models/PaginatedParseTaskList';
 import type { ParseTask } from '../models/ParseTask';
 import type { PatchedParseTask } from '../models/PatchedParseTask';
 import type { TaskChangeStatus } from '../models/TaskChangeStatus';
-import type { TestRunResultsData } from '../models/TestRunResultsData';
+import type { TestRunResults } from '../models/TestRunResults';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -202,7 +202,7 @@ requestBody: TaskChangeStatus,
     }
 
     /**
-     * @returns TestRunResultsData 
+     * @returns TestRunResults 
      * @throws ApiError
      */
     public static parseTaskTestCreate({
@@ -214,7 +214,7 @@ test,
  */
 id: number,
 test?: boolean,
-}): CancelablePromise<TestRunResultsData> {
+}): CancelablePromise<TestRunResults> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/v1/parse_task/{id}/test/',

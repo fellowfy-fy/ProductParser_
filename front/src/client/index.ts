@@ -7,7 +7,6 @@ export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { AuthToken } from './models/AuthToken';
-export type { CachedLog } from './models/CachedLog';
 export type { Category } from './models/Category';
 export type { CategoryShort } from './models/CategoryShort';
 export type { CustomUser } from './models/CustomUser';
@@ -32,7 +31,6 @@ export type { PatchedParseTask } from './models/PatchedParseTask';
 export type { PatchedProduct } from './models/PatchedProduct';
 export type { PatchedSiteParseSettings } from './models/PatchedSiteParseSettings';
 export { PeriodEnum } from './models/PeriodEnum';
-export type { ProcessResult } from './models/ProcessResult';
 export type { Product } from './models/Product';
 export type { ProductPriceHistoryFull } from './models/ProductPriceHistoryFull';
 export type { ProductShort } from './models/ProductShort';
@@ -44,7 +42,9 @@ export { StatusEnum } from './models/StatusEnum';
 export type { StatusOk } from './models/StatusOk';
 export type { StatusOkCount } from './models/StatusOkCount';
 export type { TaskChangeStatus } from './models/TaskChangeStatus';
+export type { TestRunResults } from './models/TestRunResults';
 export type { TestRunResultsData } from './models/TestRunResultsData';
+export type { TestRunResultsLog } from './models/TestRunResultsLog';
 export type { UserSetPassword } from './models/UserSetPassword';
 export { WorkModeEnum } from './models/WorkModeEnum';
 
