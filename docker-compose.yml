@@ -12,7 +12,6 @@ services:
         limits:
           memory: 100M
 
-
   web:
     build:
       context: .
@@ -25,6 +24,8 @@ services:
       - .:/app
       - ./exports:/app/exports
     restart: unless-stopped # unless-stopped on-failure
+    links:
+      - chrome
     deploy:
       resources:
         reservations:
@@ -72,5 +73,13 @@ services:
           memory: 50M
         # limits:
         #   memory: 200M
+
+  chrome:
+    image: selenium/standalone-chrome
+    restart: on-failure
+    ports:
+      - '4445:4444'
+    shm_size: '2gb'
+
 volumes:
   redis_data:
