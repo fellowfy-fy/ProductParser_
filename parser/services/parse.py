@@ -137,22 +137,27 @@ def process_task(task: ParseTask, callback: Callable | None = None, test: bool =
     handler_cache = CacheRequestHandlers(task)
 
     # -- Process task
-    if task.products.count() > 0 and task.monitoring_mode != MonitoringModeChoices.CATALOG:  # Products detect mode
+    try:
+        if task.products.count() > 0 and task.monitoring_mode != MonitoringModeChoices.CATALOG:  # Products detect mode
 
-        all_products = task.products.all()
-        for url in urls:
-            task.log.info(f"Processing products list: {len(all_products)} ({url})...")
-            for i, product in enumerate(all_products):
-                res.append(process_task_url(task, url, product=product, handler_cache=handler_cache))
+            all_products = task.products.all()
+            for url in urls:
+                task.log.info(f"Processing products list: {len(all_products)} ({url})...")
+                for i, product in enumerate(all_products):
+                    res.append(process_task_url(task, url, product=product, handler_cache=handler_cache))
+                    if callback:
+                        callback(i, len(all_products))
+
+        else:
+            task.log.info(f"Processing URLS list ({len(urls)})...")
+            for i, url in enumerate(urls):
+                res.append(process_task_url(task, url, handler_cache=handler_cache))
                 if callback:
-                    callback(i, len(all_products))
-
-    else:
-        task.log.info(f"Processing URLS list ({len(urls)})...")
-        for i, url in enumerate(urls):
-            res.append(process_task_url(task, url, handler_cache=handler_cache))
-            if callback:
-                callback(i, len(urls))
+                    callback(i, len(urls))
+    except Exception as exc:
+        task.log.error("Task processing error", exc_info=exc)
+    finally:
+        handler_cache.teardown()
 
     # -- Task finished
 
@@ -161,7 +166,11 @@ def process_task(task: ParseTask, callback: Callable | None = None, test: bool =
     else:
         task.log.debug("Test flag set, products not saved.")
 
-    if task.status == TaskStatusChoices.RUN:
+    errors_count = task.log.level_count("error") + task.log.level_count("critical")
+    if errors_count > 0:
+        task.status = TaskStatusChoices.ERROR
+        task.save(update_fields=["status"])
+    elif task.status == TaskStatusChoices.RUN:
         task.status = TaskStatusChoices.PAUSED
         task.save(update_fields=["status"])
 

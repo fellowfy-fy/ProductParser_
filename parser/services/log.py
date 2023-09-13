@@ -35,6 +35,9 @@ class CacheLogger:
     def clear(self):
         self.logs.clear()
 
+    def level_count(self, level: str):
+        return len(list(filter(lambda x: x.level == level, self.logs)))
+
     debug = partialmethod(log, "debug")
     info = partialmethod(log, "info")
     warning = partialmethod(log, "warning")
