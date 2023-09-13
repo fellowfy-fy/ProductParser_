@@ -24,13 +24,13 @@ class BaseRequestHandler:
 
     def _get_request_data(self, settings: SiteParseSettings):
         """Get request data"""
-        if settings.request_data:
+        if settings.request_data and isinstance(settings.request_data, dict):
             return settings.request_data
         return {}
 
     def _get_request_headers(self, settings: SiteParseSettings):
         """Get request headers"""
-        if settings.request_headers:
+        if settings.request_headers and isinstance(settings.request_headers, dict):
             return settings.request_headers
         return {}
 
