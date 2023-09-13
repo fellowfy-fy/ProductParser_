@@ -25,11 +25,12 @@ cssselect = "*"
 django-auto-prefetching = "*"
 djangorestframework-dataclasses = "*"
 django-dynamic-preferences = "*"
-daphne = "*"
 openpyxl = "*"
 cachetools = "*"
 selenium = "*"
 selenium-driver-updater = "*"
+daphne = "*"
+cffi = "*"
 
 [dev-packages]
 pytest = "*"
