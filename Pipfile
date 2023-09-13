@@ -30,6 +30,7 @@ selenium-driver-updater = "*"
 daphne = "*"
 cffi = "*"
 packaging = "*"
+redis = "*"
 
 [dev-packages]
 pytest = "*"
