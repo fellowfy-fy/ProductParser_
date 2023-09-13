@@ -67,7 +67,7 @@ class SeleniumRequesthandler(BaseRequestHandler):
             self.log.info(f"Using remote selenium browser: {self.remote_chrome_addr}")
             options.debugger_address = self.remote_chrome_addr
         else:
-            if self.headless:
+            if self.headless and not self.remote_grid_addr:
                 options.add_argument("--headless=new")
                 options.add_argument("--disable-gpu")
 
@@ -96,17 +96,25 @@ class SeleniumRequesthandler(BaseRequestHandler):
         page_state = self.driver.execute_script("return document.readyState;")
         return page_state == "complete"
 
-    def send_request(self, settings: SiteParseSettings, url: str | None = None):
-        """Process single request"""
-        full_url = self._get_url(settings, url)
-
-        self.driver.get(full_url)
+    def wait_page_loaded(self):
         time.sleep(self.check_wait)
 
         for i in range(int(self.load_timeout / self.check_interval)):
             if self.page_has_loaded():
                 break
             time.sleep(self.check_interval)
+
+    def send_request(self, settings: SiteParseSettings, url: str | None = None):
+        """Process single request"""
+        formatted_url = self._get_url(settings, url)
+
+        if settings.url_before:
+            formatted_before_url = self._get_url(settings, settings.url_before)
+            self.driver.get(formatted_before_url)
+            self.wait_page_loaded()
+        #
+        self.driver.get(formatted_url)
+        self.wait_page_loaded()
 
         return self.driver.page_source
 

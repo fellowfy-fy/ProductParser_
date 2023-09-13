@@ -86,6 +86,12 @@
         outlined
         hint="Задачи с таким же адресом будут использовать этот парсер"
       />
+      <q-input
+        v-model="item.url_before"
+        label="Посетить URL перед задачей"
+        outlined
+        hint="Открыть этот URL перед переходом к URL задаче. Помогает в обходе защиты от ботов."
+      />
       <q-select
         v-model="item.parse_mode"
         label="Тип данных *"
