@@ -18,6 +18,8 @@ class SeleniumRequesthandler(BaseRequestHandler):
     check_wait: int = 5  # Wait before starting checks
     load_timeout: int = 30  # Page load timeout
     headless: bool = SELENIUM_HEADLESS
+    remote_chrome_addr: str | None = None  # Remote address
+    remote_grid_addr: str | None = None
 
     def __init__(self, task: ParseTask, headless: bool | None = None):
         super().__init__(task)
@@ -25,10 +27,19 @@ class SeleniumRequesthandler(BaseRequestHandler):
             self.headless = headless
 
     def _init(self):
+        if remote := SELENIUM_REMOTE:
+            if remote.startswith("http"):
+                self.remote_grid_addr = SELENIUM_REMOTE
+            else:
+                self.remote_chrome_addr = SELENIUM_REMOTE
+
         self._driver_init()
 
     def _driver_init(self):
         # base_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "drivers")
+        assert not (
+            self.remote_grid_addr and self.remote_chrome_addr
+        ), "Only one option of options remote_grid_addr / remote_chrome_addr should be used"
         self.log.info("Init selenium driver...")
 
         updater_kwargs = self._get_updated_kwargs()
@@ -37,18 +48,33 @@ class SeleniumRequesthandler(BaseRequestHandler):
         filename = DriverUpdater.install(path=base_dir, driver_name=DriverUpdater.chromedriver, **updater_kwargs)
         options = self._get_driver_options()
 
-        self.driver = webdriver.Chrome(service=webdriver.ChromeService(executable_path=filename), options=options)
+        if self.remote_grid_addr:
+            self.log.info(f"Using remote selenium grid: {self.remote_grid_addr}")
+            self.driver = webdriver.Remote(command_executor=self.remote_grid_addr, options=options)
+        else:
+            self.driver = webdriver.Chrome(service=webdriver.ChromeService(executable_path=filename), options=options)
+
+        self._driver_post_init()
+
+    def _driver_post_init(self):
+        # -- Anti-bot pos init
+        self.driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 
     def _get_driver_options(self):
         options = webdriver.ChromeOptions()
 
-        if SELENIUM_REMOTE:
-            self.log.info(f"Using remote selenium browser: {SELENIUM_REMOTE}")
-            options.debugger_address = SELENIUM_REMOTE
+        if self.remote_chrome_addr:
+            self.log.info(f"Using remote selenium browser: {self.remote_chrome_addr}")
+            options.debugger_address = self.remote_chrome_addr
         else:
             if self.headless:
                 options.add_argument("--headless=new")
                 options.add_argument("--disable-gpu")
+
+        # -- Anti-bot
+        options.add_argument("--disable-blink-features=AutomationControlled")
+        options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        options.add_experimental_option("useAutomationExtension", False)
 
         return options
 
