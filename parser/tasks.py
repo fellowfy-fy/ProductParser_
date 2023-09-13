@@ -1,7 +1,6 @@
 import logging
 from datetime import datetime
 from parser.models import ParseTask, TaskPeriodChoices, TaskStatusChoices
-from parser.services.parse import process_task
 from parser.services.xml_export import export_products
 
 from django.conf import settings
@@ -56,6 +55,8 @@ def run_quarterly(task: TaskModel):
 
 @db_task(context=True)
 def run_now(task: TaskModel, parse_task: ParseTask, parent_task_id: int | None = None, test: bool = False):
+    from parser.services.parse import process_task
+
     process_info = ProcessInfo(task, desc="task-" + str(parse_task.pk), parent_task_id=parent_task_id)
 
     def callback(curr: int, total: int):
@@ -69,7 +70,7 @@ def run_now(task: TaskModel, parse_task: ParseTask, parent_task_id: int | None =
     if not test and res:
         # extracted_products = [i.product for i in res if i.product]
         if "export" in parse_task.monitoring_type:
-            task_export_products(task.task_id, parse_task=parse_task)
+            task_export_products(task.pk, parse_task=parse_task)
 
     return {
         "logs": parse_task.log.logs,
