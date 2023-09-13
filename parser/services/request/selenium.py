@@ -31,20 +31,19 @@ class SeleniumRequesthandler(BaseRequestHandler):
         # base_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "drivers")
         self.log.info("Init selenium driver...")
 
-        if SELENIUM_REMOTE:
-            options = self._get_driver_options(remote=True)
-
         updater_kwargs = self._get_updated_kwargs()
 
         base_dir = "drivers"
         filename = DriverUpdater.install(path=base_dir, driver_name=DriverUpdater.chromedriver, **updater_kwargs)
-        options = self._get_driver_options(remote=False)
+        options = self._get_driver_options()
 
         self.driver = webdriver.Chrome(service=webdriver.ChromeService(executable_path=filename), options=options)
 
-    def _get_driver_options(self, remote: bool = False):
+    def _get_driver_options(self):
         options = webdriver.ChromeOptions()
-        if remote:
+
+        if SELENIUM_REMOTE:
+            self.log.info(f"Using remote selenium browser: {SELENIUM_REMOTE}")
             options.debugger_address = SELENIUM_REMOTE
         else:
             if self.headless:
