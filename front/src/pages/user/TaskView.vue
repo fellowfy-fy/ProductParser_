@@ -140,7 +140,10 @@
           />
         </div>
 
-        <export-list class="q-mt-md">
+        <export-list
+          class="q-mt-md"
+          cls="justify-around"
+        >
           <export-btn-current :preset="exportBtnPreset" />
           <export-btn-dynamics :preset="exportBtnPreset" />
         </export-list>
