@@ -25,6 +25,24 @@
           clearable
         />
       </template>
+      <template v-if="props.filterDateFrom">
+        <q-input
+          v-model="filters.date_from"
+          type="date"
+          dense
+          label="Дата отчета"
+          outlined
+        />
+      </template>
+      <template v-if="props.filterDateTo">
+        <q-input
+          v-model="filters.date_to"
+          type="date"
+          dense
+          label="Дата 'до' отчета"
+          outlined
+        />
+      </template>
 
       <div class="q-mt-md">
         <q-btn
@@ -120,7 +138,7 @@ function generateExport() {
     window.open(resp.path, '_blank');
     notifySuccess("Отчет успешно сгенерирован")
 
-    showModal.value = false;
+    // showModal.value = false;
   })
 
   prom.finally(() => {

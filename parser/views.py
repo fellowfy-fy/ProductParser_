@@ -1,5 +1,6 @@
 import logging
 import os
+from datetime import date
 from parser.models import ParseTask, SiteParseSettings, TaskStatusChoices
 from parser.serializers import (
     ExportEnum,
@@ -101,9 +102,9 @@ class ParseTaskViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
             params.filter_task = get_object_or_404(ParseTask, pk=val)
 
         if val := data["date_from"]:
-            params.date_from = val
+            params.date_from = date.fromisoformat(val)
         if val := data["date_to"]:
-            params.date_to = val
+            params.date_to = date.fromisoformat(val)
 
         bg_task = generate_export(params=params, type=ExportEnum.get(type))
         report_path = bg_task(blocking=True)

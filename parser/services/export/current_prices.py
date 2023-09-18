@@ -101,7 +101,7 @@ class ExcelExportCurrentPrices(BaseExcelExport):
                     values.append(last_price)
                     prices.append(last_price)
                 else:
-                    values.extend([None, None])
+                    values.extend([setting.url, None])
 
             ##
             values[2] = statistics.mean(prices) if prices else 0

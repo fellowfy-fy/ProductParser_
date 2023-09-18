@@ -3,7 +3,7 @@ from parser.services.export.current_prices import ExcelExportCurrentPrices
 
 
 class ExcelExportPriceDynamics(ExcelExportCurrentPrices):
-    name = "price_dynamics"
+    name = "prices_dynamics"
 
     def sheet_process(self) -> None:
         products, settings = self._get_products()
@@ -34,7 +34,7 @@ class ExcelExportPriceDynamics(ExcelExportCurrentPrices):
                         color = self.color_green
                     colors_curr.extend([None, color])
                 else:
-                    values.extend([None, None])
+                    values.extend([setting.url, None])
 
                 colors.extend(colors_curr)
 
