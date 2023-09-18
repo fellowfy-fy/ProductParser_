@@ -28,12 +28,12 @@ class ExcelExportCurrentPrices(BaseExcelExport):
         role = get_user_role(user)
 
         if filter_task := self.params.filter_task:
-            return Product.objects.filter(task=filter_task)
+            return Product.objects.filter(Q(task=filter_task) | Q(history__task=filter_task)).distinct()
 
         if role == RoleChoices.ADMIN:
             return Product.objects.all()
         elif role == RoleChoices.MANAGER:
-            return Product.objects.filter(Q(author=user) | Q(author__manager=user))
+            return Product.objects.filter(Q(author=user) | Q(author__manager=user)).distinct()
         return Product.objects.filter(author=user)
 
     def _get_products(self):

@@ -139,6 +139,11 @@
             no-caps
           />
         </div>
+
+        <export-list class="q-mt-md">
+          <export-btn-current :preset="exportBtnPreset" />
+          <export-btn-dynamics :preset="exportBtnPreset" />
+        </export-list>
       </template>
 
       <!-- Form -->
@@ -232,6 +237,9 @@
 </template>
 
 <script setup lang="ts">
+import ExportBtnDynamics from '../../components/export/ExportBtnDynamics.vue'
+import ExportBtnCurrent from '../../components/export/ExportBtnCurrent.vue'
+import ExportList from '../../components/export/ExportList.vue'
 import TaskStatusBadge from '../../components/task/TaskStatusBadge.vue'
 import KeyValueInfo from '../../components/form/KeyValueInfo.vue'
 import IsUrlsValid from '../../components/task/IsUrlsValid.vue'
@@ -332,6 +340,12 @@ const infoData = computed(() => {
       value: i.last_run_at ? formatDateTime(i.last_run_at) : '-',
     },
   ]
+})
+
+const exportBtnPreset = computed(() => {
+  return {
+    task: item.value?.id,
+  }
 })
 
 const defaultData = {

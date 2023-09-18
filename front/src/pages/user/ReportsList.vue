@@ -1,13 +1,14 @@
 <template>
   <q-page padding>
-    <div class="row column justify-start items-start q-gutter-y-md">
+    <export-list>
       <export-btn-current />
       <export-btn-dynamics />
-    </div>
+    </export-list>
   </q-page>
 </template>
 
 <script setup lang="ts">
+import ExportList from '../../components/export/ExportList.vue'
 import ExportBtnDynamics from '../../components/export/ExportBtnDynamics.vue'
 import ExportBtnCurrent from '../../components/export/ExportBtnCurrent.vue'
 
