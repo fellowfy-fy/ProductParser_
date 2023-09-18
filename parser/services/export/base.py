@@ -7,6 +7,7 @@ from time import time
 
 from django.conf import settings
 from openpyxl import Workbook
+from openpyxl.styles import Font
 from openpyxl.worksheet.worksheet import Worksheet
 
 from accounts.models import CustomUser
@@ -32,6 +33,8 @@ class BaseExcelExport:
     log: logging.Logger
 
     row_index: int = 0
+    color_green = "FF00FF00"
+    color_red = "FFFF0000"
 
     def __init__(self, params: ReportParams, log_level=logging.INFO) -> None:
         self.params = params
@@ -86,6 +89,16 @@ class BaseExcelExport:
 
     def insert_headers(self, values: list[str]):
         self.insert_row(values)
+
+    def last_row_colors(self, colors: list[str]):
+        row = self.sheet.max_row
+        for col_idx, color in enumerate(colors, start=1):
+            if not color:
+                continue
+            cell = self.sheet.cell(row, col_idx)
+
+            # cell.style.font.color.index = color
+            cell.font = Font(color=color)
 
     # def _get_template_path(self):
     #     return os.path.join(os.path.dirname(__file__), "excel_templates", f"report_{self.name}.xlsx")
