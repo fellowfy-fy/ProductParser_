@@ -30,6 +30,7 @@ class Product(WithDates, models.Model):
     author = models.ForeignKey(
         User, models.CASCADE, related_name="products", verbose_name="Автор задачи", null=True, blank=True
     )
+    history: models.QuerySet["ProductPriceHistory"]
 
     class Meta:
         verbose_name = "Товар"
