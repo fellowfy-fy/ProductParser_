@@ -142,6 +142,16 @@ const routes = [
           },
         ]
       },
+      {
+        path: "reports",
+        children: [
+          {
+            path: "",
+            component: () => import("pages/user/ReportsList.vue"),
+            name: "user_reports"
+          },
+        ]
+      },
     ],
   },
 

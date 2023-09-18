@@ -10,6 +10,8 @@ export type { AuthToken } from './models/AuthToken';
 export type { Category } from './models/Category';
 export type { CategoryShort } from './models/CategoryShort';
 export type { CustomUser } from './models/CustomUser';
+export type { ExportRequest } from './models/ExportRequest';
+export type { ExportResults } from './models/ExportResults';
 export type { GlobalPreference } from './models/GlobalPreference';
 export { MonitoringTypeEnum } from './models/MonitoringTypeEnum';
 export { NotificationsTargetEnum } from './models/NotificationsTargetEnum';
@@ -45,6 +47,7 @@ export type { TaskChangeStatus } from './models/TaskChangeStatus';
 export type { TestRunResults } from './models/TestRunResults';
 export type { TestRunResultsData } from './models/TestRunResultsData';
 export type { TestRunResultsLog } from './models/TestRunResultsLog';
+export { TypeEnum } from './models/TypeEnum';
 export type { UserSetPassword } from './models/UserSetPassword';
 export { WorkModeEnum } from './models/WorkModeEnum';
 

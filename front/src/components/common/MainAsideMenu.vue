@@ -52,6 +52,19 @@
         Цены товаров
       </q-item-section>
     </q-item>
+    <q-item
+      clickable
+      :to="{name: 'user_reports'}"
+    >
+      <q-item-section avatar>
+        <q-icon
+          name="download"
+        />
+      </q-item-section>
+      <q-item-section>
+        Отчеты
+      </q-item-section>
+    </q-item>
   </template>
 
   <template v-if="userRole == TUserRole.admin">

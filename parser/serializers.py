@@ -1,3 +1,4 @@
+from enum import Enum
 from parser.models import MonitoringTypeChoices, NotificationTargetChoices, ParseTask, SiteParseSettings
 
 from rest_framework import fields, serializers
@@ -5,6 +6,24 @@ from rest_framework import fields, serializers
 from accounts.serializers import ShortUserSerializer
 from products.models import Product
 from products.serializers import ProductSerializer, ProductShortSerializer
+
+
+class ExportEnum(Enum):
+    CURRENT = "current"
+    DYNAMICS = "dynamics"
+
+    @classmethod
+    def choices(cls):
+        r = []
+        for opt in cls:
+            r.append((opt.value, opt.name))
+        return r
+
+    @classmethod
+    def get(cls, name: str):
+        for opt in cls:
+            if opt.value == name:
+                return opt
 
 
 class SiteParseSettingsSerializer(serializers.ModelSerializer):
@@ -64,3 +83,16 @@ class TestRunResultsLogSerializer(serializers.Serializer):
 class TestRunResultsSerializer(serializers.Serializer):
     data = TestRunResultsDataSerializer(many=True)
     logs = TestRunResultsLogSerializer(many=True)
+
+
+class ExportRequestSerializer(serializers.Serializer):
+    task = serializers.IntegerField(required=False)
+    product = serializers.IntegerField(required=False)
+    date_from = serializers.DateField(required=False)
+    date_to = serializers.DateField(required=False)
+    type = serializers.ChoiceField(ExportEnum.choices())
+
+
+class ExportResultsSerializer(serializers.Serializer):
+    ok = serializers.BooleanField(default=True)
+    path = serializers.CharField()

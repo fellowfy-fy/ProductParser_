@@ -1,6 +1,10 @@
 import logging
 from datetime import datetime
 from parser.models import ParseTask, TaskPeriodChoices, TaskStatusChoices
+from parser.serializers import ExportEnum
+from parser.services.export.base import ReportParams
+from parser.services.export.current_prices import ExcelExportCurrentPrices
+from parser.services.export.dynamics import ExcelExportPriceDynamics
 from parser.services.xml_export import export_products
 
 from django.conf import settings
@@ -92,3 +96,20 @@ def task_send_email(email: str, title: str, template: str):
         recipient_list=[email],
         html_message=template,
     )
+
+
+@db_task(context=True)
+def generate_export(task: TaskModel, params: ReportParams, type: ExportEnum):
+    # process_info = ProcessInfo(task, desc="report-" + str(type.value))
+
+    cls_map = {
+        ExportEnum.CURRENT.value: ExcelExportCurrentPrices,
+        ExportEnum.DYNAMICS.value: ExcelExportPriceDynamics,
+    }
+    assert type.value in cls_map, f"Unknown export type '{type}'"
+    report_cls = cls_map[type.value]
+
+    log.info(f"Generating export with params: {params}")
+    report_instance = report_cls(params)
+    res = report_instance.export()
+    return res

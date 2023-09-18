@@ -1,6 +1,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ExportRequest } from '../models/ExportRequest';
+import type { ExportResults } from '../models/ExportResults';
 import type { PaginatedParseTaskList } from '../models/PaginatedParseTaskList';
 import type { ParseTask } from '../models/ParseTask';
 import type { PatchedParseTask } from '../models/PatchedParseTask';
@@ -224,6 +226,23 @@ test?: boolean,
             query: {
                 'test': test,
             },
+        });
+    }
+
+    /**
+     * @returns ExportResults 
+     * @throws ApiError
+     */
+    public static parseTaskExportCreate({
+requestBody,
+}: {
+requestBody: ExportRequest,
+}): CancelablePromise<ExportResults> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/parse_task/export/',
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 

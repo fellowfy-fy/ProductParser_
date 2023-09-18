@@ -17,7 +17,6 @@ from products.models import Product
 @dataclass
 class ReportParams:
     user: CustomUser
-    name: str | None = None  # Report name
 
     filter_task: ParseTask | None = None
     date_from: date | None = None

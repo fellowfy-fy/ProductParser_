@@ -1,10 +1,20 @@
 import logging
+import os
 from parser.models import ParseTask, SiteParseSettings, TaskStatusChoices
-from parser.serializers import ParseTaskSerializer, SiteParseSettingsSerializer, TestRunResultsSerializer
+from parser.serializers import (
+    ExportEnum,
+    ExportRequestSerializer,
+    ExportResultsSerializer,
+    ParseTaskSerializer,
+    SiteParseSettingsSerializer,
+    TestRunResultsSerializer,
+)
+from parser.services.export.base import ReportParams
 from parser.services.task_steps import change_task_status, check_task_steps
-from parser.tasks import run_now
+from parser.tasks import generate_export, run_now
 
 from computedfields.models import compute
+from django.conf import settings
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django_auto_prefetching import AutoPrefetchViewSetMixin
@@ -14,6 +24,7 @@ from rest_framework.response import Response
 
 from accounts.models import RoleChoices
 from accounts.utils import get_user_role
+from products.models import Product
 
 
 class ParseTaskViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
@@ -75,6 +86,40 @@ class ParseTaskViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
         logging.debug(f"Test task completed. Result ({type(res)}): {res}")
 
         return Response(TestRunResultsSerializer(res).data)
+
+    @extend_schema(request=ExportRequestSerializer, responses={200: ExportResultsSerializer})
+    @decorators.action(["POST"], detail=False)
+    def export(self, request, pk=None):
+        params = ReportParams(user=request.user)
+        data = request.data
+
+        type = data.get("type", ExportEnum.CURRENT.value)
+
+        if val := data["product"]:
+            params.filter_product = get_object_or_404(Product, pk=val)
+        if val := data["task"]:
+            params.filter_task = get_object_or_404(ParseTask, pk=val)
+
+        if val := data["date_from"]:
+            params.date_from = val
+        if val := data["date_to"]:
+            params.date_to = val
+
+        bg_task = generate_export(params=params, type=ExportEnum.get(type))
+        report_path = bg_task(blocking=True)
+
+        report_url = (
+            ("/" + settings.MEDIA_URL + "/" + os.path.relpath(report_path, settings.MEDIA_ROOT))
+            .replace("\\", r"/")
+            .replace("//", "/")
+        )
+
+        res = {
+            "ok": True,
+            "path": report_url,
+        }
+
+        return Response(ExportResultsSerializer(res).data)
 
 
 class SiteParseSettingsViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
