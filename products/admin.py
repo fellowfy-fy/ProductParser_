@@ -26,7 +26,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(ProductPriceHistory)
 class ProductPriceHistoryAdmin(admin.ModelAdmin):
-    list_display = ("product", "price", "created_at")
+    list_display = ("id", "product", "price", "created_at")
     list_filter = ("created_at",)
     autocomplete_fields = ("product",)
     readonly_fields = ("created_at",)

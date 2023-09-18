@@ -7,6 +7,7 @@ from time import time
 
 from django.conf import settings
 from openpyxl import Workbook
+from openpyxl.styles import Font
 from openpyxl.worksheet.worksheet import Worksheet
 
 from accounts.models import CustomUser
@@ -32,13 +33,15 @@ class BaseExcelExport:
     log: logging.Logger
 
     row_index: int = 0
+    color_green = "FF00FF00"
+    color_red = "FFFF0000"
 
     def __init__(self, params: ReportParams, log_level=logging.INFO) -> None:
         self.params = params
         self.log = logging.getLogger("Excel-" + self.name)
         self.log.setLevel(log_level)
 
-    def get_workbook(self):
+    def get_workbook(self) -> Workbook:
         workbook = Workbook()
         return workbook
 
@@ -49,23 +52,23 @@ class BaseExcelExport:
             os.makedirs(os.path.dirname(path), exist_ok=True)
         return path
 
-    def sheet_init(self):
+    def sheet_init(self) -> None:
         """Init excel worksheet"""
         self.book = self.get_workbook()
         # self.sheet = self.book.create_sheet("Отчет")
         self.sheet = self.book.active
 
-    def sheet_process(self):
+    def sheet_process(self) -> None:
         """Add data to excel worksheet"""
         raise NotImplementedError()
 
-    def sheet_save(self):
+    def sheet_save(self) -> str:
         """Save excel worksheet"""
         report_path = self.get_report_path()
         self.book.save(report_path)
         return report_path
 
-    def export(self):
+    def export(self) -> str:
         """Run export"""
         self.log.info(f"Starting excel export {self.name}...")
 
@@ -81,11 +84,21 @@ class BaseExcelExport:
         self.log.info(f"Finished excel export {self.name} by {time_left} secs. Report path: {report_path}.")
         return report_path
 
-    def insert_row(self, values: list[str]):
+    def insert_row(self, values: list[str]) -> None:
         self.sheet.append(values)
 
-    def insert_headers(self, values: list[str]):
+    def insert_headers(self, values: list[str]) -> None:
         self.insert_row(values)
+
+    def last_row_colors(self, colors: list[str | None]) -> None:
+        row = self.sheet.max_row
+        for col_idx, color in enumerate(colors, start=1):
+            if not color:
+                continue
+            cell = self.sheet.cell(row, col_idx)
+
+            # cell.style.font.color.index = color
+            cell.font = Font(color=color)
 
     # def _get_template_path(self):
     #     return os.path.join(os.path.dirname(__file__), "excel_templates", f"report_{self.name}.xlsx")
