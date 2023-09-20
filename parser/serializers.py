@@ -11,6 +11,9 @@ from products.serializers import ProductSerializer, ProductShortSerializer
 class ExportEnum(Enum):
     CURRENT = "current"
     DYNAMICS = "dynamics"
+    DIFFERENCES = "differences"
+    VARIATIONS = "variations"
+    COMPETITORS = "competitors"
 
     @classmethod
     def choices(cls):

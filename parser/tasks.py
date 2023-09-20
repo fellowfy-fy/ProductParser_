@@ -3,8 +3,11 @@ from datetime import datetime
 from parser.models import ParseTask, TaskPeriodChoices, TaskStatusChoices
 from parser.serializers import ExportEnum
 from parser.services.export.base import ReportParams
+from parser.services.export.competitors import ExcelExportCompetitors
 from parser.services.export.current_prices import ExcelExportCurrentPrices
+from parser.services.export.differences import ExcelExportDifferences
 from parser.services.export.dynamics import ExcelExportPriceDynamics
+from parser.services.export.variation import ExcelExportVariation
 from parser.services.xml_export import export_products
 
 from django.conf import settings
@@ -105,6 +108,9 @@ def generate_export(task: TaskModel, params: ReportParams, type: ExportEnum):
     cls_map = {
         ExportEnum.CURRENT.value: ExcelExportCurrentPrices,
         ExportEnum.DYNAMICS.value: ExcelExportPriceDynamics,
+        ExportEnum.DIFFERENCES.value: ExcelExportDifferences,
+        ExportEnum.VARIATIONS.value: ExcelExportVariation,
+        ExportEnum.COMPETITORS.value: ExcelExportCompetitors,
     }
     assert type.value in cls_map, f"Unknown export type '{type}'"
     report_cls = cls_map[type.value]
