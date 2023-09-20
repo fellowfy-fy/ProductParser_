@@ -1,7 +1,7 @@
 import logging
 import os
 from dataclasses import dataclass
-from datetime import date
+from datetime import date, datetime, timedelta
 from enum import Enum
 from parser.models import ParseTask
 from time import time
@@ -54,6 +54,30 @@ class BaseExcelExport:
         self.params = params
         self.log = logging.getLogger("Excel-" + self.name)
         self.log.setLevel(log_level)
+
+    def _get_dates(self):
+        """Get params dates or default"""
+        start_date = self.params.date_from
+        end_date = self.params.date_to
+        if not end_date:
+            end_date = datetime.today()
+        if not start_date:
+            start_date = datetime.today() - timedelta(days=15)
+
+        return start_date, end_date
+
+    def get_dates_list(self) -> list[date]:
+        """Get list of all dates in oarams range"""
+        start_date, end_date = self._get_dates()
+
+        delta = end_date - start_date
+        r = []
+
+        for i in range(delta.days + 1):
+            day = start_date + timedelta(days=i)
+            r.append(day.date())
+
+        return r
 
     def get_workbook(self) -> Workbook:
         workbook = Workbook()

@@ -1,6 +1,6 @@
 import locale
 import statistics
-from datetime import date, datetime, timedelta
+from datetime import date
 from parser.services.export.base import CellColor, CellValue
 from parser.services.export.current_prices import CellInfo, ExcelExportCurrentPrices
 
@@ -11,29 +11,6 @@ class ExcelExportDifferences(ExcelExportCurrentPrices):
     name = "prices_differences"
 
     base_headers: list[str] = []
-
-    def _get_dates(self):
-        """Get params dates or default"""
-        start_date = self.params.date_from
-        end_date = self.params.date_to
-        if not end_date:
-            end_date = datetime.today()
-        if not start_date:
-            start_date = datetime.today() - timedelta(days=15)
-
-        return start_date, end_date
-
-    def get_dates_list(self):
-        start_date, end_date = self._get_dates()
-
-        delta = end_date - start_date
-        r = []
-
-        for i in range(delta.days + 1):
-            day = start_date + timedelta(days=i)
-            r.append(day.date())
-
-        return r
 
     def process_headers(self, product: Product):
         locale.setlocale(locale.LC_TIME, "ru_RU")
@@ -101,7 +78,6 @@ class ExcelExportDifferences(ExcelExportCurrentPrices):
 
     def get_date_price(self, product: Product, settings, date: date) -> CellInfo:
         price = CellInfo()
-        start_date, end_date = self._get_dates()
 
         date_values = {}
         for item in product.history.all():
@@ -121,19 +97,3 @@ class ExcelExportDifferences(ExcelExportCurrentPrices):
                 price.value = date_values[max_date]
 
         return price
-
-    # def process_product_setting(self, product, setting) -> list[CellInfo]:
-    #     last_price = self.get_product_last_history_price(product, setting)
-    #     current_price = self.get_product_date_history_price(product, setting)
-    #     url, price = [CellInfo(setting.url), CellInfo(None)]
-    #     if last_price:
-    #         price.value = last_price
-
-    #     print("Price change: ", last_price, current_price)
-    #     if last_price and current_price:
-    #         if current_price > last_price:
-    #             price.color = CellColor.RED
-    #         elif current_price < last_price:
-    #             price.color = CellColor.GREEN
-
-    #     return [url, price]
