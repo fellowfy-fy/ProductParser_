@@ -1,6 +1,6 @@
 import statistics
 from parser.models import SiteParseSettings
-from parser.services.export.base import BaseExcelExport
+from parser.services.export.base import BaseExcelExport, CellInfo, CellValue
 
 from django.db.models import Q, QuerySet
 
@@ -82,27 +82,34 @@ class ExcelExportCurrentPrices(BaseExcelExport):
 
         return None
 
-    def sheet_process(self):
+    def sheet_process(self) -> None:
         products, settings = self._get_products()
         self.process_headers(settings)
 
         for product in products:
-            values = [
+            values: list[CellValue] = [
                 product.name,
                 product.price,
                 0,
             ]
             ##
             prices: list[int] = []
+
             for setting in settings:
-                last_price = self.get_product_last_history_price(product, setting)
-                if last_price:
-                    values.append(setting.url)
-                    values.append(last_price)
-                    prices.append(last_price)
-                else:
-                    values.extend([setting.url, None])
+                product_values = self.process_product_setting(product, setting)
+                price = product_values[1].value
+                if price is not None:
+                    prices.append(price)
+                values.extend(product_values)
 
             ##
             values[2] = statistics.mean(prices) if prices else 0
             self.insert_row(values)
+
+    def process_product_setting(self, product: Product, setting: SiteParseSettings) -> list[CellInfo]:
+        last_price = self.get_product_last_history_price(product, setting)
+        url, price = [CellInfo(setting.url), CellInfo(None)]
+        if last_price is not None:
+            price.value = last_price
+
+        return [url, price]

@@ -2,8 +2,10 @@ import logging
 import os
 from dataclasses import dataclass
 from datetime import date
+from enum import Enum
 from parser.models import ParseTask
 from time import time
+from typing import Sequence, TypeAlias
 
 from django.conf import settings
 from openpyxl import Workbook
@@ -24,6 +26,21 @@ class ReportParams:
     filter_product: Product | None = None  # Filter data by product
 
 
+class CellColor(Enum):
+    GREEN = "FF00FF00"
+    RED = "FFFF0000"
+
+
+@dataclass
+class CellInfo:
+    value: str | None = None
+    color: CellColor | str | None = None
+
+
+CellValue: TypeAlias = CellInfo | str | int | float | None
+CellList: TypeAlias = list[CellValue]
+
+
 class BaseExcelExport:
     name = "base"  # Report name
     params: ReportParams
@@ -32,8 +49,6 @@ class BaseExcelExport:
     log: logging.Logger
 
     row_index: int = 0
-    color_green = "FF00FF00"
-    color_red = "FFFF0000"
 
     def __init__(self, params: ReportParams, log_level=logging.INFO) -> None:
         self.params = params
@@ -83,13 +98,31 @@ class BaseExcelExport:
         self.log.info(f"Finished excel export {self.name} by {time_left} secs. Report path: {report_path}.")
         return report_path
 
-    def insert_row(self, values: list[str]) -> None:
-        self.sheet.append(values)
+    def extract_cell_value(self, cell_or_val: CellValue, attr="value"):
+        """Extract value from cell or return raw value"""
+        if isinstance(cell_or_val, CellInfo):
+            return getattr(cell_or_val, attr)
+        return cell_or_val
+
+    def extract_cell_color(self, cell_or_val: CellValue):
+        if isinstance(cell_or_val, CellInfo):
+            return cell_or_val.color
+        return None
+
+    def insert_row(self, values: Sequence[CellValue]) -> None:
+        self.log.debug(f"Inserting row: {values}")
+        values_raw = [self.extract_cell_value(v) for v in values]
+        self.sheet.append(values_raw)
+
+        colors = [self.extract_cell_color(v) for v in values]
+        if any(colors):
+            print("Set colors: ", colors)
+            self.last_row_colors(colors)
 
     def insert_headers(self, values: list[str]) -> None:
         self.insert_row(values)
 
-    def last_row_colors(self, colors: list[str | None]) -> None:
+    def last_row_colors(self, colors: list[CellColor | str | None]) -> None:
         row = self.sheet.max_row
         for col_idx, color in enumerate(colors, start=1):
             if not color:
@@ -97,7 +130,8 @@ class BaseExcelExport:
             cell = self.sheet.cell(row, col_idx)
 
             # cell.style.font.color.index = color
-            cell.font = Font(color=color)
+            color_value = color.value if isinstance(color, CellColor) else color
+            cell.font = Font(color=color_value)
 
     # def _get_template_path(self):
     #     return os.path.join(os.path.dirname(__file__), "excel_templates", f"report_{self.name}.xlsx")
