@@ -12,7 +12,6 @@ class ExcelExportPriceDynamics(ExcelExportCurrentPrices):
         if last_price:
             price.value = last_price
 
-        print("Price change: ", last_price, current_price)
         if last_price and current_price:
             if current_price > last_price:
                 price.color = CellColor.RED

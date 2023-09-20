@@ -72,6 +72,15 @@ class BaseExcelExport:
         # self.sheet = self.book.create_sheet("Отчет")
         self.sheet = self.book.active
 
+    def delete_initial_sheet(self):
+        """Delete initial sheet from workbook"""
+        self.book.remove_sheet(self.sheet)
+        self.sheet = None
+
+    def create_sheet(self, title: str):
+        self.sheet = self.book.create_sheet(title)
+        self.log.debug(f"Created sheet: {title}")
+
     def sheet_process(self) -> None:
         """Add data to excel worksheet"""
         raise NotImplementedError()
@@ -109,25 +118,34 @@ class BaseExcelExport:
             return cell_or_val.color
         return None
 
-    def insert_row(self, values: Sequence[CellValue]) -> None:
-        self.log.debug(f"Inserting row: {values}")
+    def insert_row(self, values: Sequence[CellValue], row_idx: int | None = None) -> None:
+        self.log.debug(f"Inserting row ({row_idx}): {values}")
         values_raw = [self.extract_cell_value(v) for v in values]
-        self.sheet.append(values_raw)
+
+        if row_idx:
+            self.sheet.insert_rows(row_idx)
+            for col_idx, value in enumerate(values_raw, start=1):
+                cell = self.sheet.cell(row_idx, col_idx)
+                cell.value = value
+        else:
+            self.sheet.append(values_raw)
 
         colors = [self.extract_cell_color(v) for v in values]
         if any(colors):
-            print("Set colors: ", colors)
-            self.last_row_colors(colors)
+            self.set_row_colors(colors, row_idx)
 
     def insert_headers(self, values: list[str]) -> None:
         self.insert_row(values)
 
-    def last_row_colors(self, colors: list[CellColor | str | None]) -> None:
-        row = self.sheet.max_row
+    def set_row_colors(self, colors: list[CellColor | str | None], row_idx: int | None = None) -> None:
+        """If row not specified, sheet.max_row will be used."""
+        if row_idx is None:
+            row_idx = self.sheet.max_row
+
         for col_idx, color in enumerate(colors, start=1):
             if not color:
                 continue
-            cell = self.sheet.cell(row, col_idx)
+            cell = self.sheet.cell(row_idx, col_idx)
 
             # cell.style.font.color.index = color
             color_value = color.value if isinstance(color, CellColor) else color
