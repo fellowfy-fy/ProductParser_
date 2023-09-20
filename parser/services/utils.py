@@ -54,8 +54,11 @@ def validate_urls(text: str):
     return undetected
 
 
-def extract_number(text: str) -> float:
+def extract_number(text: str | int) -> float:
     """Clear string from non-digits. Clears all non digits outside, keeps dot inside."""
+    if isinstance(text, int):
+        return text
+
     text = text.replace("&nbsp;", "").replace(" ", "")
     numbers = re.findall("[0-9,.]+", text)
     assert numbers is not None, "Numbers not found"
