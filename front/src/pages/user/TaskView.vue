@@ -146,6 +146,9 @@
         >
           <export-btn-current :preset="exportBtnPreset" />
           <export-btn-dynamics :preset="exportBtnPreset" />
+          <export-btn-differences :preset="exportBtnPreset" />
+          <export-btn-variations :preset="exportBtnPreset" />
+          <export-btn-competitors :preset="exportBtnPreset" />
         </export-list>
       </template>
 
@@ -240,6 +243,9 @@
 </template>
 
 <script setup lang="ts">
+import ExportBtnDifferences from '../../components/export/ExportBtnDifferences.vue'
+import ExportBtnVariations from '../../components/export/ExportBtnVariations.vue'
+import ExportBtnCompetitors from '../../components/export/ExportBtnCompetitors.vue'
 import ExportBtnDynamics from '../../components/export/ExportBtnDynamics.vue'
 import ExportBtnCurrent from '../../components/export/ExportBtnCurrent.vue'
 import ExportList from '../../components/export/ExportList.vue'
