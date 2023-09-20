@@ -2,24 +2,26 @@
   <base-dialog
     v-model="showModal"
     :title="label"
+    no-backdrop-dismiss
   >
     <q-form
       class="q-gutter-y-md"
       @submit="generateExport()"
     >
       <template v-if="props.filterProduct">
-        <product-select
-          v-model="filters.product"
+        <products-select
+          v-model="filters.products"
           :disable="Boolean(filters.task)"
           dense
-          label="Товар"
+          label="Товары"
           clearable
+          emit-value
         />
       </template>
       <template v-if="props.filterTask">
         <task-select
           v-model="filters.task"
-          :disable="Boolean(filters.product)"
+          :disable="Boolean(filters.products && filters.products.length>0)"
           dense
           label="Задача"
           clearable
@@ -65,6 +67,7 @@
 </template>
 
 <script setup lang="ts">
+import ProductsSelect from '../select/ProductsSelect.vue'
 import TaskSelect from '../select/TaskSelect.vue'
 import ProductSelect from '../select/ProductSelect.vue'
 import BaseDialog from '../common/BaseDialog.vue'
@@ -113,7 +116,7 @@ const loading = ref(false)
 const showModal = ref(false)
 
 const defaultFilters = {
-  product: null,
+  products: [],
   task: null,
   date_from: null,
   date_to: null,

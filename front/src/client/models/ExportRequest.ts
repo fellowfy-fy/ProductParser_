@@ -6,7 +6,7 @@ import type { TypeEnum } from './TypeEnum';
 
 export type ExportRequest = {
     task?: number;
-    product?: number;
+    products: Array<number>;
     date_from?: string;
     date_to?: string;
     type: TypeEnum;

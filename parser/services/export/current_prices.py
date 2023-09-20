@@ -37,14 +37,15 @@ class ExcelExportCurrentPrices(BaseExcelExport):
         return Product.objects.filter(author=user)
 
     def _get_products(self):
-        if self.params.filter_product:
-            products = [self.params.filter_product]
+        if self.params.filter_products:
+            product_ids = [p.pk for p in self.params.filter_products]
+            products = Product.objects.filter(id__in=product_ids).prefetch_related("history")
             self.log.info(f"Filtering by product: {products}")
-            all_settings_ids = self.params.filter_product.history.values_list("parse_settings", flat=True).distinct()
+            # all_settings_ids = self.params.filter_products.history.values_list("parse_settings", flat=True).distinct()
         else:
             self.log.info("Retrieving all products...")
             products = self._get_available_products().prefetch_related("history")
-            all_settings_ids = products.values_list("history__parse_settings", flat=True).distinct()
+        all_settings_ids = products.values_list("history__parse_settings", flat=True).distinct()
 
         settings = self._get_settings_by_ids(all_settings_ids)
         self.log.info(f"Found products: {len(products)}")

@@ -90,7 +90,7 @@ class TestRunResultsSerializer(serializers.Serializer):
 
 class ExportRequestSerializer(serializers.Serializer):
     task = serializers.IntegerField(required=False)
-    product = serializers.IntegerField(required=False)
+    products = serializers.ListSerializer(child=serializers.IntegerField(required=False))
     date_from = serializers.DateField(required=False)
     date_to = serializers.DateField(required=False)
     type = serializers.ChoiceField(ExportEnum.choices())

@@ -1,5 +1,5 @@
 <template>
-  <q-dialog v-model="showModal">
+  <q-dialog v-model="showModal" v-bind="$attrs">
     <q-card style="width: 700px; max-width: 80vw">
       <q-card-section class="row items-center q-pb-none">
         <div class="text-h6">

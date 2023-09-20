@@ -17,7 +17,7 @@ from parser.tasks import generate_export, run_now
 from computedfields.models import compute
 from django.conf import settings
 from django.db.models import Q
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_list_or_404, get_object_or_404
 from django_auto_prefetching import AutoPrefetchViewSetMixin
 from drf_spectacular.utils import OpenApiParameter, extend_schema, inline_serializer
 from rest_framework import decorators, exceptions, fields, viewsets
@@ -96,8 +96,8 @@ class ParseTaskViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
 
         type = data.get("type", ExportEnum.CURRENT.value)
 
-        if val := data["product"]:
-            params.filter_product = get_object_or_404(Product, pk=val)
+        if val := data["products"]:
+            params.filter_products = get_list_or_404(Product, pk__in=val)
         if val := data["task"]:
             params.filter_task = get_object_or_404(ParseTask, pk=val)
 

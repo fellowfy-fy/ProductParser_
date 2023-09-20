@@ -23,7 +23,7 @@ class ReportParams:
     filter_task: ParseTask | None = None
     date_from: date | None = None
     date_to: date | None = None
-    filter_product: Product | None = None  # Filter data by product
+    filter_products: list[Product] | None = None  # Filter data by product
 
 
 class CellColor(Enum):
