@@ -26,6 +26,7 @@ def process_css(settings: SiteParseSettings, res: str, task: ParseTask, multiple
         task.log.warning(f"Parsed titles ({len(res_title)}) count differs from price {len(res_price)}.")
 
     for title, price in zip(res_title, res_price):
+        task.log.debug(f"Raw price text: {price.text}")
         try:
             res.append(ParseResult(title=title.text, price=extract_number(price.text)))
         except Exception as e:
