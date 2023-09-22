@@ -27,18 +27,31 @@
           clearable
         />
       </template>
-      <template v-if="props.filterDateFrom">
+      <template v-if="props.filterDateFrom && props.filterDateTo">
+        <div class="text-center">
+          <q-date
+            v-model="filterDate"
+            mask="YYYY-MM-DD"
+            range
+            flat
+            bordered
+          />
+        </div>
+      </template>
+      <template v-else-if="props.filterDateFrom">
         <q-input
           v-model="filters.date_from"
+          mask="YYYY-MM-DD"
           type="date"
           dense
           label="Дата отчета"
           outlined
         />
       </template>
-      <template v-if="props.filterDateTo">
+      <template v-else-if="props.filterDateTo">
         <q-input
           v-model="filters.date_to"
+          mask="YYYY-MM-DD"
           type="date"
           dense
           label="Дата 'до' отчета"
@@ -71,12 +84,12 @@ import ProductsSelect from '../select/ProductsSelect.vue'
 import TaskSelect from '../select/TaskSelect.vue'
 import ProductSelect from '../select/ProductSelect.vue'
 import BaseDialog from '../common/BaseDialog.vue'
-import { useQuasar } from "quasar"
+import { date, useQuasar } from "quasar"
 import { notifySuccess } from "src/Modules/Notif"
 import { promiseSetLoading } from "src/Modules/StoreCrud"
 import { ExportRequest, TypeEnum } from "src/client"
 import { useTasksStore } from "src/stores/tasks"
-import { PropType, onMounted, ref, watch } from "vue"
+import { PropType, computed, onMounted, ref, watch } from "vue"
 
 const props = defineProps({
   type: {
@@ -118,11 +131,26 @@ const showModal = ref(false)
 const defaultFilters = {
   products: [],
   task: null,
-  date_from: null,
-  date_to: null,
+  date_from: null as Date | null,
+  date_to: null as Date | null,
 }
 
 const filters = ref(defaultFilters)
+
+const filterDate = computed({
+  get(){
+  return {
+    from: filters.value.date_from,
+    to: filters.value.date_to
+  }
+}, set(val: {from: Date, to: Date}){
+  filters.value.date_from = val.from
+  filters.value.date_to = val.to
+}})
+
+const defaultYearMonth = computed(() => {
+  return date.formatDate(new Date(), "YYYY.mm")
+})
 
 
 function generateExport() {

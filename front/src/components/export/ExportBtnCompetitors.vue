@@ -5,6 +5,7 @@
     filter-product
     filter-task
     filter-date-from
+    filter-date-to
     v-bind="$attrs"
   />
 </template>
