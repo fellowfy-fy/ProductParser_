@@ -9,15 +9,15 @@ from lxml import html
 log = logging.getLogger(__name__)
 
 
-def process_css(settings: SiteParseSettings, res: str, task: ParseTask, multiple: bool = False):
+def process_css(settings: SiteParseSettings, res: str, task: ParseTask, multiple: bool = False) -> list[ParseResult]:
     """Process css using lxml"""
     tree = html.fromstring(res)
 
     path_title = settings.path_title
     path_price = settings.path_price
 
-    res_title: str = tree.cssselect(path_title)
-    res_price: str = tree.cssselect(path_price)
+    res_title = tree.cssselect(path_title)
+    res_price = tree.cssselect(path_price)
 
     res: list[ParseResult] = []
     log.debug(f"CSS Process result: {res_title} | {res_price}")
@@ -26,7 +26,7 @@ def process_css(settings: SiteParseSettings, res: str, task: ParseTask, multiple
         task.log.warning(f"Parsed titles ({len(res_title)}) count differs from price {len(res_price)}.")
 
     for title, price in zip(res_title, res_price):
-        task.log.debug(f"Raw price text: {price.text}")
+        task.log.debug(f"Raw price text(css): {price.text}")
         try:
             res.append(ParseResult(title=title.text, price=extract_number(price.text)))
         except Exception as e:
@@ -50,7 +50,7 @@ def process_json(settings: SiteParseSettings, res: dict, task: ParseTask, multip
         task.log.warning(f"Parsed titles ({len(res_title)}) count differs from price {len(res_price)}.")
 
     for title, price in zip(res_title, res_price):
-        task.log.debug(f"Raw price text: {price.value}")
+        task.log.debug(f"Raw price text(json): {price.value}")
         try:
             res.append(ParseResult(title=title.value, price=extract_number(price.value)))
         except Exception as e:
@@ -63,6 +63,12 @@ def parse_result(settings: SiteParseSettings, res: str | dict, task: ParseTask, 
     """Parse request result"""
 
     if isinstance(res, dict):
-        return process_json(settings, res, task, multiple=multiple)
+        result = process_json(settings, res, task, multiple=multiple)
     else:
-        return process_css(settings, res, task, multiple=multiple)
+        result = process_css(settings, res, task, multiple=multiple)
+
+    for item in result:
+        if item.title:
+            item.title = item.title.strip()
+
+    return result
