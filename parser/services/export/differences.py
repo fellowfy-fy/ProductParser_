@@ -1,8 +1,8 @@
-import locale
 import statistics
 from datetime import date
 from parser.services.export.base import CellColor, CellValue
 from parser.services.export.current_prices import CellInfo, ExcelExportCurrentPrices
+from parser.services.utils import translate_months
 
 from products.models import Product
 
@@ -13,13 +13,12 @@ class ExcelExportDifferences(ExcelExportCurrentPrices):
     base_headers: list[str] = []
 
     def process_headers(self, product: Product):
-        locale.setlocale(locale.LC_TIME, "ru_RU")
         headers = [
             product.name,
         ]
 
         for dt in self.get_dates_list():
-            headers.append(dt.strftime("%d.%b"))
+            headers.append(translate_months(dt.strftime("%d.%b")))
 
         ##
         self.insert_headers(headers)

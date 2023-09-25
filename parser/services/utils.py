@@ -71,3 +71,24 @@ def extract_number(text: str | int) -> float:
     #     cleared_str = cleared_str[start_index:end_index].strip()
 
     return float(cleared_str)
+
+
+def translate_months(text: str) -> str:
+    months = {
+        "Jan": "Янв",
+        "Feb": "Февр",
+        "Mar": "Март",
+        "Apr": "Апр",
+        "May": "Май",
+        "Jun": "Июнь",
+        "Jul": "Июль",
+        "Aug": "Авг",
+        "Sep": "Сент",
+        "Oct": "Окт",
+        "Nov": "Нояб",
+        "Dec": "Дек",
+    }
+    for k, v in months.items():
+        text = text.replace(k, v)
+
+    return text
