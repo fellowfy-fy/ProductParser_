@@ -12,3 +12,4 @@ def test_extract_number():
     assert extract_number("12,01") == 12.01
     assert extract_number("615 руб/м2") == 615
     assert extract_number("2 100") == 2100
+    assert extract_number("2 419 руб.") == 2419

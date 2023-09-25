@@ -59,9 +59,10 @@ def extract_number(text: str | int) -> float:
     if isinstance(text, int):
         return text
 
-    text = text.replace("&nbsp;", "")
-    text = re.sub("[^ 0-9,.]", "", text)
-    numbers = re.findall("[0-9,.]+", text)
+    text = text.lower().replace("&nbsp;", "")
+    text = re.sub(r"[а-я]+\d", "", text)
+    text = re.sub(r"[^0-9,.]", "", text)  # м2 and others remove
+    numbers = re.findall(r"[0-9,.]+", text)
     assert numbers is not None, "Numbers not found"
     cleared_str: str = numbers[0].replace(",", ".")
     # if re_match := re.search("[0-9]", cleared_str):
