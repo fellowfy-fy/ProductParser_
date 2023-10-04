@@ -20,7 +20,7 @@ def process_css(settings: SiteParseSettings, raw_data: str, task: ParseTask) -> 
     res_price = tree.cssselect(path_price)
 
     res: list[ParseResult] = []
-    log.debug(f"CSS Process result: {res_title} | {res_price}")
+    task.log.debug(f"CSS Process result: {res_title} | {res_price}")
 
     if len(res_title) != len(res_price):
         task.log.warning(f"Parsed titles ({len(res_title)}) count differs from price {len(res_price)}.")
@@ -63,10 +63,10 @@ def parse_result(settings: SiteParseSettings, res: str | dict, task: ParseTask):
     """Parse request result"""
 
     if isinstance(res, dict):
-        task.log.debug(f"Using JSON processor. Type: {type(res)}")
+        task.log.debug(f"Using JSON processor. Type: {str(type(res))}")
         result = process_json(settings, raw_data=res, task=task)
     else:
-        task.log.debug(f"Using CSS processor. Type: {type(res)}")
+        task.log.debug(f"Using CSS processor. Type: {str(type(res))}")
         result = process_css(settings, raw_data=res, task=task)
 
     for item in result:
