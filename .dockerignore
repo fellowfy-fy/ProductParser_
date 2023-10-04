@@ -1,0 +1,8 @@
+*tmp*
+*.db
+*.sqlite3
+.*cache
+*.log
+# front
+drivers
+media

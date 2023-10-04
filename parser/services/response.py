@@ -9,9 +9,9 @@ from lxml import html
 log = logging.getLogger(__name__)
 
 
-def process_css(settings: SiteParseSettings, res: str, task: ParseTask, multiple: bool = False) -> list[ParseResult]:
+def process_css(settings: SiteParseSettings, raw_data: str, task: ParseTask) -> list[ParseResult]:
     """Process css using lxml"""
-    tree = html.fromstring(res)
+    tree = html.fromstring(raw_data)
 
     path_title = settings.path_title
     path_price = settings.path_price
@@ -35,14 +35,14 @@ def process_css(settings: SiteParseSettings, res: str, task: ParseTask, multiple
     return res
 
 
-def process_json(settings: SiteParseSettings, res: dict, task: ParseTask, multiple: bool = False) -> list[ParseResult]:
+def process_json(settings: SiteParseSettings, raw_data: dict, task: ParseTask) -> list[ParseResult]:
     """Process json using jsonpath"""
 
     path_title = parse(settings.path_title)
     path_price = parse(settings.path_price)
 
-    res_title = path_title.find(res)
-    res_price = path_price.find(res)
+    res_title = path_title.find(raw_data)
+    res_price = path_price.find(raw_data)
 
     res: list[ParseResult] = []
 
@@ -59,13 +59,15 @@ def process_json(settings: SiteParseSettings, res: dict, task: ParseTask, multip
     return res
 
 
-def parse_result(settings: SiteParseSettings, res: str | dict, task: ParseTask, multiple: bool = False):
+def parse_result(settings: SiteParseSettings, res: str | dict, task: ParseTask):
     """Parse request result"""
 
     if isinstance(res, dict):
-        result = process_json(settings, res, task, multiple=multiple)
+        task.log.debug(f"Using JSON processor. Type: {type(res)}")
+        result = process_json(settings, raw_data=res, task=task)
     else:
-        result = process_css(settings, res, task, multiple=multiple)
+        task.log.debug(f"Using CSS processor. Type: {type(res)}")
+        result = process_css(settings, raw_data=res, task=task)
 
     for item in result:
         if item.title:

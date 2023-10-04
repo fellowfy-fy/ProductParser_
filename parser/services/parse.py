@@ -107,7 +107,7 @@ def process_task_url(
     response = handler.send_request(settings, full_url)
 
     task.log.debug(f"Raw response: {response}")
-    result = parse_result(settings, response, task)
+    result = parse_result(settings=settings, res=response, task=task)
     if result:
         task.log.debug(f"Raw Result: {result}")
     else:
@@ -144,14 +144,14 @@ def process_task(task: ParseTask, callback: Callable | None = None, test: bool =
             for url in urls:
                 task.log.info(f"Processing products list: {len(all_products)} ({url})...")
                 for i, product in enumerate(all_products):
-                    res.append(process_task_url(task, url, product=product, handler_cache=handler_cache))
+                    res.append(process_task_url(task=task, url=url, product=product, handler_cache=handler_cache))
                     if callback:
                         callback(i, len(all_products))
 
         else:
             task.log.info(f"Processing URLS list ({len(urls)})...")
             for i, url in enumerate(urls):
-                res.append(process_task_url(task, url, handler_cache=handler_cache))
+                res.append(process_task_url(task=task, url=url, handler_cache=handler_cache))
                 if callback:
                     callback(i, len(urls))
     except Exception as exc:
