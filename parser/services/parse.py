@@ -88,7 +88,7 @@ def process_task_url(
     task: ParseTask, url: str, handler_cache: CacheRequestHandlers, product: Product | None = None
 ) -> ProcessResult | None:
     """Process single task url"""
-    settings = detect_url_settings(url)
+    settings = detect_url_settings(url, task=task)
     if not settings:
         task.log.warning(f"Settings not found for url: '{url}' ({task})")
         return None

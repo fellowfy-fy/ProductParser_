@@ -1,9 +1,10 @@
 import re
-from parser.models import SiteParseSettings
+from parser.models import ParseTask, SiteParseSettings
 from urllib.parse import urlparse
 
 from django.db.models import Q
 from django.template import Context, Template
+from fuzzywuzzy import fuzz
 
 from products.models import Product
 
@@ -25,15 +26,34 @@ def process_variables(settings: SiteParseSettings, text: str, product: Product |
     return t.render(c)
 
 
-def detect_url_settings(url: str) -> SiteParseSettings | None:
+def select_best_settings(url: str, settings: list[SiteParseSettings]):
+    best_setting: SiteParseSettings | None = None
+    best_score: int = 0
+
+    for setting in settings:
+        setting_url = setting.url_match or setting.url
+        score = fuzz.ratio(url, setting_url)
+        if score > best_score:
+            best_score = score
+            best_setting = setting
+
+    return (best_setting, best_score)
+
+
+def detect_url_settings(url: str, task: ParseTask | None = None) -> SiteParseSettings | None:
     """Detect SiteParseSettings by url"""
     matching_settings = SiteParseSettings.objects.filter(
         Q(domain=extract_domain(url))
         | Q(url_match__startswith="https://" + extract_domain(url))
         | Q(url_match__startswith=url)
     ).all()
+    if task:
+        task.log.warning(f"Found multiple parser settings: {matching_settings}")
+        best_settings, best_score = select_best_settings(url, matching_settings)
+        if best_settings:
+            return best_settings
 
-    return matching_settings[0] if matching_settings else None  # TODO: better settings detect algorithm
+    return matching_settings[0] if matching_settings else None
 
 
 def extract_urls(text: str) -> list[str]:

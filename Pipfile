@@ -31,6 +31,7 @@ daphne = "*"
 cffi = "*"
 packaging = "*"
 redis = "*"
+fuzzywuzzy = "*"
 
 [dev-packages]
 pytest = "*"

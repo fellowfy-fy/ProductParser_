@@ -1,4 +1,5 @@
-from parser.services.utils import extract_number, extract_urls
+from parser.services.utils import extract_number, extract_urls, select_best_settings
+from parser.tests.factories.parse_settings import SiteParseSettingsFactory
 
 
 def test_extract_urls():
@@ -13,3 +14,15 @@ def test_extract_number():
     assert extract_number("615 руб/м2") == 615
     assert extract_number("2 100") == 2100
     assert extract_number("2 419 руб.") == 2419
+
+
+def test_select_best_settings():
+    s1 = SiteParseSettingsFactory.build(url="https://example.com/1/2/3")
+    s2 = SiteParseSettingsFactory.build(url="https://example.com/1/2")
+    s3 = SiteParseSettingsFactory.build(url="https://example2.com/1/2")
+    settings = [s1, s2, s3]
+
+    assert select_best_settings("https://example.com/1/2/3/4", settings)[0] == s1
+    assert select_best_settings("https://example.com", settings)[0] == s2
+    assert select_best_settings("https://example.com/1/2", settings)[0] == s2
+    assert select_best_settings("https://example2.com/1/2", settings)[0] == s3
