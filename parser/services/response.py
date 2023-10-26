@@ -26,9 +26,19 @@ def process_css(settings: SiteParseSettings, raw_data: str, task: ParseTask) -> 
         task.log.warning(f"Parsed titles ({len(res_title)}) count differs from price {len(res_price)}.")
 
     for title, price in zip(res_title, res_price):
-        task.log.debug(f"Raw price text(css): {price.text}")
+        if settings.attribute_price:
+            price_value = price.attrib.get(settings.attribute_price)
+            task.log.debug(f"Extracted attribute ({settings.attribute_price}): {price_value}")
+        else:
+            price_value = price.text
+        if settings.attribute_title:
+            title_value = title.attrib.get(settings.attribute_title)
+            task.log.debug(f"Extracted attribute ({settings.attribute_title}): {title_value}")
+        else:
+            title_value = title.text
+        task.log.debug(f"Raw price text(css): {price_value}")
         try:
-            res.append(ParseResult(title=title.text, price=extract_number(price.text)))
+            res.append(ParseResult(title=title_value, price=extract_number(price_value)))
         except Exception as e:
             task.log.error("CSS row processing error", exc_info=e)
 

@@ -136,6 +136,23 @@
         outlined
       />
 
+      <q-input
+        v-model="item.attribute_title"
+        :rules="[ruleRequired]"
+        hide-bottom-space
+        label="Атрибут названия товара"
+        :hint="hintAttribute"
+        outlined
+      />
+      <q-input
+        v-model="item.attribute_price"
+        :rules="[ruleRequired]"
+        hide-bottom-space
+        label="Атрибут цены товара"
+        :hint="hintAttribute"
+        outlined
+      />
+
       <q-toggle
         v-model="item.force_parser_url"
         label="Принудительно использовать URL парсера"
@@ -261,6 +278,8 @@ const defaultData = {
 
 
 const hintPath = computed(() => item.value?.parse_mode == 1? 'Путь в формате CSS selector ' : 'Путь в формате JSONPath')
+
+const hintAttribute = "Не обязательное поле, обычно нужно для извлечения из <meta> тегов"
 
 function loadData() {
   if (itemId.value == "new") {

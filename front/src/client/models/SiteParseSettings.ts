@@ -16,6 +16,8 @@ export type SiteParseSettings = {
     request_data?: Record<string, any> | null;
     path_title: string;
     path_price: string;
+    attribute_title?: string | null;
+    attribute_price?: string | null;
     force_parser_url?: boolean;
     use_selenium?: boolean;
     readonly domain: string | null;

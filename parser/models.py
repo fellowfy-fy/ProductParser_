@@ -141,6 +141,9 @@ class SiteParseSettings(ComputedFieldsModel, models.Model):
     path_title = models.TextField("Путь к названию товара")
     path_price = models.TextField("Путь к цене товара")
 
+    attribute_title = models.CharField("Атрибут названия товара", null=True, blank=True, max_length=100)
+    attribute_price = models.CharField("Атрибут цены товара", null=True, blank=True, max_length=100)
+
     # Path value can be either jsonpath or css expression depending on parse mode
     # Path supports variables
     force_parser_url = models.BooleanField("Принудительно использовать URL парсера", default=False)
