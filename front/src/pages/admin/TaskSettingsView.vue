@@ -138,7 +138,6 @@
 
       <q-input
         v-model="item.attribute_title"
-        :rules="[ruleRequired]"
         hide-bottom-space
         label="Атрибут названия товара"
         :hint="hintAttribute"
@@ -146,7 +145,6 @@
       />
       <q-input
         v-model="item.attribute_price"
-        :rules="[ruleRequired]"
         hide-bottom-space
         label="Атрибут цены товара"
         :hint="hintAttribute"
