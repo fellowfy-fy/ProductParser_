@@ -1,5 +1,9 @@
 from parser.models import ParseTask, TaskStatusChoices
 
+from rest_framework.exceptions import APIException
+
+from accounts.models import CustomUser, RoleChoices
+
 
 def check_task_steps(task: ParseTask):
     new_status: TaskStatusChoices | None = None
@@ -17,10 +21,16 @@ def check_task_steps(task: ParseTask):
         task.save(update_fields=["status"])
 
 
-def change_task_status(task: ParseTask, status: TaskStatusChoices):
+def change_task_status(task: ParseTask, status: TaskStatusChoices, user: CustomUser):
     status_curr = task.status
     if status_curr == status:
         return
+
+    can_apply = user.is_superuser or user.role in [RoleChoices.MANAGER, RoleChoices.ADMIN]
+
+    if status in TaskStatusChoices.SETTINGS and not can_apply:
+        # If trying to apply without permission
+        raise APIException("Нет доступа к утверждению задач")
 
     # if status in [TaskStatusChoices.CREATED, TaskStatusChoices.RUN]:
     #     raise APIException("Запрещенный статус задачи")

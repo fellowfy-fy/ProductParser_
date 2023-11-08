@@ -61,6 +61,7 @@
               </template>
               <q-stepper-navigation>
                 <q-btn
+                  v-if="isManager"
                   label="Утвердить"
                   color="primary"
                   :loading="changingStatus"

@@ -63,7 +63,7 @@ class ParseTaskViewset(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
         task = get_object_or_404(ParseTask, pk=pk)
 
         status = request.data.get("status")
-        change_task_status(task, status)
+        change_task_status(task, status, user=request.user)
         return Response(ParseTaskSerializer(task).data)
 
     @extend_schema(request=None, responses={200: TestRunResultsSerializer}, parameters=[OpenApiParameter("test", bool)])
