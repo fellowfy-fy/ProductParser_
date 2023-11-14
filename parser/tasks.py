@@ -77,7 +77,7 @@ def run_now(task: TaskModel, parse_task: ParseTask, parent_task_id: int | None =
     if not test and res:
         # extracted_products = [i.product for i in res if i.product]
         if "export" in parse_task.monitoring_type:
-            task_export_products(task.pk, parse_task=parse_task)
+            task_export_products(parse_task=parse_task)
 
     return {
         "logs": parse_task.log.logs,
@@ -87,7 +87,7 @@ def run_now(task: TaskModel, parse_task: ParseTask, parent_task_id: int | None =
 
 @db_task(context=True)
 def task_export_products(task: TaskModel, parse_task: ParseTask):
-    export_products(task)
+    export_products(parse_task)
 
 
 @db_task()
