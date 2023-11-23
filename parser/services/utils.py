@@ -26,6 +26,22 @@ def process_variables(settings: SiteParseSettings, text: str, product: Product |
     return t.render(c)
 
 
+def url_regex(match_regex: str, url_task: str, url_settings: str) -> str:
+    """Replace url_settings with extracted regex values from url_task"""
+    match = re.search(match_regex, url_task)
+    if match:
+        replaces: dict[str, str] = {}
+
+        for idx, group in enumerate(match.groups(), 1):
+            replaces[str(idx)] = group
+
+        # res = url_settings.format(**replaces)
+        res = url_settings.format(*replaces.values())
+        return res
+
+    return url_settings
+
+
 def select_best_settings(url: str, settings: list[SiteParseSettings]):
     best_setting: SiteParseSettings | None = None
     best_score: int = 0

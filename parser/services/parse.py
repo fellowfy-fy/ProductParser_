@@ -10,7 +10,7 @@ from parser.services.request.httpx import HttpxRequesthandler
 from parser.services.request.selenium import SeleniumRequesthandler
 from parser.services.response import parse_result
 from parser.services.types import ProcessResult
-from parser.services.utils import detect_url_settings, extract_urls, process_variables
+from parser.services.utils import detect_url_settings, extract_urls, process_variables, url_regex
 from typing import Callable, Type
 
 from products.models import Product, ProductPriceHistory
@@ -96,6 +96,9 @@ def process_task_url(
     ##
     request_url = settings.url if settings.force_parser_url else url or settings.url
     full_url = process_variables(settings, request_url, product=product)
+    if settings.match_regex:
+        task.log.debug(f"Using match regex for url: '{full_url}' ...")
+        full_url = url_regex(settings.match_regex, url_task=full_url, url_settings=settings.url)
 
     task.log.debug(f"Sending task request {full_url}...")
 

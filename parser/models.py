@@ -124,6 +124,7 @@ class SiteParseSettings(ComputedFieldsModel, models.Model):
     url = models.URLField("Адрес страницы запроса", max_length=500)
     url_match = models.URLField("Адрес страницы задачи", max_length=500, null=True, blank=True)
     url_before = models.URLField("Посетить URL перед задачей", max_length=500, null=True, blank=True)
+    match_regex = models.CharField("Regex страницы задачи", max_length=255, null=True, blank=True)
 
     parse_mode = models.PositiveSmallIntegerField("Режим парсинга", choices=ParseMode.choices, default=ParseMode.HTML)
     request_method = models.CharField("HTTP метод", max_length=5, choices=HTTPMethod.choices, default=HTTPMethod.GET)

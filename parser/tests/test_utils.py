@@ -1,4 +1,4 @@
-from parser.services.utils import extract_number, extract_urls, select_best_settings
+from parser.services.utils import extract_number, extract_urls, select_best_settings, url_regex
 from parser.tests.factories.parse_settings import SiteParseSettingsFactory
 
 
@@ -26,3 +26,14 @@ def test_select_best_settings():
     assert select_best_settings("https://example.com", settings)[0] == s2
     assert select_best_settings("https://example.com/1/2", settings)[0] == s2
     assert select_best_settings("https://example2.com/1/2", settings)[0] == s3
+
+
+def test_url_regex():
+    assert (
+        url_regex(
+            r"\/product\/[\w-]*(\d{8})\/",
+            "https://leroymerlin.ru/product/fasadnaya-panel-docke-dacha-kirpich-gladkiy-temno-korichnevyy-046-m-82402506/",
+            "http://example.com/?prodictID={0}",
+        )
+        == "http://example.com/?prodictID=82402506"
+    )

@@ -87,6 +87,12 @@
         hint="Задачи с таким же адресом будут использовать этот парсер"
       />
       <q-input
+        v-model="item.match_regex"
+        label="Regex URL задачи"
+        outlined
+        hint="Будет выполнен Regex поиск по URL задачи. Результат переменных можно использовать как {0}, {1}, {2} итп в URL настроек."
+      />
+      <q-input
         v-model="item.url_before"
         label="Посетить URL перед задачей"
         outlined

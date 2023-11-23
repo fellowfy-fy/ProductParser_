@@ -73,6 +73,13 @@ const tableColumns = [
     align: 'left',
     sortable: true,
   },
+  {
+    name: 'url_match',
+    label: 'URL задачи',
+    field: 'url_match',
+    align: 'left',
+    sortable: true,
+  },
   // {
   //   name: 'created_at',
   //   label: 'Дата создания',

@@ -10,6 +10,7 @@ export type SiteParseSettings = {
     url: string;
     url_match?: string | null;
     url_before?: string | null;
+    match_regex?: string | null;
     parse_mode?: ParseModeEnum;
     request_method?: RequestMethodEnum;
     request_headers?: Record<string, any> | null;
