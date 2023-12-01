@@ -40,7 +40,7 @@
             :name="2"
             :done="isVerified"
           >
-            <template v-if="isManager">
+            <template v-if="isManager || isAdmin">
               Вы можете утвердить задачу
 
               <template v-if="isTaskManager">
@@ -61,7 +61,7 @@
               </template>
               <q-stepper-navigation>
                 <q-btn
-                  v-if="isManager"
+                  v-if="isManager || isAdmin"
                   label="Утвердить"
                   color="primary"
                   :loading="changingStatus"
