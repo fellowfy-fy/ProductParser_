@@ -11,6 +11,7 @@
     multiple
     use-chips
     v-bind="$attrs"
+    required: false
   />
 </template>
 
@@ -23,7 +24,7 @@ import { promiseSetLoading } from 'src/Modules/StoreCrud';
 const props = defineProps({
   modelValue: {
     type: Array as PropType<number[]>,
-    required: true,
+    required: false,
     default: undefined,
   },
 })

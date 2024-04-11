@@ -385,8 +385,12 @@ function loadData() {
 function saveData() {
   const exists = isExists.value
   const payload = Object.assign({}, item.value)
-
-  payload.products_write = payload.products?.map(p => p.id) || []
+  console.log(payload.products)
+  if (Array.isArray(payload.products)) {
+    payload.products_write = payload.products.map(p => p.id);
+  } else {
+    payload.products_write = [];
+  }
 
   const prom = exists ? store.updateParseTask(payload.id, payload) : store.createParseTask(payload)
 

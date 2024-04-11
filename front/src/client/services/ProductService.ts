@@ -19,6 +19,7 @@ export class ProductService {
     public static productList({
 author,
 categories,
+statusproducts,
 ordering,
 page,
 pageSize,
@@ -26,6 +27,7 @@ search,
 }: {
 author?: number,
 categories?: Array<number>,
+statusproducts?: Array<number>,
 /**
  * Which field to use when ordering the results.
  */
@@ -49,6 +51,7 @@ search?: string,
             query: {
                 'author': author,
                 'categories': categories,
+                'statusproducts': statusproducts,
                 'ordering': ordering,
                 'page': page,
                 'page_size': pageSize,

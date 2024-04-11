@@ -113,6 +113,21 @@ const routes = [
         ]
       },
       {
+        path: "statusproduct",
+        children: [
+          {
+            path: "",
+            component: () => import("pages/user/StatusProductList.vue"),
+            name: "user_statusproducts"
+          },
+          {
+            path: ":id",
+            component: () => import("pages/user/StatusProductView.vue"),
+            name: "user_statusproduct"
+          }
+        ]
+      },
+      {
         path: "tasks",
         children: [
           {

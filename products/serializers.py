@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from accounts.serializers import ShortUserSerializer
-from products.models import Category, Product, ProductPriceHistory
+from products.models import Category, Product, ProductPriceHistory, StatusProduct
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -18,11 +18,28 @@ class CategoryShortSerializer(CategorySerializer):
         fields = ("id", "name")
         exclude = None
 
+class StatusProductSerializer(serializers.ModelSerializer):
+    author = ShortUserSerializer(read_only=True)
+
+    class Meta:
+        model = StatusProduct
+        exclude = ()
+        read_only_fields = ["author"]
+
+
+class StatusProductShortSerializer(StatusProductSerializer):
+    class Meta(StatusProductSerializer.Meta):
+        fields = ("id", "name")
+        exclude = None
 
 class ProductSerializer(serializers.ModelSerializer):
     categories = CategoryShortSerializer(many=True, read_only=True)
     categories_write = serializers.PrimaryKeyRelatedField(
         source="categories", many=True, write_only=True, queryset=Category.objects.all()
+    )
+    statusproducts = StatusProductShortSerializer(many=True, read_only=True)
+    statusproducts_write = serializers.PrimaryKeyRelatedField(
+        source="statusproducts", many=True, write_only=True, queryset=StatusProduct.objects.all()
     )
     author = ShortUserSerializer(read_only=True)
 
@@ -34,7 +51,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
 class ProductShortSerializer(ProductSerializer):
     class Meta(ProductSerializer.Meta):
-        fields = ("id", "name")
+        fields = ("id", "name", "categories", "statusproducts")
         exclude = None
 
 

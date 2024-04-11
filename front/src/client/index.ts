@@ -7,6 +7,8 @@ export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { AuthToken } from './models/AuthToken';
+export type { StatusProduct } from './models/StatusProduct'
+export type { StatusProductShort } from './models/StatusProductShort'
 export type { Category } from './models/Category';
 export type { CategoryShort } from './models/CategoryShort';
 export type { CustomUser } from './models/CustomUser';
@@ -15,6 +17,7 @@ export type { ExportResults } from './models/ExportResults';
 export type { GlobalPreference } from './models/GlobalPreference';
 export { MonitoringTypeEnum } from './models/MonitoringTypeEnum';
 export { NotificationsTargetEnum } from './models/NotificationsTargetEnum';
+export type { PaginatedStatusProductList } from './models/PaginatedStatusProductList';
 export type { PaginatedCategoryList } from './models/PaginatedCategoryList';
 export type { PaginatedCustomUserList } from './models/PaginatedCustomUserList';
 export type { PaginatedGlobalPreferenceList } from './models/PaginatedGlobalPreferenceList';
@@ -26,6 +29,7 @@ export { ParseModeEnum } from './models/ParseModeEnum';
 export type { ParseResult } from './models/ParseResult';
 export type { ParseTask } from './models/ParseTask';
 export type { ParseTaskShort } from './models/ParseTaskShort';
+export type { PatchedStatusProduct } from './models/PatchedStatusProduct'
 export type { PatchedCategory } from './models/PatchedCategory';
 export type { PatchedCustomUser } from './models/PatchedCustomUser';
 export type { PatchedGlobalPreference } from './models/PatchedGlobalPreference';
@@ -53,6 +57,7 @@ export { WorkModeEnum } from './models/WorkModeEnum';
 
 export { ApiService } from './services/ApiService';
 export { AuthService } from './services/AuthService';
+export { StatusProductService } from './services/StatusProductService';
 export { CategoryService } from './services/CategoryService';
 export { GlobalService } from './services/GlobalService';
 export { ParseSettingsService } from './services/ParseSettingsService';

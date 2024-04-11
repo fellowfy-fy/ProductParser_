@@ -107,6 +107,7 @@ INTERNAL_IPS = ["127.0.0.1", *os.getenv("INTERNAL_IPS", "").split(",")]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1",
+     "http://89.108.99.134:10202",
     *getenv_list("TRUSTED_ORIGINS"),
 ]
 

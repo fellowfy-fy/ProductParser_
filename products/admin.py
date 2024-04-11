@@ -20,7 +20,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ("created_at", "updated_at")
     readonly_fields = ("created_at", "updated_at")
     search_fields = ("name", "linked_id")
-    filter_horizontal = ("categories",)
+    filter_horizontal = ("categories", "statusproducts")
     inlines = [ProductPriceHistoryInline]
 
 

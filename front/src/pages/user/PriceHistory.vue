@@ -28,6 +28,12 @@
           dense
           clearable
         />
+        <statusProduct-select
+          v-model="filters.product__statusproducts"
+          label="Статус"
+          dense
+          clearable
+        />
         <!-- <user-select
           v-model="filters.author"
           label="Автор"
@@ -44,6 +50,7 @@
 import ParseSettingsSelect from '../../components/select/ParseSettingsSelect.vue'
 import ParseTaskSelect from '../../components/select/ParseTaskSelect.vue'
 import ProductSelect from '../../components/select/ProductSelect.vue'
+import StatusProductSelect from '../../components/select/StatusProductSelect.vue'
 import FastTable from '../../components/form/FastTable.vue'
 import { computed, ref } from 'vue';
 import { ProductShort, ParseTaskShort, SiteParseSettingsShort } from 'src/client';
@@ -56,6 +63,19 @@ const $router = useRouter()
 
 const store = useProductsStore()
 const data = computed(() => store.price_history)
+
+
+
+interface RowData {
+  product: ProductShort;
+  price: number;
+  task: { name: string };
+  parse_settings: { domain: string, path_title: string };
+  created_at: string;
+}
+
+
+
 
 const tableColumns = [
   {
@@ -71,7 +91,7 @@ const tableColumns = [
     label: 'Продукт',
     field: 'product',
     format(val: ProductShort) {
-        return val.name
+      return val?.name || "Unknown"
     },
     align: 'left',
   },
@@ -86,6 +106,19 @@ const tableColumns = [
     sortable: true,
     style: 'width:80px'
   },
+  {
+    name: 'categories',
+    label: 'Категория',
+    field: (row: RowData) => row.product && row.product.categories ? row.product.categories.map(category => category.name).join(", ") : "-",
+    align: 'left',
+  },
+  {
+    name: 'statusproducts',
+    label: 'Статус',
+    field: (row: RowData) => row.product && row.product.statusproducts ? row.product.statusproducts.map(status => status.name).join(", ") : "-",
+    align: 'left',
+  },
+  
   {
     name: 'task',
     label: 'Задача',
@@ -113,13 +146,25 @@ const tableColumns = [
     },
     sortable: true,
     style: 'width:100px'
-  }
+  },
+  {
+    name: 'competitor',
+    label: 'Конкурент',
+    field: 'competitor',
+    format(val: string) {
+        return `${val.toLocaleString()}`
+    },
+    align: 'left',
+    sortable: true,
+    style: 'width:80px'
+  },
 ] as QTableProps["columns"]
 
 const defaultFilters = {
   product: null as number[] | null,
   task: null as number[] | null,
   parseSettings: null as number[] | null,
+  product__statusproducts: null as number[] | null,
 }
 
 const filters = ref(defaultFilters)
@@ -130,6 +175,7 @@ function resetFilters(){
 
 function loadData(payload: object){
   const prom = store.loadPriceHistory(payload)
+  console.log(prom)
   return prom
 }
 </script>

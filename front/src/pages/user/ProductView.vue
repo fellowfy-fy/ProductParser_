@@ -34,6 +34,10 @@
         outlined
         required
       />
+      <statusProducts-select
+        v-model="item.statusproducts"
+        label="Статус"
+      />
       <q-input
         v-model="item.linked_id"
         label="Связь"
@@ -66,6 +70,7 @@
 import KeyValueInfo from '../../components/form/KeyValueInfo.vue'
 import BaseForm from '../../components/form/BaseForm.vue'
 import CategoriesSelect from '../../components/select/CategoriesSelect.vue'
+import StatusProductsSelect from '../../components/select/StatusProductsSelect.vue'
 import BackBtn from "../../components/form/BackBtn.vue"
 import FormActions from "../../components/form/FormActions.vue"
 import { storeToRefs } from "pinia"
@@ -85,6 +90,7 @@ const { product: item } = storeToRefs(store)
 const loading = ref(false)
 const saving = ref(false)
 const deleting = ref(false)
+
 
 const productId = computed(() => $route.params.id as unknown as string)
 
@@ -118,6 +124,8 @@ const defaultData = {
   id: null,
   name: "",
   price: null,
+  statusproduct: null,
+  category: null,
 }
 
 function loadData() {
@@ -129,10 +137,21 @@ function loadData() {
   promiseSetLoading(prom, loading)
 }
 
+
 function saveData() {
   const exists = isExists.value
   const payload = Object.assign({}, item.value)
-  payload.categories_write = payload.categories?.map(p => p.id) || []
+  if (payload.statusproducts != undefined) {
+  payload.statusproducts_write = payload.statusproducts.map(p => p.id)
+} else {
+  payload.statusproducts_write = []
+}
+  if (payload.categories != undefined) {
+  payload.categories_write = payload.categories.map(p => p.id)
+} else {
+  payload.categories_write = []
+}
+
 
   const prom = exists ? store.updateProduct(payload.id, payload) : store.createProduct(payload)
 

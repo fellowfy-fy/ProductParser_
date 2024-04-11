@@ -28,6 +28,19 @@
     </q-item>
     <q-item
       clickable
+      :to="{name: 'user_statusproducts'}"
+    >
+      <q-item-section avatar>
+        <q-icon
+          name="check_circle"
+        />
+      </q-item-section>
+      <q-item-section>
+        Статусы
+      </q-item-section>
+    </q-item>
+    <q-item
+      clickable
       :to="{name: 'user_tasks'}"
     >
       <q-item-section avatar>

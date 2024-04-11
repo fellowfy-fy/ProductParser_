@@ -17,6 +17,7 @@ class Product(WithDates, models.Model):
     synonyms = models.TextField("Синонимы товара", blank=True)
 
     categories = models.ManyToManyField("Category", blank=True, related_name="products")
+    statusproducts = models.ManyToManyField("StatusProduct", related_name="products", blank=True)
     linked_id = models.CharField("Связь", max_length=255, blank=True, null=True)
     price = models.FloatField("Цена")
     task = models.ForeignKey(
@@ -35,6 +36,35 @@ class Product(WithDates, models.Model):
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
+
+    def __str__(self):
+        return self.name
+    
+
+class Category(WithDates, models.Model):
+    name = models.CharField("Название раздела", max_length=255, unique=True)
+    author = models.ForeignKey(
+        User, models.CASCADE, related_name="categories", verbose_name="Автор задачи", null=True, blank=True
+    )
+    products: models.QuerySet["Product"]
+
+    class Meta:
+        verbose_name = "Раздел"
+        verbose_name_plural = "Разделы"
+
+    def __str__(self):
+        return self.name
+
+class StatusProduct(WithDates, models.Model):
+    name = models.CharField("Название статуса", max_length=255, unique=True)
+    author = models.ForeignKey(
+        User, models.CASCADE, related_name="statusproducts", verbose_name="Автор статуса", null=True, blank=True
+    )
+    products: models.QuerySet["Product"]
+
+    class Meta:
+        verbose_name = "Статус"
+        verbose_name_plural = "Статусы"
 
     def __str__(self):
         return self.name
@@ -57,22 +87,11 @@ class ProductPriceHistory(WithDates, models.Model):
         blank=True,
         verbose_name="Использованы настройки парсинга",
     )
+    competitor = models.CharField("Название Конкурента", blank=True, max_length=255)
+
 
     class Meta:
         verbose_name = "История цен"
         verbose_name_plural = "История цен"
 
 
-class Category(WithDates, models.Model):
-    name = models.CharField("Название раздела", max_length=255, unique=True)
-    author = models.ForeignKey(
-        User, models.CASCADE, related_name="categories", verbose_name="Автор задачи", null=True, blank=True
-    )
-    products: models.QuerySet["Product"]
-
-    class Meta:
-        verbose_name = "Раздел"
-        verbose_name_plural = "Разделы"
-
-    def __str__(self):
-        return self.name

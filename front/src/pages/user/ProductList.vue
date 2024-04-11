@@ -42,6 +42,12 @@
           dense
           clearable
         />
+        <statusProduct-select
+          v-model="filters.statusproducts"
+          :preload="false"
+          dense
+          clearable
+        />
       </template>
     </fast-table>
   </q-page>
@@ -49,13 +55,14 @@
 
 <script setup lang="ts">
 import CategorySelect from '../../components/select/CategorySelect.vue'
+import StatusProductSelect from '../../components/select/StatusProductSelect.vue'
 import UserSelect from '../../components/select/UserSelect.vue'
 import FastTable from '../../components/form/FastTable.vue'
 import ProductsImport from '../../components/products/ProductsImport.vue'
 import { computed, ref } from 'vue';
 import { useProductsStore } from 'src/stores/products';
 import { QTableProps } from 'quasar';
-import { Product, CategoryShort } from "src/client"
+import { Product, CategoryShort, StatusProductShort } from "src/client"
 import {formatDateTime} from 'src/Modules/Utils'
 import { useRouter } from 'vue-router';
 
@@ -103,6 +110,17 @@ const tableColumns = [
     style: 'width:80px'
   },
   {
+    name: 'statusproducts',
+    label: 'Статусы',
+    field: 'statusproducts',
+    format(val: StatusProductShort[]) {
+        return val.map((c) =>c.name).join(", ")
+    },
+    align: 'left',
+    sortable: true,
+    style: 'width:80px'
+  },
+  {
     name: 'created_at',
     label: 'Создан',
     field: 'created_at',
@@ -117,6 +135,7 @@ const tableColumns = [
 const defaultFilters = {
   author: null as number[] | null,
   categories: null as number[] | null,
+  statusproducts: null as number[] | null,
 }
 
 const filters = ref(Object.assign({}, defaultFilters))

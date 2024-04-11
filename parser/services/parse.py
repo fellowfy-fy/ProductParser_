@@ -58,24 +58,25 @@ def process_parse_result(task: ParseTask, res: ProcessResult):
         # Parse products
         for result in res.parse_result:
             product, _ = Product.objects.get_or_create(
-                name__icontains=result.title,
-                default={
+                name=res.task,
+                defaults={
                     "price": 0,
                     "task": res.task,
                     "author": res.task.author,
                 },
             )
             ProductPriceHistory.objects.create(
-                product=product, price=result.price, task=res.task, parse_settings=res.settings
+
+                product=product, price=result.price, task=res.task, parse_settings=res.settings, competitor=result.title
             )
     else:  # Update existing product
         task.log.info(f"Updating existing products: {len(res.parse_result)} (settings #{res.settings.pk})")
         if res.product:
             assert len(res.parse_result) > 0, "No results"
-            single_result = res.parse_result[0]
-            ProductPriceHistory.objects.create(
-                product=res.product, price=single_result.price, task=res.task, parse_settings=res.settings
-            )
+            for item in res.parse_result:
+                ProductPriceHistory.objects.create(
+                    product=res.product, price=item.price, task=res.task, parse_settings=res.settings, competitor=item.title
+                )
 
 
 def process_parse_results(task: ParseTask, res: list[ProcessResult | None]):

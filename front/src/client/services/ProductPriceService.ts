@@ -20,6 +20,7 @@ page,
 pageSize,
 parseSettings,
 product,
+product__statusproducts,
 search,
 task,
 }: {
@@ -37,6 +38,7 @@ page?: number,
 pageSize?: number,
 parseSettings?: number,
 product?: number,
+product__statusproducts?: number,
 /**
  * A search term.
  */
@@ -52,6 +54,7 @@ task?: number,
                 'page_size': pageSize,
                 'parse_settings': parseSettings,
                 'product': product,
+                'product__statusproducts': product__statusproducts,
                 'search': search,
                 'task': task,
             },

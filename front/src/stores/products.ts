@@ -5,11 +5,14 @@ import {
   PaginatedCategoryList,
   PaginatedProductList,
   Product,
-  ProductPriceHistory,
+  ProductPriceHistoryFull,
   ProductPriceService,
   ProductService,
   StatusOkCount,
   PaginatedProductPriceHistoryFullList,
+  PaginatedStatusProductList,
+  StatusProductService,
+  StatusProduct
 } from "src/client"
 import { storeShortcut } from "src/Modules/StoreCrud"
 
@@ -19,7 +22,9 @@ export const useProductsStore = defineStore("products", {
     products: null as Product[] | null,
     category: null as Category | null,
     categories: null as Category[] | null,
-    price_history: null as ProductPriceHistory[] | null,
+    statusproduct: null as StatusProduct | null,
+    statusproducts: null as StatusProduct[] | null,
+    price_history: null as ProductPriceHistoryFull[] | null,
   }),
 
   getters: {},
@@ -111,6 +116,47 @@ export const useProductsStore = defineStore("products", {
         promise: CategoryService.categoryUpdate({ id, formData: payload }),
         setValue: (resp: Category) => {
           this.category = resp
+        },
+      })
+    },
+    // StatusProduct
+    loadStatusProducts(payload: object): Promise<PaginatedStatusProductList> {
+      return storeShortcut({
+        promise: StatusProductService.statusproductList(payload),
+        setValue: (resp: PaginatedStatusProductList) => {
+          this.statusproducts = resp.results as []
+        },
+      })
+    },
+    loadStatusProduct(id: number): Promise<StatusProduct> {
+      return storeShortcut({
+        promise: StatusProductService.statusproductRetrieve({ id }),
+        setValue: (resp: StatusProduct) => {
+          this.statusproduct = resp
+        },
+      })
+    },
+    deleteStatusProduct(id: number): Promise<StatusProduct> {
+      return storeShortcut({
+        promise: StatusProductService.statusproductDestroy({ id }),
+        setValue: () => {
+          this.statusproduct = null
+        },
+      })
+    },
+    createStatusProduct(payload: StatusProduct): Promise<StatusProduct> {
+      return storeShortcut({
+        promise: StatusProductService.statusproductCreate({ formData: payload }),
+        setValue: (resp: StatusProduct) => {
+          this.statusproduct = resp
+        },
+      })
+    },
+    updateStatusProduct(id: number, payload: StatusProduct): Promise<StatusProduct> {
+      return storeShortcut({
+        promise: StatusProductService.statusproductUpdate({ id, formData: payload }),
+        setValue: (resp: StatusProduct) => {
+          this.statusproduct = resp
         },
       })
     },

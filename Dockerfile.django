@@ -9,3 +9,6 @@ RUN pip install --no-cache-dir pipenv
 RUN pipenv install --system ${PIPENV_ARGS}
 COPY . .
 CMD ["daphne", "-p 8080", "-b", "0.0.0.0", "config.asgi:application"]
+RUN apt-get update && apt-get install -y sqlite3 \
+    && rm -rf /var/lib/apt/lists/*
+
