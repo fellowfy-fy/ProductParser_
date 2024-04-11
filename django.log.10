@@ -1,211 +1,99 @@
-INFO 08/Mar/2024 03:02:24 tasks.store_signals 1 140375543998208 Store Task 0d82b4c5-44f1-41ae-8ac6-a1907830c539 signal 'executing' (finished: False)
-INFO 08/Mar/2024 03:02:24 xml_export.export_products 1 140375543998208 Exporting 1 products to XML...
-INFO 08/Mar/2024 03:02:24 xml_export.export_products 1 140375543998208 Writing export to: exports/task_39/2024_03_08-03_02_24.xml...
-INFO 08/Mar/2024 03:02:24 xml_export.export_products 1 140375543998208 Exported.
-INFO 08/Mar/2024 03:02:24 api._execute 1 140375543998208 parser.tasks.task_export_products: 0d82b4c5-44f1-41ae-8ac6-a1907830c539 executed in 0.002s
-INFO 08/Mar/2024 03:02:24 tasks.store_signals 1 140375543998208 Store Task 0d82b4c5-44f1-41ae-8ac6-a1907830c539 signal 'complete' (finished: True)
-INFO 08/Mar/2024 08:18:14 api.execute 1 140375543998208 Executing parser.tasks.generate_export: 91871344-31a0-4566-a667-792fd4d2f280
-INFO 08/Mar/2024 08:18:14 tasks.store_signals 1 140375543998208 Store Task 91871344-31a0-4566-a667-792fd4d2f280 signal 'executing' (finished: False)
-INFO 08/Mar/2024 08:18:14 tasks.generate_export 1 140375543998208 Generating export with params: ReportParams(user=<CustomUser: admin>, filter_task=None, date_from=None, date_to=None, filter_products=None)
-INFO 08/Mar/2024 08:18:14 base.export 1 140375543998208 Starting excel export prices_competitors...
-INFO 08/Mar/2024 08:18:14 current_prices._get_products 1 140375543998208 Retrieving all products...
-INFO 08/Mar/2024 08:18:14 current_prices._get_products 1 140375543998208 Found products: 4
-INFO 08/Mar/2024 08:18:14 current_prices._get_products 1 140375543998208 Found all settings (3): <QuerySet [<SiteParseSettings: #23 (orenbyrg.23met.ru)>, <SiteParseSettings: #24 (23met.ru)>, <SiteParseSettings: #25 (ekb.23met.ru)>]>
-INFO 08/Mar/2024 08:18:14 base.export 1 140375543998208 Saving excel export prices_competitors...
-INFO 08/Mar/2024 08:18:14 base.export 1 140375543998208 Finished excel export prices_competitors by 0.03 secs. Report path: /app/media/reports/prices_competitors.xlsx.
-INFO 08/Mar/2024 08:18:14 api._execute 1 140375543998208 parser.tasks.generate_export: 91871344-31a0-4566-a667-792fd4d2f280 executed in 0.033s
-INFO 08/Mar/2024 08:18:14 tasks.store_signals 1 140375543998208 Store Task 91871344-31a0-4566-a667-792fd4d2f280 signal 'complete' (finished: True)
-INFO 08/Mar/2024 08:18:53 api.execute 1 140375543998208 Executing parser.tasks.run_now: 1ad00e48-3951-4f1e-8405-ddc981f870ce
-INFO 08/Mar/2024 08:18:53 tasks.store_signals 1 140375543998208 Store Task 1ad00e48-3951-4f1e-8405-ddc981f870ce signal 'executing' (finished: False)
-INFO 08/Mar/2024 08:18:53 tqdm.__init__ 1 140375543998208 Init TaskModel run_now - task-36 0/Noneit (divisor: 1000)
-INFO 08/Mar/2024 08:18:53 signals.task_email_pre_save 1 140375543998208 Task status updated: 2 => 2 (notify=False)
-INFO 08/Mar/2024 08:18:53 log.log 1 140375543998208 Processing URLS list (3)...
-WARNING 08/Mar/2024 08:18:53 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #23 (orenbyrg.23met.ru)>]>
-INFO 08/Mar/2024 08:18:53 selenium._driver_init 1 140375543998208 Init selenium driver...
-INFO 08/Mar/2024 08:18:57 selenium._driver_init 1 140375543998208 Using remote selenium grid: http://chrome:4444/wd/hub
-INFO 08/Mar/2024 08:19:05 selenium.page_has_loaded 1 140375543998208 Checking if https://orenbyrg.23met.ru/price/armatura_a3/10 page is loaded.
-WARNING 08/Mar/2024 08:19:05 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #25 (ekb.23met.ru)>]>
-INFO 08/Mar/2024 08:19:11 selenium.page_has_loaded 1 140375543998208 Checking if https://ekb.23met.ru/price/armatura_a3/10 page is loaded.
-ERROR 08/Mar/2024 08:19:11 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:11 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:11 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:11 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:11 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:11 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:11 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:11 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:11 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:11 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:11 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:11 log.log 1 140375543998208 CSS row processing error
-WARNING 08/Mar/2024 08:19:11 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #24 (23met.ru)>]>
-INFO 08/Mar/2024 08:19:17 selenium.page_has_loaded 1 140375543998208 Checking if https://23met.ru/price/armatura_a3/10 page is loaded.
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 08:19:17 log.log 1 140375543998208 CSS row processing error
-INFO 08/Mar/2024 08:19:17 selenium.teardown 1 140375543998208 Selenium teardown
-INFO 08/Mar/2024 08:19:17 signals.task_email_pre_save 1 140375543998208 Task status updated: 2 => 7 (notify=True)
-WARNING 08/Mar/2024 08:19:17 email.email_task_status 1 140375543998208 Task author hasn't email set
-INFO 08/Mar/2024 08:19:17 api._execute 1 140375543998208 parser.tasks.run_now: 1ad00e48-3951-4f1e-8405-ddc981f870ce executed in 23.748s
-INFO 08/Mar/2024 08:19:17 tasks.store_signals 1 140375543998208 Store Task 1ad00e48-3951-4f1e-8405-ddc981f870ce signal 'complete' (finished: True)
-INFO 08/Mar/2024 08:21:34 api.execute 1 140375543998208 Executing parser.tasks.generate_export: 06d918a0-1b92-4d9c-b822-b9df370dd074
-INFO 08/Mar/2024 08:21:34 tasks.store_signals 1 140375543998208 Store Task 06d918a0-1b92-4d9c-b822-b9df370dd074 signal 'executing' (finished: False)
-INFO 08/Mar/2024 08:21:34 tasks.generate_export 1 140375543998208 Generating export with params: ReportParams(user=<CustomUser: admin>, filter_task=None, date_from=None, date_to=None, filter_products=[<Product: Арматура А3 12>])
-INFO 08/Mar/2024 08:21:34 base.export 1 140375543998208 Starting excel export prices_current...
-INFO 08/Mar/2024 08:21:34 current_prices._get_products 1 140375543998208 Filtering by product: <QuerySet [<Product: Арматура А3 12>]>
-INFO 08/Mar/2024 08:21:34 current_prices._get_products 1 140375543998208 Found products: 1
-INFO 08/Mar/2024 08:21:34 current_prices._get_products 1 140375543998208 Found all settings (0): <QuerySet []>
-INFO 08/Mar/2024 08:21:34 base.export 1 140375543998208 Saving excel export prices_current...
-INFO 08/Mar/2024 08:21:34 base.export 1 140375543998208 Finished excel export prices_current by 0.02 secs. Report path: /app/media/reports/prices_current.xlsx.
-INFO 08/Mar/2024 08:21:34 api._execute 1 140375543998208 parser.tasks.generate_export: 06d918a0-1b92-4d9c-b822-b9df370dd074 executed in 0.018s
-INFO 08/Mar/2024 08:21:34 tasks.store_signals 1 140375543998208 Store Task 06d918a0-1b92-4d9c-b822-b9df370dd074 signal 'complete' (finished: True)
-INFO 08/Mar/2024 11:16:34 api.execute 1 140375543998208 Executing parser.tasks.run_now: 39e159f5-e0bc-4470-bbdf-0542ff8654d1
-INFO 08/Mar/2024 11:16:34 tasks.store_signals 1 140375543998208 Store Task 39e159f5-e0bc-4470-bbdf-0542ff8654d1 signal 'executing' (finished: False)
-INFO 08/Mar/2024 11:16:34 tqdm.__init__ 1 140375543998208 Init TaskModel run_now - task-37 0/Noneit (divisor: 1000)
-INFO 08/Mar/2024 11:16:34 signals.task_email_pre_save 1 140375543998208 Task status updated: 7 => 2 (notify=False)
-INFO 08/Mar/2024 11:16:34 log.log 1 140375543998208 Processing products list: 1 (https://23met.ru/price/ygolok/50%D1%8550%D1%854)...
-WARNING 08/Mar/2024 11:16:34 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #24 (23met.ru)>]>
-INFO 08/Mar/2024 11:16:34 selenium._driver_init 1 140375543998208 Init selenium driver...
-INFO 08/Mar/2024 11:16:38 selenium._driver_init 1 140375543998208 Using remote selenium grid: http://chrome:4444/wd/hub
-INFO 08/Mar/2024 11:16:45 selenium.page_has_loaded 1 140375543998208 Checking if https://23met.ru/price/ygolok/50%D1%8550%D1%854 page is loaded.
-ERROR 08/Mar/2024 11:16:45 log.log 1 140375543998208 CSS row processing error
-ERROR 08/Mar/2024 11:16:45 log.log 1 140375543998208 CSS row processing error
-INFO 08/Mar/2024 11:16:45 log.log 1 140375543998208 Processing products list: 1 (https://orenbyrg.23met.ru/price/ygolok/50%D1%8550%D1%854)...
-WARNING 08/Mar/2024 11:16:45 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #23 (orenbyrg.23met.ru)>]>
-INFO 08/Mar/2024 11:16:51 selenium.page_has_loaded 1 140375543998208 Checking if https://orenbyrg.23met.ru/price/ygolok/50%D1%8550%D1%854 page is loaded.
-INFO 08/Mar/2024 11:16:51 log.log 1 140375543998208 Processing products list: 1 (https://ekb.23met.ru/price/ygolok/50%D1%8550%D1%854)...
-WARNING 08/Mar/2024 11:16:51 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #25 (ekb.23met.ru)>]>
-INFO 08/Mar/2024 11:16:57 selenium.page_has_loaded 1 140375543998208 Checking if https://ekb.23met.ru/price/ygolok/50%D1%8550%D1%854 page is loaded.
-INFO 08/Mar/2024 11:16:57 selenium.teardown 1 140375543998208 Selenium teardown
-INFO 08/Mar/2024 11:16:57 signals.task_email_pre_save 1 140375543998208 Task status updated: 2 => 7 (notify=True)
-WARNING 08/Mar/2024 11:16:57 email.email_task_status 1 140375543998208 Task author hasn't email set
-INFO 08/Mar/2024 11:16:57 api._execute 1 140375543998208 parser.tasks.run_now: 39e159f5-e0bc-4470-bbdf-0542ff8654d1 executed in 23.043s
-INFO 08/Mar/2024 11:16:57 tasks.store_signals 1 140375543998208 Store Task 39e159f5-e0bc-4470-bbdf-0542ff8654d1 signal 'complete' (finished: True)
-INFO 09/Mar/2024 03:00:58 consumer.enqueue_periodic_tasks 1 140375552390912 Enqueueing periodic task parser.tasks.run_daily: 8449f49d-00e8-4544-a7bf-a1ca8d6cfb60.
-INFO 09/Mar/2024 03:00:58 api.execute 1 140375543998208 Executing parser.tasks.run_daily: 8449f49d-00e8-4544-a7bf-a1ca8d6cfb60
-INFO 09/Mar/2024 03:00:58 tasks.store_signals 1 140375543998208 Store Task 8449f49d-00e8-4544-a7bf-a1ca8d6cfb60 signal 'executing' (finished: False)
-INFO 09/Mar/2024 03:00:58 tasks.run_periodic_now 1 140375543998208 Running periodic tasks 1...
-INFO 09/Mar/2024 03:00:58 tasks.run_periodic_now 1 140375543998208 Running periodic task: Арматура А3 10
-INFO 09/Mar/2024 03:00:58 tasks.run_periodic_now 1 140375543998208 Running periodic task: Уголок 50х50х4
-INFO 09/Mar/2024 03:00:58 tasks.run_periodic_now 1 140375543998208 Running periodic task: Швеллер 10П
-INFO 09/Mar/2024 03:00:58 tasks.run_periodic_now 1 140375543998208 Running periodic task: Швеллер 10У
-INFO 09/Mar/2024 03:00:58 tasks.run_periodic_now 1 140375543998208 Running periodic task: Арматура А3 12
-INFO 09/Mar/2024 03:00:58 tasks.run_periodic_now 1 140375543998208 Running periodic tasks 2...
-INFO 09/Mar/2024 03:00:58 tasks.run_periodic_now 1 140375543998208 Running periodic tasks 5...
-INFO 09/Mar/2024 03:00:58 api._execute 1 140375543998208 parser.tasks.run_daily: 8449f49d-00e8-4544-a7bf-a1ca8d6cfb60 executed in 0.009s
-INFO 09/Mar/2024 03:00:58 tasks.store_signals 1 140375543998208 Store Task 8449f49d-00e8-4544-a7bf-a1ca8d6cfb60 signal 'complete' (finished: True)
-INFO 09/Mar/2024 03:00:58 api.execute 1 140375543998208 Executing parser.tasks.run_now: 46602665-85d3-4a8c-af5b-0432f5111ba8
-INFO 09/Mar/2024 03:00:58 tasks.store_signals 1 140375543998208 Store Task 46602665-85d3-4a8c-af5b-0432f5111ba8 signal 'executing' (finished: False)
-INFO 09/Mar/2024 03:00:58 models.set_parent_task 1 140375543998208 Set 46602665-85d3-4a8c-af5b-0432f5111ba8 as sub task of 8449f49d-00e8-4544-a7bf-a1ca8d6cfb60
-INFO 09/Mar/2024 03:00:58 tqdm.__init__ 1 140375543998208 Init TaskModel run_now - task-36 0/Noneit (divisor: 1000)
-INFO 09/Mar/2024 03:00:58 signals.task_email_pre_save 1 140375543998208 Task status updated: 7 => 2 (notify=False)
-INFO 09/Mar/2024 03:00:58 log.log 1 140375543998208 Processing URLS list (3)...
-WARNING 09/Mar/2024 03:00:58 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #23 (orenbyrg.23met.ru)>]>
-INFO 09/Mar/2024 03:00:58 selenium._driver_init 1 140375543998208 Init selenium driver...
-INFO 09/Mar/2024 03:01:02 selenium._driver_init 1 140375543998208 Using remote selenium grid: http://chrome:4444/wd/hub
-INFO 09/Mar/2024 03:01:09 selenium.page_has_loaded 1 140375543998208 Checking if https://orenbyrg.23met.ru/price/armatura_a3/10 page is loaded.
-WARNING 09/Mar/2024 03:01:09 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #25 (ekb.23met.ru)>]>
-INFO 09/Mar/2024 03:01:15 selenium.page_has_loaded 1 140375543998208 Checking if https://ekb.23met.ru/price/armatura_a3/10 page is loaded.
-ERROR 09/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
-WARNING 09/Mar/2024 03:01:15 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #24 (23met.ru)>]>
-INFO 09/Mar/2024 03:01:20 selenium.page_has_loaded 1 140375543998208 Checking if https://23met.ru/price/armatura_a3/10 page is loaded.
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:20 log.log 1 140375543998208 CSS row processing error
-INFO 09/Mar/2024 03:01:20 selenium.teardown 1 140375543998208 Selenium teardown
-INFO 09/Mar/2024 03:01:20 log.log 1 140375543998208 Updating parsed products: 8 (settings #23)
-ERROR 09/Mar/2024 03:01:20 api._execute 1 140375543998208 Unhandled exception in task 46602665-85d3-4a8c-af5b-0432f5111ba8.
+WARNING 09/Mar/2024 03:02:03 email.email_task_status 1 140375543998208 Task author hasn't email set
+INFO 09/Mar/2024 03:02:03 api._execute 1 140375543998208 parser.tasks.run_now: 4d63e2c3-537e-4600-ac4a-3d28aa26a13b executed in 21.224s
+INFO 09/Mar/2024 03:02:03 tasks.store_signals 1 140375543998208 Store Task 4d63e2c3-537e-4600-ac4a-3d28aa26a13b signal 'complete' (finished: True)
+INFO 09/Mar/2024 03:02:03 api.execute 1 140375543998208 Executing parser.tasks.run_now: 4dffc070-95fb-48b1-9aac-1b655e5d7b0b
+INFO 09/Mar/2024 03:02:03 tasks.store_signals 1 140375543998208 Store Task 4dffc070-95fb-48b1-9aac-1b655e5d7b0b signal 'executing' (finished: False)
+INFO 09/Mar/2024 03:02:03 models.set_parent_task 1 140375543998208 Set 4dffc070-95fb-48b1-9aac-1b655e5d7b0b as sub task of 8449f49d-00e8-4544-a7bf-a1ca8d6cfb60
+INFO 09/Mar/2024 03:02:03 tqdm.__init__ 1 140375543998208 Init TaskModel run_now - task-39 0/Noneit (divisor: 1000)
+INFO 09/Mar/2024 03:02:03 signals.task_email_pre_save 1 140375543998208 Task status updated: 7 => 2 (notify=False)
+INFO 09/Mar/2024 03:02:03 log.log 1 140375543998208 Processing products list: 1 (https://orenbyrg.23met.ru/price/shveller/10%D0%A3)...
+WARNING 09/Mar/2024 03:02:03 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #23 (orenbyrg.23met.ru)>]>
+INFO 09/Mar/2024 03:02:03 selenium._driver_init 1 140375543998208 Init selenium driver...
+INFO 09/Mar/2024 03:02:06 selenium._driver_init 1 140375543998208 Using remote selenium grid: http://chrome:4444/wd/hub
+INFO 09/Mar/2024 03:02:12 selenium.page_has_loaded 1 140375543998208 Checking if https://orenbyrg.23met.ru/price/shveller/10%D0%A3 page is loaded.
+INFO 09/Mar/2024 03:02:12 log.log 1 140375543998208 Processing products list: 1 (https://ekb.23met.ru/price/shveller/10%D0%A3)...
+WARNING 09/Mar/2024 03:02:12 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #25 (ekb.23met.ru)>]>
+INFO 09/Mar/2024 03:02:18 selenium.page_has_loaded 1 140375543998208 Checking if https://ekb.23met.ru/price/shveller/10%D0%A3 page is loaded.
+ERROR 09/Mar/2024 03:02:18 log.log 1 140375543998208 CSS row processing error
+INFO 09/Mar/2024 03:02:18 log.log 1 140375543998208 Processing products list: 1 (https://23met.ru/price/shveller/10%D0%A3)...
+WARNING 09/Mar/2024 03:02:18 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #24 (23met.ru)>]>
+INFO 09/Mar/2024 03:02:23 selenium.page_has_loaded 1 140375543998208 Checking if https://23met.ru/price/shveller/10%D0%A3 page is loaded.
+ERROR 09/Mar/2024 03:02:23 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:23 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:23 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:23 log.log 1 140375543998208 CSS row processing error
+INFO 09/Mar/2024 03:02:23 selenium.teardown 1 140375543998208 Selenium teardown
+INFO 09/Mar/2024 03:02:24 log.log 1 140375543998208 Updating existing products: 6 (settings #23)
+INFO 09/Mar/2024 03:02:24 log.log 1 140375543998208 Updating existing products: 22 (settings #25)
+INFO 09/Mar/2024 03:02:24 log.log 1 140375543998208 Updating existing products: 35 (settings #24)
+INFO 09/Mar/2024 03:02:24 signals.task_email_pre_save 1 140375543998208 Task status updated: 2 => 7 (notify=True)
+WARNING 09/Mar/2024 03:02:24 email.email_task_status 1 140375543998208 Task author hasn't email set
+INFO 09/Mar/2024 03:02:24 api._execute 1 140375543998208 parser.tasks.run_now: 4dffc070-95fb-48b1-9aac-1b655e5d7b0b executed in 20.711s
+INFO 09/Mar/2024 03:02:24 tasks.store_signals 1 140375543998208 Store Task 4dffc070-95fb-48b1-9aac-1b655e5d7b0b signal 'complete' (finished: True)
+INFO 09/Mar/2024 03:02:24 api.execute 1 140375543998208 Executing parser.tasks.run_now: f7d2ff8e-f51e-46e2-8610-66157a417d3a
+INFO 09/Mar/2024 03:02:24 tasks.store_signals 1 140375543998208 Store Task f7d2ff8e-f51e-46e2-8610-66157a417d3a signal 'executing' (finished: False)
+INFO 09/Mar/2024 03:02:24 models.set_parent_task 1 140375543998208 Set f7d2ff8e-f51e-46e2-8610-66157a417d3a as sub task of 8449f49d-00e8-4544-a7bf-a1ca8d6cfb60
+INFO 09/Mar/2024 03:02:24 tqdm.__init__ 1 140375543998208 Init TaskModel run_now - task-40 0/Noneit (divisor: 1000)
+INFO 09/Mar/2024 03:02:24 signals.task_email_pre_save 1 140375543998208 Task status updated: 2 => 2 (notify=False)
+INFO 09/Mar/2024 03:02:24 log.log 1 140375543998208 Processing URLS list (3)...
+WARNING 09/Mar/2024 03:02:24 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #23 (orenbyrg.23met.ru)>]>
+INFO 09/Mar/2024 03:02:24 selenium._driver_init 1 140375543998208 Init selenium driver...
+INFO 09/Mar/2024 03:02:27 selenium._driver_init 1 140375543998208 Using remote selenium grid: http://chrome:4444/wd/hub
+INFO 09/Mar/2024 03:02:33 selenium.page_has_loaded 1 140375543998208 Checking if https://orenbyrg.23met.ru/price/armatura_a3/12 page is loaded.
+WARNING 09/Mar/2024 03:02:33 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #24 (23met.ru)>]>
+INFO 09/Mar/2024 03:02:39 selenium.page_has_loaded 1 140375543998208 Checking if https://23met.ru/price/armatura_a3/12 page is loaded.
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:39 log.log 1 140375543998208 CSS row processing error
+WARNING 09/Mar/2024 03:02:39 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #25 (ekb.23met.ru)>]>
+INFO 09/Mar/2024 03:02:44 selenium.page_has_loaded 1 140375543998208 Checking if https://ekb.23met.ru/price/armatura_a3/12 page is loaded.
+ERROR 09/Mar/2024 03:02:44 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:44 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:44 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:44 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:44 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:44 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:44 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:44 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:44 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:44 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 03:02:44 log.log 1 140375543998208 CSS row processing error
+INFO 09/Mar/2024 03:02:44 selenium.teardown 1 140375543998208 Selenium teardown
+INFO 09/Mar/2024 03:02:44 log.log 1 140375543998208 Updating parsed products: 9 (settings #23)
+ERROR 09/Mar/2024 03:02:44 api._execute 1 140375543998208 Unhandled exception in task f7d2ff8e-f51e-46e2-8610-66157a417d3a.
 Traceback (most recent call last):
   File "/usr/local/lib/python3.11/site-packages/huey/api.py", line 380, in _execute
     task_value = task.execute()
@@ -257,53 +145,186 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1724, in names_to_path
     raise FieldError(
 django.core.exceptions.FieldError: Cannot resolve keyword 'default' into field. Choices are: author, author_id, categories, created_at, history, id, linked_id, name, price, synonyms, task, task_id, tasks, updated_at
-INFO 09/Mar/2024 03:01:20 tasks.store_signals 1 140375543998208 Store Task 46602665-85d3-4a8c-af5b-0432f5111ba8 signal 'error' (finished: True)
-INFO 09/Mar/2024 03:01:20 api.execute 1 140375543998208 Executing parser.tasks.run_now: 77ce50ae-15a9-4382-a9c6-b723f513b9bf
-INFO 09/Mar/2024 03:01:20 tasks.store_signals 1 140375543998208 Store Task 77ce50ae-15a9-4382-a9c6-b723f513b9bf signal 'executing' (finished: False)
-INFO 09/Mar/2024 03:01:20 models.set_parent_task 1 140375543998208 Set 77ce50ae-15a9-4382-a9c6-b723f513b9bf as sub task of 8449f49d-00e8-4544-a7bf-a1ca8d6cfb60
-INFO 09/Mar/2024 03:01:20 tqdm.__init__ 1 140375543998208 Init TaskModel run_now - task-37 0/Noneit (divisor: 1000)
-INFO 09/Mar/2024 03:01:20 signals.task_email_pre_save 1 140375543998208 Task status updated: 7 => 2 (notify=False)
-INFO 09/Mar/2024 03:01:20 log.log 1 140375543998208 Processing products list: 1 (https://23met.ru/price/ygolok/50%D1%8550%D1%854)...
-WARNING 09/Mar/2024 03:01:20 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #24 (23met.ru)>]>
-INFO 09/Mar/2024 03:01:20 selenium._driver_init 1 140375543998208 Init selenium driver...
-INFO 09/Mar/2024 03:01:24 selenium._driver_init 1 140375543998208 Using remote selenium grid: http://chrome:4444/wd/hub
-INFO 09/Mar/2024 03:01:30 selenium.page_has_loaded 1 140375543998208 Checking if https://23met.ru/price/ygolok/50%D1%8550%D1%854 page is loaded.
-ERROR 09/Mar/2024 03:01:30 log.log 1 140375543998208 CSS row processing error
-ERROR 09/Mar/2024 03:01:30 log.log 1 140375543998208 CSS row processing error
-INFO 09/Mar/2024 03:01:30 log.log 1 140375543998208 Processing products list: 1 (https://orenbyrg.23met.ru/price/ygolok/50%D1%8550%D1%854)...
-WARNING 09/Mar/2024 03:01:30 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #23 (orenbyrg.23met.ru)>]>
-INFO 09/Mar/2024 03:01:36 selenium.page_has_loaded 1 140375543998208 Checking if https://orenbyrg.23met.ru/price/ygolok/50%D1%8550%D1%854 page is loaded.
-INFO 09/Mar/2024 03:01:36 log.log 1 140375543998208 Processing products list: 1 (https://ekb.23met.ru/price/ygolok/50%D1%8550%D1%854)...
-WARNING 09/Mar/2024 03:01:36 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #25 (ekb.23met.ru)>]>
-INFO 09/Mar/2024 03:01:41 selenium.page_has_loaded 1 140375543998208 Checking if https://ekb.23met.ru/price/ygolok/50%D1%8550%D1%854 page is loaded.
-INFO 09/Mar/2024 03:01:42 selenium.teardown 1 140375543998208 Selenium teardown
-INFO 09/Mar/2024 03:01:42 log.log 1 140375543998208 Updating existing products: 61 (settings #24)
-INFO 09/Mar/2024 03:01:42 log.log 1 140375543998208 Updating existing products: 6 (settings #23)
-INFO 09/Mar/2024 03:01:42 log.log 1 140375543998208 Updating existing products: 21 (settings #25)
-INFO 09/Mar/2024 03:01:42 signals.task_email_pre_save 1 140375543998208 Task status updated: 2 => 7 (notify=True)
-WARNING 09/Mar/2024 03:01:42 email.email_task_status 1 140375543998208 Task author hasn't email set
-INFO 09/Mar/2024 03:01:42 api._execute 1 140375543998208 parser.tasks.run_now: 77ce50ae-15a9-4382-a9c6-b723f513b9bf executed in 21.128s
-INFO 09/Mar/2024 03:01:42 tasks.store_signals 1 140375543998208 Store Task 77ce50ae-15a9-4382-a9c6-b723f513b9bf signal 'complete' (finished: True)
-INFO 09/Mar/2024 03:01:42 api.execute 1 140375543998208 Executing parser.tasks.run_now: 4d63e2c3-537e-4600-ac4a-3d28aa26a13b
-INFO 09/Mar/2024 03:01:42 tasks.store_signals 1 140375543998208 Store Task 4d63e2c3-537e-4600-ac4a-3d28aa26a13b signal 'executing' (finished: False)
-INFO 09/Mar/2024 03:01:42 models.set_parent_task 1 140375543998208 Set 4d63e2c3-537e-4600-ac4a-3d28aa26a13b as sub task of 8449f49d-00e8-4544-a7bf-a1ca8d6cfb60
-INFO 09/Mar/2024 03:01:42 tqdm.__init__ 1 140375543998208 Init TaskModel run_now - task-38 0/Noneit (divisor: 1000)
-INFO 09/Mar/2024 03:01:42 signals.task_email_pre_save 1 140375543998208 Task status updated: 7 => 2 (notify=False)
-INFO 09/Mar/2024 03:01:42 log.log 1 140375543998208 Processing products list: 1 (https://ekb.23met.ru/price/shveller/10%D0%9F)...
-WARNING 09/Mar/2024 03:01:42 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #25 (ekb.23met.ru)>]>
-INFO 09/Mar/2024 03:01:42 selenium._driver_init 1 140375543998208 Init selenium driver...
-INFO 09/Mar/2024 03:01:45 selenium._driver_init 1 140375543998208 Using remote selenium grid: http://chrome:4444/wd/hub
-INFO 09/Mar/2024 03:01:52 selenium.page_has_loaded 1 140375543998208 Checking if https://ekb.23met.ru/price/shveller/10%D0%9F page is loaded.
-ERROR 09/Mar/2024 03:01:52 log.log 1 140375543998208 CSS row processing error
-INFO 09/Mar/2024 03:01:52 log.log 1 140375543998208 Processing products list: 1 (https://23met.ru/price/shveller/10%D0%9F)...
-WARNING 09/Mar/2024 03:01:52 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #24 (23met.ru)>]>
-INFO 09/Mar/2024 03:01:57 selenium.page_has_loaded 1 140375543998208 Checking if https://23met.ru/price/shveller/10%D0%9F page is loaded.
-ERROR 09/Mar/2024 03:01:57 log.log 1 140375543998208 CSS row processing error
-INFO 09/Mar/2024 03:01:57 log.log 1 140375543998208 Processing products list: 1 (https://orenbyrg.23met.ru/price/shveller/10%D0%9F)...
-WARNING 09/Mar/2024 03:01:57 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #23 (orenbyrg.23met.ru)>]>
-INFO 09/Mar/2024 03:02:03 selenium.page_has_loaded 1 140375543998208 Checking if https://orenbyrg.23met.ru/price/shveller/10%D0%9F page is loaded.
-INFO 09/Mar/2024 03:02:03 selenium.teardown 1 140375543998208 Selenium teardown
-INFO 09/Mar/2024 03:02:03 log.log 1 140375543998208 Updating existing products: 20 (settings #25)
-INFO 09/Mar/2024 03:02:03 log.log 1 140375543998208 Updating existing products: 64 (settings #24)
-INFO 09/Mar/2024 03:02:03 log.log 1 140375543998208 Updating existing products: 6 (settings #23)
-INFO 09/Mar/2024 03:02:03 signals.task_email_pre_save 1 140375543998208 Task status updated: 2 => 7 (notify=True)
+INFO 09/Mar/2024 03:02:44 tasks.store_signals 1 140375543998208 Store Task f7d2ff8e-f51e-46e2-8610-66157a417d3a signal 'error' (finished: True)
+INFO 09/Mar/2024 03:02:44 api.execute 1 140375543998208 Executing parser.tasks.task_export_products: 856e7fa0-5178-43ea-bee7-afd1dd7e008c
+INFO 09/Mar/2024 03:02:44 tasks.store_signals 1 140375543998208 Store Task 856e7fa0-5178-43ea-bee7-afd1dd7e008c signal 'executing' (finished: False)
+INFO 09/Mar/2024 03:02:44 xml_export.export_products 1 140375543998208 Exporting 1 products to XML...
+INFO 09/Mar/2024 03:02:44 xml_export.export_products 1 140375543998208 Writing export to: exports/task_37/2024_03_09-03_02_44.xml...
+INFO 09/Mar/2024 03:02:44 xml_export.export_products 1 140375543998208 Exported.
+INFO 09/Mar/2024 03:02:44 api._execute 1 140375543998208 parser.tasks.task_export_products: 856e7fa0-5178-43ea-bee7-afd1dd7e008c executed in 0.003s
+INFO 09/Mar/2024 03:02:44 tasks.store_signals 1 140375543998208 Store Task 856e7fa0-5178-43ea-bee7-afd1dd7e008c signal 'complete' (finished: True)
+INFO 09/Mar/2024 03:02:44 api.execute 1 140375543998208 Executing parser.tasks.task_export_products: 6708c148-c51a-4648-9748-aad95d52c40b
+INFO 09/Mar/2024 03:02:44 tasks.store_signals 1 140375543998208 Store Task 6708c148-c51a-4648-9748-aad95d52c40b signal 'executing' (finished: False)
+INFO 09/Mar/2024 03:02:44 xml_export.export_products 1 140375543998208 Exporting 1 products to XML...
+INFO 09/Mar/2024 03:02:44 xml_export.export_products 1 140375543998208 Writing export to: exports/task_38/2024_03_09-03_02_44.xml...
+INFO 09/Mar/2024 03:02:44 xml_export.export_products 1 140375543998208 Exported.
+INFO 09/Mar/2024 03:02:44 api._execute 1 140375543998208 parser.tasks.task_export_products: 6708c148-c51a-4648-9748-aad95d52c40b executed in 0.002s
+INFO 09/Mar/2024 03:02:44 tasks.store_signals 1 140375543998208 Store Task 6708c148-c51a-4648-9748-aad95d52c40b signal 'complete' (finished: True)
+INFO 09/Mar/2024 03:02:44 api.execute 1 140375543998208 Executing parser.tasks.task_export_products: 5e7b2fe3-6b68-4c05-b55d-a6154693657d
+INFO 09/Mar/2024 03:02:44 tasks.store_signals 1 140375543998208 Store Task 5e7b2fe3-6b68-4c05-b55d-a6154693657d signal 'executing' (finished: False)
+INFO 09/Mar/2024 03:02:44 xml_export.export_products 1 140375543998208 Exporting 1 products to XML...
+INFO 09/Mar/2024 03:02:44 xml_export.export_products 1 140375543998208 Writing export to: exports/task_39/2024_03_09-03_02_44.xml...
+INFO 09/Mar/2024 03:02:44 xml_export.export_products 1 140375543998208 Exported.
+INFO 09/Mar/2024 03:02:44 api._execute 1 140375543998208 parser.tasks.task_export_products: 5e7b2fe3-6b68-4c05-b55d-a6154693657d executed in 0.002s
+INFO 09/Mar/2024 03:02:44 tasks.store_signals 1 140375543998208 Store Task 5e7b2fe3-6b68-4c05-b55d-a6154693657d signal 'complete' (finished: True)
+INFO 09/Mar/2024 08:14:21 api.execute 1 140375543998208 Executing parser.tasks.run_now: 4d61ae37-9e73-4ea3-9f2c-3af5b59afa26
+INFO 09/Mar/2024 08:14:21 tasks.store_signals 1 140375543998208 Store Task 4d61ae37-9e73-4ea3-9f2c-3af5b59afa26 signal 'executing' (finished: False)
+INFO 09/Mar/2024 08:14:21 tqdm.__init__ 1 140375543998208 Init TaskModel run_now - task-37 0/Noneit (divisor: 1000)
+INFO 09/Mar/2024 08:14:21 signals.task_email_pre_save 1 140375543998208 Task status updated: 7 => 2 (notify=False)
+INFO 09/Mar/2024 08:14:21 log.log 1 140375543998208 Processing products list: 1 (https://23met.ru/price/ygolok/50%D1%8550%D1%854)...
+WARNING 09/Mar/2024 08:14:21 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #24 (23met.ru)>]>
+INFO 09/Mar/2024 08:14:21 selenium._driver_init 1 140375543998208 Init selenium driver...
+INFO 09/Mar/2024 08:14:25 selenium._driver_init 1 140375543998208 Using remote selenium grid: http://chrome:4444/wd/hub
+INFO 09/Mar/2024 08:14:32 selenium.page_has_loaded 1 140375543998208 Checking if https://23met.ru/price/ygolok/50%D1%8550%D1%854 page is loaded.
+ERROR 09/Mar/2024 08:14:32 log.log 1 140375543998208 CSS row processing error
+ERROR 09/Mar/2024 08:14:32 log.log 1 140375543998208 CSS row processing error
+INFO 09/Mar/2024 08:14:32 log.log 1 140375543998208 Processing products list: 1 (https://orenbyrg.23met.ru/price/ygolok/50%D1%8550%D1%854)...
+WARNING 09/Mar/2024 08:14:32 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #23 (orenbyrg.23met.ru)>]>
+INFO 09/Mar/2024 08:14:38 selenium.page_has_loaded 1 140375543998208 Checking if https://orenbyrg.23met.ru/price/ygolok/50%D1%8550%D1%854 page is loaded.
+INFO 09/Mar/2024 08:14:38 log.log 1 140375543998208 Processing products list: 1 (https://ekb.23met.ru/price/ygolok/50%D1%8550%D1%854)...
+WARNING 09/Mar/2024 08:14:38 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #25 (ekb.23met.ru)>]>
+INFO 09/Mar/2024 08:14:44 selenium.page_has_loaded 1 140375543998208 Checking if https://ekb.23met.ru/price/ygolok/50%D1%8550%D1%854 page is loaded.
+INFO 09/Mar/2024 08:14:44 selenium.teardown 1 140375543998208 Selenium teardown
+INFO 09/Mar/2024 08:14:44 signals.task_email_pre_save 1 140375543998208 Task status updated: 2 => 7 (notify=True)
+WARNING 09/Mar/2024 08:14:44 email.email_task_status 1 140375543998208 Task author hasn't email set
+INFO 09/Mar/2024 08:14:44 api._execute 1 140375543998208 parser.tasks.run_now: 4d61ae37-9e73-4ea3-9f2c-3af5b59afa26 executed in 22.810s
+INFO 09/Mar/2024 08:14:44 tasks.store_signals 1 140375543998208 Store Task 4d61ae37-9e73-4ea3-9f2c-3af5b59afa26 signal 'complete' (finished: True)
+INFO 10/Mar/2024 03:00:58 consumer.enqueue_periodic_tasks 1 140375552390912 Enqueueing periodic task parser.tasks.run_daily: 2f3faa87-e1a9-46ba-9257-b79e7b251f93.
+INFO 10/Mar/2024 03:00:58 api.execute 1 140375543998208 Executing parser.tasks.run_daily: 2f3faa87-e1a9-46ba-9257-b79e7b251f93
+INFO 10/Mar/2024 03:00:58 tasks.store_signals 1 140375543998208 Store Task 2f3faa87-e1a9-46ba-9257-b79e7b251f93 signal 'executing' (finished: False)
+INFO 10/Mar/2024 03:00:58 tasks.run_periodic_now 1 140375543998208 Running periodic tasks 1...
+INFO 10/Mar/2024 03:00:58 tasks.run_periodic_now 1 140375543998208 Running periodic task: Арматура А3 10
+INFO 10/Mar/2024 03:00:58 tasks.run_periodic_now 1 140375543998208 Running periodic task: Уголок 50х50х4
+INFO 10/Mar/2024 03:00:58 tasks.run_periodic_now 1 140375543998208 Running periodic task: Швеллер 10П
+INFO 10/Mar/2024 03:00:58 tasks.run_periodic_now 1 140375543998208 Running periodic task: Швеллер 10У
+INFO 10/Mar/2024 03:00:58 tasks.run_periodic_now 1 140375543998208 Running periodic task: Арматура А3 12
+INFO 10/Mar/2024 03:00:58 tasks.run_periodic_now 1 140375543998208 Running periodic tasks 2...
+INFO 10/Mar/2024 03:00:58 tasks.run_periodic_now 1 140375543998208 Running periodic tasks 5...
+INFO 10/Mar/2024 03:00:58 api._execute 1 140375543998208 parser.tasks.run_daily: 2f3faa87-e1a9-46ba-9257-b79e7b251f93 executed in 0.011s
+INFO 10/Mar/2024 03:00:58 tasks.store_signals 1 140375543998208 Store Task 2f3faa87-e1a9-46ba-9257-b79e7b251f93 signal 'complete' (finished: True)
+INFO 10/Mar/2024 03:00:58 api.execute 1 140375543998208 Executing parser.tasks.run_now: f3ab4fc5-1d41-4636-86d8-e483cdfcf4e4
+INFO 10/Mar/2024 03:00:58 tasks.store_signals 1 140375543998208 Store Task f3ab4fc5-1d41-4636-86d8-e483cdfcf4e4 signal 'executing' (finished: False)
+INFO 10/Mar/2024 03:00:58 models.set_parent_task 1 140375543998208 Set f3ab4fc5-1d41-4636-86d8-e483cdfcf4e4 as sub task of 2f3faa87-e1a9-46ba-9257-b79e7b251f93
+INFO 10/Mar/2024 03:00:58 tqdm.__init__ 1 140375543998208 Init TaskModel run_now - task-36 0/Noneit (divisor: 1000)
+INFO 10/Mar/2024 03:00:58 signals.task_email_pre_save 1 140375543998208 Task status updated: 2 => 2 (notify=False)
+INFO 10/Mar/2024 03:00:58 log.log 1 140375543998208 Processing URLS list (3)...
+WARNING 10/Mar/2024 03:00:58 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #23 (orenbyrg.23met.ru)>]>
+INFO 10/Mar/2024 03:00:58 selenium._driver_init 1 140375543998208 Init selenium driver...
+INFO 10/Mar/2024 03:01:02 selenium._driver_init 1 140375543998208 Using remote selenium grid: http://chrome:4444/wd/hub
+INFO 10/Mar/2024 03:01:09 selenium.page_has_loaded 1 140375543998208 Checking if https://orenbyrg.23met.ru/price/armatura_a3/10 page is loaded.
+WARNING 10/Mar/2024 03:01:09 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #25 (ekb.23met.ru)>]>
+INFO 10/Mar/2024 03:01:15 selenium.page_has_loaded 1 140375543998208 Checking if https://ekb.23met.ru/price/armatura_a3/10 page is loaded.
+ERROR 10/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:15 log.log 1 140375543998208 CSS row processing error
+WARNING 10/Mar/2024 03:01:15 log.log 1 140375543998208 Found multiple parser settings: <QuerySet [<SiteParseSettings: #24 (23met.ru)>]>
+INFO 10/Mar/2024 03:01:20 selenium.page_has_loaded 1 140375543998208 Checking if https://23met.ru/price/armatura_a3/10 page is loaded.
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+ERROR 10/Mar/2024 03:01:21 log.log 1 140375543998208 CSS row processing error
+INFO 10/Mar/2024 03:01:21 selenium.teardown 1 140375543998208 Selenium teardown
+INFO 10/Mar/2024 03:01:21 log.log 1 140375543998208 Updating parsed products: 8 (settings #23)
+ERROR 10/Mar/2024 03:01:21 api._execute 1 140375543998208 Unhandled exception in task f3ab4fc5-1d41-4636-86d8-e483cdfcf4e4.
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/huey/api.py", line 380, in _execute
+    task_value = task.execute()
+                 ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/huey/api.py", line 792, in execute
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/huey/contrib/djhuey/__init__.py", line 135, in inner
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/app/parser/tasks.py", line 75, in run_now
+    res = process_task(parse_task, callback=callback, test=test)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/parser/services/parse.py", line 168, in process_task
+    process_parse_results(task, res)
+  File "/app/parser/services/parse.py", line 84, in process_parse_results
+    process_parse_result(task, item_res)
+  File "/app/parser/services/parse.py", line 60, in process_parse_result
+    product, _ = Product.objects.get_or_create(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 623, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1545, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1576, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1426, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1236, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1724, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'default' into field. Choices are: author, author_id, categories, created_at, history, id, linked_id, name, price, synonyms, task, task_id, tasks, updated_at
+INFO 10/Mar/2024 03:01:21 tasks.store_signals 1 140375543998208 Store Task f3ab4fc5-1d41-4636-86d8-e483cdfcf4e4 signal 'error' (finished: True)
+INFO 10/Mar/2024 03:01:21 api.execute 1 140375543998208 Executing parser.tasks.run_now: 27a72289-f8c5-44fe-a29a-fd7a822bcf3c
+INFO 10/Mar/2024 03:01:21 tasks.store_signals 1 140375543998208 Store Task 27a72289-f8c5-44fe-a29a-fd7a822bcf3c signal 'executing' (finished: False)
+INFO 10/Mar/2024 03:01:21 models.set_parent_task 1 140375543998208 Set 27a72289-f8c5-44fe-a29a-fd7a822bcf3c as sub task of 2f3faa87-e1a9-46ba-9257-b79e7b251f93

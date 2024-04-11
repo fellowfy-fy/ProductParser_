@@ -1,415 +1,284 @@
-ERROR 11/Mar/2024 21:36:03 log.log_response 1 140531128596224 Internal Server Error: /api/v1/parse_task/
+ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
+INFO 12/Mar/2024 03:00:55 selenium.teardown 1 140210803791616 Selenium teardown
+INFO 12/Mar/2024 03:00:55 log.log 1 140210803791616 Updating parsed products: 8 (settings #23)
+ERROR 12/Mar/2024 03:00:55 api._execute 1 140210803791616 Unhandled exception in task 3f885298-b752-4e26-930b-4c505a809047.
 Traceback (most recent call last):
-  File "/usr/local/lib/python3.11/site-packages/asgiref/sync.py", line 534, in thread_handler
-    raise exc_info[1]
-  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 42, in inner
-    response = await get_response(request)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/asgiref/sync.py", line 534, in thread_handler
-    raise exc_info[1]
-  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
-    response = await wrapped_callback(
-               ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/asgiref/sync.py", line 479, in __call__
-    ret: _R = await loop.run_in_executor(
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/concurrent/futures/thread.py", line 58, in run
-    result = self.fn(*self.args, **self.kwargs)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/asgiref/sync.py", line 538, in thread_handler
+  File "/usr/local/lib/python3.11/site-packages/huey/api.py", line 380, in _execute
+    task_value = task.execute()
+                 ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/huey/api.py", line 792, in execute
     return func(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
-    return view_func(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
-    return self.dispatch(request, *args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 509, in dispatch
-    response = self.handle_exception(exc)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 469, in handle_exception
-    self.raise_uncaught_exception(exc)
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
-    raise exc
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 506, in dispatch
-    response = handler(request, *args, **kwargs)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 40, in list
-    page = self.paginate_queryset(queryset)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
-    return self.paginator.paginate_queryset(queryset, self.request, view=self)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/pagination.py", line 216, in paginate_queryset
-    return list(self.page)
-           ^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/django/core/paginator.py", line 174, in __len__
-    return len(self.object_list)
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 380, in __len__
-    self._fetch_all()
-  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1883, in _fetch_all
-    self._prefetch_related_objects()
-  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1273, in _prefetch_related_objects
-    prefetch_related_objects(self._result_cache, *self._prefetch_related_lookups)
-  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 2296, in prefetch_related_objects
-    raise AttributeError(
-AttributeError: Cannot find 'statusproducts' on Product object, 'products__statusproducts' is an invalid parameter to prefetch_related()
-ERROR 11/Mar/2024 21:36:12 log.log_response 1 140531128596224 Internal Server Error: /api/v1/parse_task/
+  File "/usr/local/lib/python3.11/site-packages/huey/contrib/djhuey/__init__.py", line 135, in inner
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/app/parser/tasks.py", line 75, in run_now
+    res = process_task(parse_task, callback=callback, test=test)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/parser/services/parse.py", line 168, in process_task
+    process_parse_results(task, res)
+  File "/app/parser/services/parse.py", line 84, in process_parse_results
+    process_parse_result(task, item_res)
+  File "/app/parser/services/parse.py", line 60, in process_parse_result
+    product, _ = Product.objects.get_or_create(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 623, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1545, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1576, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1426, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1236, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1724, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'default' into field. Choices are: author, author_id, categories, created_at, history, id, linked_id, name, price, statusproducts, synonyms, task, task_id, tasks, updated_at
+INFO 12/Mar/2024 03:00:55 tasks.store_signals 1 140210803791616 Store Task 3f885298-b752-4e26-930b-4c505a809047 signal 'error' (finished: True)
+INFO 12/Mar/2024 03:00:55 api.execute 1 140210803791616 Executing parser.tasks.run_now: ba1dba75-2885-446d-8e06-39322d0da091
+INFO 12/Mar/2024 03:00:55 tasks.store_signals 1 140210803791616 Store Task ba1dba75-2885-446d-8e06-39322d0da091 signal 'executing' (finished: False)
+INFO 12/Mar/2024 03:00:55 models.set_parent_task 1 140210803791616 Set ba1dba75-2885-446d-8e06-39322d0da091 as sub task of c6c62de2-28f4-4213-9cee-d816defa426b
+INFO 12/Mar/2024 03:00:56 tqdm.__init__ 1 140210803791616 Init TaskModel run_now - task-37 0/Noneit (divisor: 1000)
+INFO 12/Mar/2024 03:00:56 signals.task_email_pre_save 1 140210803791616 Task status updated: 7 => 2 (notify=False)
+INFO 12/Mar/2024 03:00:56 log.log 1 140210803791616 Processing products list: 1 (https://23met.ru/price/ygolok/50%D1%8550%D1%854)...
+WARNING 12/Mar/2024 03:00:56 log.log 1 140210803791616 Found multiple parser settings: <QuerySet [<SiteParseSettings: #24 (23met.ru)>]>
+INFO 12/Mar/2024 03:00:56 selenium._driver_init 1 140210803791616 Init selenium driver...
+INFO 12/Mar/2024 03:00:59 selenium._driver_init 1 140210803791616 Using remote selenium grid: http://chrome:4444/wd/hub
+INFO 12/Mar/2024 03:01:06 selenium.page_has_loaded 1 140210803791616 Checking if https://23met.ru/price/ygolok/50%D1%8550%D1%854 page is loaded.
+ERROR 12/Mar/2024 03:01:06 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:01:06 log.log 1 140210803791616 CSS row processing error
+INFO 12/Mar/2024 03:01:06 log.log 1 140210803791616 Processing products list: 1 (https://orenbyrg.23met.ru/price/ygolok/50%D1%8550%D1%854)...
+WARNING 12/Mar/2024 03:01:06 log.log 1 140210803791616 Found multiple parser settings: <QuerySet [<SiteParseSettings: #23 (orenbyrg.23met.ru)>]>
+INFO 12/Mar/2024 03:01:11 selenium.page_has_loaded 1 140210803791616 Checking if https://orenbyrg.23met.ru/price/ygolok/50%D1%8550%D1%854 page is loaded.
+INFO 12/Mar/2024 03:01:12 log.log 1 140210803791616 Processing products list: 1 (https://ekb.23met.ru/price/ygolok/50%D1%8550%D1%854)...
+WARNING 12/Mar/2024 03:01:12 log.log 1 140210803791616 Found multiple parser settings: <QuerySet [<SiteParseSettings: #25 (ekb.23met.ru)>]>
+INFO 12/Mar/2024 03:01:17 selenium.page_has_loaded 1 140210803791616 Checking if https://ekb.23met.ru/price/ygolok/50%D1%8550%D1%854 page is loaded.
+INFO 12/Mar/2024 03:01:17 selenium.teardown 1 140210803791616 Selenium teardown
+INFO 12/Mar/2024 03:01:17 log.log 1 140210803791616 Updating existing products: 61 (settings #24)
+INFO 12/Mar/2024 03:01:17 log.log 1 140210803791616 Updating existing products: 6 (settings #23)
+INFO 12/Mar/2024 03:01:17 log.log 1 140210803791616 Updating existing products: 21 (settings #25)
+INFO 12/Mar/2024 03:01:17 signals.task_email_pre_save 1 140210803791616 Task status updated: 2 => 7 (notify=True)
+WARNING 12/Mar/2024 03:01:17 email.email_task_status 1 140210803791616 Task author hasn't email set
+INFO 12/Mar/2024 03:01:17 api._execute 1 140210803791616 parser.tasks.run_now: ba1dba75-2885-446d-8e06-39322d0da091 executed in 21.863s
+INFO 12/Mar/2024 03:01:17 tasks.store_signals 1 140210803791616 Store Task ba1dba75-2885-446d-8e06-39322d0da091 signal 'complete' (finished: True)
+INFO 12/Mar/2024 03:01:17 api.execute 1 140210803791616 Executing parser.tasks.run_now: 7d22676e-f5b2-4841-a9f6-8a4845f99f6c
+INFO 12/Mar/2024 03:01:17 tasks.store_signals 1 140210803791616 Store Task 7d22676e-f5b2-4841-a9f6-8a4845f99f6c signal 'executing' (finished: False)
+INFO 12/Mar/2024 03:01:17 models.set_parent_task 1 140210803791616 Set 7d22676e-f5b2-4841-a9f6-8a4845f99f6c as sub task of c6c62de2-28f4-4213-9cee-d816defa426b
+INFO 12/Mar/2024 03:01:17 tqdm.__init__ 1 140210803791616 Init TaskModel run_now - task-38 0/Noneit (divisor: 1000)
+INFO 12/Mar/2024 03:01:17 signals.task_email_pre_save 1 140210803791616 Task status updated: 7 => 2 (notify=False)
+INFO 12/Mar/2024 03:01:17 log.log 1 140210803791616 Processing products list: 1 (https://ekb.23met.ru/price/shveller/10%D0%9F)...
+WARNING 12/Mar/2024 03:01:17 log.log 1 140210803791616 Found multiple parser settings: <QuerySet [<SiteParseSettings: #25 (ekb.23met.ru)>]>
+INFO 12/Mar/2024 03:01:17 selenium._driver_init 1 140210803791616 Init selenium driver...
+INFO 12/Mar/2024 03:01:21 selenium._driver_init 1 140210803791616 Using remote selenium grid: http://chrome:4444/wd/hub
+INFO 12/Mar/2024 03:01:28 selenium.page_has_loaded 1 140210803791616 Checking if https://ekb.23met.ru/price/shveller/10%D0%9F page is loaded.
+ERROR 12/Mar/2024 03:01:28 log.log 1 140210803791616 CSS row processing error
+INFO 12/Mar/2024 03:01:28 log.log 1 140210803791616 Processing products list: 1 (https://23met.ru/price/shveller/10%D0%9F)...
+WARNING 12/Mar/2024 03:01:28 log.log 1 140210803791616 Found multiple parser settings: <QuerySet [<SiteParseSettings: #24 (23met.ru)>]>
+INFO 12/Mar/2024 03:01:33 selenium.page_has_loaded 1 140210803791616 Checking if https://23met.ru/price/shveller/10%D0%9F page is loaded.
+ERROR 12/Mar/2024 03:01:33 log.log 1 140210803791616 CSS row processing error
+INFO 12/Mar/2024 03:01:33 log.log 1 140210803791616 Processing products list: 1 (https://orenbyrg.23met.ru/price/shveller/10%D0%9F)...
+WARNING 12/Mar/2024 03:01:33 log.log 1 140210803791616 Found multiple parser settings: <QuerySet [<SiteParseSettings: #23 (orenbyrg.23met.ru)>]>
+INFO 12/Mar/2024 03:01:39 selenium.page_has_loaded 1 140210803791616 Checking if https://orenbyrg.23met.ru/price/shveller/10%D0%9F page is loaded.
+INFO 12/Mar/2024 03:01:39 selenium.teardown 1 140210803791616 Selenium teardown
+INFO 12/Mar/2024 03:01:39 log.log 1 140210803791616 Updating existing products: 20 (settings #25)
+INFO 12/Mar/2024 03:01:39 log.log 1 140210803791616 Updating existing products: 64 (settings #24)
+INFO 12/Mar/2024 03:01:39 log.log 1 140210803791616 Updating existing products: 6 (settings #23)
+INFO 12/Mar/2024 03:01:39 signals.task_email_pre_save 1 140210803791616 Task status updated: 2 => 7 (notify=True)
+WARNING 12/Mar/2024 03:01:39 email.email_task_status 1 140210803791616 Task author hasn't email set
+INFO 12/Mar/2024 03:01:39 api._execute 1 140210803791616 parser.tasks.run_now: 7d22676e-f5b2-4841-a9f6-8a4845f99f6c executed in 21.905s
+INFO 12/Mar/2024 03:01:39 tasks.store_signals 1 140210803791616 Store Task 7d22676e-f5b2-4841-a9f6-8a4845f99f6c signal 'complete' (finished: True)
+INFO 12/Mar/2024 03:01:39 api.execute 1 140210803791616 Executing parser.tasks.run_now: de2ecc74-67b0-41a3-acc7-cdcf21b13774
+INFO 12/Mar/2024 03:01:39 tasks.store_signals 1 140210803791616 Store Task de2ecc74-67b0-41a3-acc7-cdcf21b13774 signal 'executing' (finished: False)
+INFO 12/Mar/2024 03:01:39 models.set_parent_task 1 140210803791616 Set de2ecc74-67b0-41a3-acc7-cdcf21b13774 as sub task of c6c62de2-28f4-4213-9cee-d816defa426b
+INFO 12/Mar/2024 03:01:39 tqdm.__init__ 1 140210803791616 Init TaskModel run_now - task-39 0/Noneit (divisor: 1000)
+INFO 12/Mar/2024 03:01:39 signals.task_email_pre_save 1 140210803791616 Task status updated: 7 => 2 (notify=False)
+INFO 12/Mar/2024 03:01:39 log.log 1 140210803791616 Processing products list: 1 (https://orenbyrg.23met.ru/price/shveller/10%D0%A3)...
+WARNING 12/Mar/2024 03:01:39 log.log 1 140210803791616 Found multiple parser settings: <QuerySet [<SiteParseSettings: #23 (orenbyrg.23met.ru)>]>
+INFO 12/Mar/2024 03:01:39 selenium._driver_init 1 140210803791616 Init selenium driver...
+INFO 12/Mar/2024 03:01:43 selenium._driver_init 1 140210803791616 Using remote selenium grid: http://chrome:4444/wd/hub
+INFO 12/Mar/2024 03:01:49 selenium.page_has_loaded 1 140210803791616 Checking if https://orenbyrg.23met.ru/price/shveller/10%D0%A3 page is loaded.
+INFO 12/Mar/2024 03:01:49 log.log 1 140210803791616 Processing products list: 1 (https://ekb.23met.ru/price/shveller/10%D0%A3)...
+WARNING 12/Mar/2024 03:01:49 log.log 1 140210803791616 Found multiple parser settings: <QuerySet [<SiteParseSettings: #25 (ekb.23met.ru)>]>
+INFO 12/Mar/2024 03:01:55 selenium.page_has_loaded 1 140210803791616 Checking if https://ekb.23met.ru/price/shveller/10%D0%A3 page is loaded.
+ERROR 12/Mar/2024 03:01:55 log.log 1 140210803791616 CSS row processing error
+INFO 12/Mar/2024 03:01:55 log.log 1 140210803791616 Processing products list: 1 (https://23met.ru/price/shveller/10%D0%A3)...
+WARNING 12/Mar/2024 03:01:55 log.log 1 140210803791616 Found multiple parser settings: <QuerySet [<SiteParseSettings: #24 (23met.ru)>]>
+INFO 12/Mar/2024 03:02:01 selenium.page_has_loaded 1 140210803791616 Checking if https://23met.ru/price/shveller/10%D0%A3 page is loaded.
+ERROR 12/Mar/2024 03:02:01 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:01 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:01 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:01 log.log 1 140210803791616 CSS row processing error
+INFO 12/Mar/2024 03:02:01 selenium.teardown 1 140210803791616 Selenium teardown
+INFO 12/Mar/2024 03:02:01 log.log 1 140210803791616 Updating existing products: 6 (settings #23)
+INFO 12/Mar/2024 03:02:01 log.log 1 140210803791616 Updating existing products: 22 (settings #25)
+INFO 12/Mar/2024 03:02:01 log.log 1 140210803791616 Updating existing products: 35 (settings #24)
+INFO 12/Mar/2024 03:02:01 signals.task_email_pre_save 1 140210803791616 Task status updated: 2 => 7 (notify=True)
+WARNING 12/Mar/2024 03:02:01 email.email_task_status 1 140210803791616 Task author hasn't email set
+INFO 12/Mar/2024 03:02:01 api._execute 1 140210803791616 parser.tasks.run_now: de2ecc74-67b0-41a3-acc7-cdcf21b13774 executed in 21.654s
+INFO 12/Mar/2024 03:02:01 tasks.store_signals 1 140210803791616 Store Task de2ecc74-67b0-41a3-acc7-cdcf21b13774 signal 'complete' (finished: True)
+INFO 12/Mar/2024 03:02:01 api.execute 1 140210803791616 Executing parser.tasks.run_now: db1df014-1867-4f7a-9c22-ae64c1048d4f
+INFO 12/Mar/2024 03:02:01 tasks.store_signals 1 140210803791616 Store Task db1df014-1867-4f7a-9c22-ae64c1048d4f signal 'executing' (finished: False)
+INFO 12/Mar/2024 03:02:01 models.set_parent_task 1 140210803791616 Set db1df014-1867-4f7a-9c22-ae64c1048d4f as sub task of c6c62de2-28f4-4213-9cee-d816defa426b
+INFO 12/Mar/2024 03:02:01 tqdm.__init__ 1 140210803791616 Init TaskModel run_now - task-40 0/Noneit (divisor: 1000)
+INFO 12/Mar/2024 03:02:01 signals.task_email_pre_save 1 140210803791616 Task status updated: 2 => 2 (notify=False)
+INFO 12/Mar/2024 03:02:01 log.log 1 140210803791616 Processing URLS list (3)...
+WARNING 12/Mar/2024 03:02:01 log.log 1 140210803791616 Found multiple parser settings: <QuerySet [<SiteParseSettings: #23 (orenbyrg.23met.ru)>]>
+INFO 12/Mar/2024 03:02:01 selenium._driver_init 1 140210803791616 Init selenium driver...
+INFO 12/Mar/2024 03:02:04 selenium._driver_init 1 140210803791616 Using remote selenium grid: http://chrome:4444/wd/hub
+INFO 12/Mar/2024 03:02:11 selenium.page_has_loaded 1 140210803791616 Checking if https://orenbyrg.23met.ru/price/armatura_a3/12 page is loaded.
+WARNING 12/Mar/2024 03:02:11 log.log 1 140210803791616 Found multiple parser settings: <QuerySet [<SiteParseSettings: #24 (23met.ru)>]>
+INFO 12/Mar/2024 03:02:17 selenium.page_has_loaded 1 140210803791616 Checking if https://23met.ru/price/armatura_a3/12 page is loaded.
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:17 log.log 1 140210803791616 CSS row processing error
+WARNING 12/Mar/2024 03:02:17 log.log 1 140210803791616 Found multiple parser settings: <QuerySet [<SiteParseSettings: #25 (ekb.23met.ru)>]>
+INFO 12/Mar/2024 03:02:22 selenium.page_has_loaded 1 140210803791616 Checking if https://ekb.23met.ru/price/armatura_a3/12 page is loaded.
+ERROR 12/Mar/2024 03:02:23 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:23 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:23 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:23 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:23 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:23 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:23 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:23 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:23 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:23 log.log 1 140210803791616 CSS row processing error
+ERROR 12/Mar/2024 03:02:23 log.log 1 140210803791616 CSS row processing error
+INFO 12/Mar/2024 03:02:23 selenium.teardown 1 140210803791616 Selenium teardown
+INFO 12/Mar/2024 03:02:23 log.log 1 140210803791616 Updating parsed products: 9 (settings #23)
+ERROR 12/Mar/2024 03:02:23 api._execute 1 140210803791616 Unhandled exception in task db1df014-1867-4f7a-9c22-ae64c1048d4f.
 Traceback (most recent call last):
-  File "/usr/local/lib/python3.11/site-packages/asgiref/sync.py", line 534, in thread_handler
-    raise exc_info[1]
-  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 42, in inner
-    response = await get_response(request)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/asgiref/sync.py", line 534, in thread_handler
-    raise exc_info[1]
-  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
-    response = await wrapped_callback(
-               ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/asgiref/sync.py", line 479, in __call__
-    ret: _R = await loop.run_in_executor(
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/concurrent/futures/thread.py", line 58, in run
-    result = self.fn(*self.args, **self.kwargs)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/asgiref/sync.py", line 538, in thread_handler
+  File "/usr/local/lib/python3.11/site-packages/huey/api.py", line 380, in _execute
+    task_value = task.execute()
+                 ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/huey/api.py", line 792, in execute
     return func(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
-    return view_func(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
-    return self.dispatch(request, *args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 509, in dispatch
-    response = self.handle_exception(exc)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 469, in handle_exception
-    self.raise_uncaught_exception(exc)
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
-    raise exc
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 506, in dispatch
-    response = handler(request, *args, **kwargs)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 40, in list
-    page = self.paginate_queryset(queryset)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
-    return self.paginator.paginate_queryset(queryset, self.request, view=self)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/pagination.py", line 216, in paginate_queryset
-    return list(self.page)
-           ^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/django/core/paginator.py", line 174, in __len__
-    return len(self.object_list)
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 380, in __len__
-    self._fetch_all()
-  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1883, in _fetch_all
-    self._prefetch_related_objects()
-  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1273, in _prefetch_related_objects
-    prefetch_related_objects(self._result_cache, *self._prefetch_related_lookups)
-  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 2296, in prefetch_related_objects
-    raise AttributeError(
-AttributeError: Cannot find 'statusproducts' on Product object, 'products__statusproducts' is an invalid parameter to prefetch_related()
-ERROR 11/Mar/2024 21:36:14 log.log_response 1 140531128596224 Internal Server Error: /api/v1/product/
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.11/site-packages/asgiref/sync.py", line 534, in thread_handler
-    raise exc_info[1]
-  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 42, in inner
-    response = await get_response(request)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/asgiref/sync.py", line 534, in thread_handler
-    raise exc_info[1]
-  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
-    response = await wrapped_callback(
-               ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/asgiref/sync.py", line 479, in __call__
-    ret: _R = await loop.run_in_executor(
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/concurrent/futures/thread.py", line 58, in run
-    result = self.fn(*self.args, **self.kwargs)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/asgiref/sync.py", line 538, in thread_handler
-    return func(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
-    return view_func(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
-    return self.dispatch(request, *args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 509, in dispatch
-    response = self.handle_exception(exc)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 469, in handle_exception
-    self.raise_uncaught_exception(exc)
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
-    raise exc
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 506, in dispatch
-    response = handler(request, *args, **kwargs)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 40, in list
-    page = self.paginate_queryset(queryset)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
-    return self.paginator.paginate_queryset(queryset, self.request, view=self)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/rest_framework/pagination.py", line 216, in paginate_queryset
-    return list(self.page)
-           ^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/django/core/paginator.py", line 174, in __len__
-    return len(self.object_list)
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 380, in __len__
-    self._fetch_all()
-  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1883, in _fetch_all
-    self._prefetch_related_objects()
-  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1273, in _prefetch_related_objects
-    prefetch_related_objects(self._result_cache, *self._prefetch_related_lookups)
-  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 2296, in prefetch_related_objects
-    raise AttributeError(
-AttributeError: Cannot find 'statusproducts' on Product object, 'statusproducts' is an invalid parameter to prefetch_related()
-INFO 11/Mar/2024 21:48:14 server.kill_all_applications 1 140531311355712 Killed 0 pending application instances
-INFO 11/Mar/2024 21:49:30 consumer.start 1 139724361709376 Huey consumer started with 1 thread, PID 1 at 2024-03-11 18:49:30.813560
-INFO 11/Mar/2024 21:49:30 consumer.start 1 139724361709376 Scheduler runs every 1 second(s).
-INFO 11/Mar/2024 21:49:30 consumer.start 1 139724361709376 Periodic tasks are enabled.
-INFO 11/Mar/2024 21:49:30 consumer.start 1 139724361709376 The following commands are available:
-+ parser.tasks.run_daily
-+ parser.tasks.run_monthly
-+ parser.tasks.run_quarterly
-+ parser.tasks.run_now
-+ parser.tasks.task_export_products
-+ parser.tasks.task_send_email
-+ parser.tasks.generate_export
-INFO 11/Mar/2024 21:49:31 cli.run 1 139878213207872 Starting server at tcp:port=8080:interface=0.0.0.0
-INFO 11/Mar/2024 21:49:31 server.run 1 139878213207872 HTTP/2 support not enabled (install the http2 and tls Twisted extras)
-INFO 11/Mar/2024 21:49:31 server.run 1 139878213207872 Configuring endpoint tcp:port=8080:interface=0.0.0.0
-INFO 11/Mar/2024 21:49:31 server.listen_success 1 139878213207872 Listening on TCP address 0.0.0.0:8080
-INFO 11/Mar/2024 21:50:50 consumer._handle_stop_signal 1 139724361709376 Received SIGTERM
-INFO 11/Mar/2024 21:50:50 consumer.stop 1 139724361709376 Shutting down
-INFO 11/Mar/2024 21:50:50 consumer.run 1 139724361709376 Consumer exiting.
-INFO 11/Mar/2024 21:50:50 server.kill_all_applications 1 139878213207872 Killed 0 pending application instances
-INFO 11/Mar/2024 21:52:06 consumer.start 1 140414784444224 Huey consumer started with 1 thread, PID 1 at 2024-03-11 18:52:06.402336
-INFO 11/Mar/2024 21:52:06 consumer.start 1 140414784444224 Scheduler runs every 1 second(s).
-INFO 11/Mar/2024 21:52:06 consumer.start 1 140414784444224 Periodic tasks are enabled.
-INFO 11/Mar/2024 21:52:06 consumer.start 1 140414784444224 The following commands are available:
-+ parser.tasks.run_daily
-+ parser.tasks.run_monthly
-+ parser.tasks.run_quarterly
-+ parser.tasks.run_now
-+ parser.tasks.task_export_products
-+ parser.tasks.task_send_email
-+ parser.tasks.generate_export
-INFO 11/Mar/2024 21:52:06 cli.run 1 140116647757632 Starting server at tcp:port=8080:interface=0.0.0.0
-INFO 11/Mar/2024 21:52:06 server.run 1 140116647757632 HTTP/2 support not enabled (install the http2 and tls Twisted extras)
-INFO 11/Mar/2024 21:52:06 server.run 1 140116647757632 Configuring endpoint tcp:port=8080:interface=0.0.0.0
-INFO 11/Mar/2024 21:52:06 server.listen_success 1 140116647757632 Listening on TCP address 0.0.0.0:8080
-INFO 12/Mar/2024 01:26:10 consumer._handle_stop_signal 1 140414784444224 Received SIGTERM
-INFO 12/Mar/2024 01:26:10 consumer.stop 1 140414784444224 Shutting down
-INFO 12/Mar/2024 01:26:10 consumer.run 1 140414784444224 Consumer exiting.
-INFO 12/Mar/2024 01:26:10 server.kill_all_applications 1 140116647757632 Killed 0 pending application instances
-INFO 12/Mar/2024 01:30:07 cli.run 1 140203118323520 Starting server at tcp:port=8080:interface=0.0.0.0
-INFO 12/Mar/2024 01:30:07 server.run 1 140203118323520 HTTP/2 support not enabled (install the http2 and tls Twisted extras)
-INFO 12/Mar/2024 01:30:07 server.run 1 140203118323520 Configuring endpoint tcp:port=8080:interface=0.0.0.0
-INFO 12/Mar/2024 01:30:07 server.listen_success 1 140203118323520 Listening on TCP address 0.0.0.0:8080
-INFO 12/Mar/2024 01:30:07 consumer.start 1 140168041097024 Huey consumer started with 1 thread, PID 1 at 2024-03-11 22:30:07.629698
-INFO 12/Mar/2024 01:30:07 consumer.start 1 140168041097024 Scheduler runs every 1 second(s).
-INFO 12/Mar/2024 01:30:07 consumer.start 1 140168041097024 Periodic tasks are enabled.
-INFO 12/Mar/2024 01:30:07 consumer.start 1 140168041097024 The following commands are available:
-+ parser.tasks.run_daily
-+ parser.tasks.run_monthly
-+ parser.tasks.run_quarterly
-+ parser.tasks.run_now
-+ parser.tasks.task_export_products
-+ parser.tasks.task_send_email
-+ parser.tasks.generate_export
-INFO 12/Mar/2024 01:38:35 consumer._handle_stop_signal 1 140168041097024 Received SIGTERM
-INFO 12/Mar/2024 01:38:35 consumer.stop 1 140168041097024 Shutting down
-INFO 12/Mar/2024 01:38:35 consumer.run 1 140168041097024 Consumer exiting.
-INFO 12/Mar/2024 01:38:36 server.kill_all_applications 1 140203118323520 Killed 0 pending application instances
-INFO 12/Mar/2024 01:39:49 consumer.start 1 140513169819456 Huey consumer started with 1 thread, PID 1 at 2024-03-11 22:39:49.805923
-INFO 12/Mar/2024 01:39:49 consumer.start 1 140513169819456 Scheduler runs every 1 second(s).
-INFO 12/Mar/2024 01:39:49 consumer.start 1 140513169819456 Periodic tasks are enabled.
-INFO 12/Mar/2024 01:39:49 consumer.start 1 140513169819456 The following commands are available:
-+ parser.tasks.run_daily
-+ parser.tasks.run_monthly
-+ parser.tasks.run_quarterly
-+ parser.tasks.run_now
-+ parser.tasks.task_export_products
-+ parser.tasks.task_send_email
-+ parser.tasks.generate_export
-INFO 12/Mar/2024 01:39:50 cli.run 1 140169738680128 Starting server at tcp:port=8080:interface=0.0.0.0
-INFO 12/Mar/2024 01:39:50 server.run 1 140169738680128 HTTP/2 support not enabled (install the http2 and tls Twisted extras)
-INFO 12/Mar/2024 01:39:50 server.run 1 140169738680128 Configuring endpoint tcp:port=8080:interface=0.0.0.0
-INFO 12/Mar/2024 01:39:50 server.listen_success 1 140169738680128 Listening on TCP address 0.0.0.0:8080
-INFO 12/Mar/2024 01:41:00 consumer._handle_stop_signal 1 140513169819456 Received SIGTERM
-INFO 12/Mar/2024 01:41:00 consumer.stop 1 140513169819456 Shutting down
-INFO 12/Mar/2024 01:41:00 consumer.run 1 140513169819456 Consumer exiting.
-INFO 12/Mar/2024 01:41:00 server.kill_all_applications 1 140169738680128 Killed 0 pending application instances
-INFO 12/Mar/2024 01:42:55 consumer.start 1 140644729870144 Huey consumer started with 1 thread, PID 1 at 2024-03-11 22:42:55.571005
-INFO 12/Mar/2024 01:42:55 consumer.start 1 140644729870144 Scheduler runs every 1 second(s).
-INFO 12/Mar/2024 01:42:55 consumer.start 1 140644729870144 Periodic tasks are enabled.
-INFO 12/Mar/2024 01:42:55 consumer.start 1 140644729870144 The following commands are available:
-+ parser.tasks.run_daily
-+ parser.tasks.run_monthly
-+ parser.tasks.run_quarterly
-+ parser.tasks.run_now
-+ parser.tasks.task_export_products
-+ parser.tasks.task_send_email
-+ parser.tasks.generate_export
-INFO 12/Mar/2024 01:42:55 cli.run 1 140597413590848 Starting server at tcp:port=8080:interface=0.0.0.0
-INFO 12/Mar/2024 01:42:55 server.run 1 140597413590848 HTTP/2 support not enabled (install the http2 and tls Twisted extras)
-INFO 12/Mar/2024 01:42:55 server.run 1 140597413590848 Configuring endpoint tcp:port=8080:interface=0.0.0.0
-INFO 12/Mar/2024 01:42:55 server.listen_success 1 140597413590848 Listening on TCP address 0.0.0.0:8080
-INFO 12/Mar/2024 02:28:18 consumer._handle_stop_signal 1 140644729870144 Received SIGTERM
-INFO 12/Mar/2024 02:28:18 server.kill_all_applications 1 140597413590848 Killed 0 pending application instances
-INFO 12/Mar/2024 02:28:18 consumer.stop 1 140644729870144 Shutting down
-INFO 12/Mar/2024 02:28:18 consumer.run 1 140644729870144 Consumer exiting.
-INFO 12/Mar/2024 02:28:21 cli.run 1 139645248907072 Starting server at tcp:port=8080:interface=0.0.0.0
-INFO 12/Mar/2024 02:28:21 server.run 1 139645248907072 HTTP/2 support not enabled (install the http2 and tls Twisted extras)
-INFO 12/Mar/2024 02:28:21 server.run 1 139645248907072 Configuring endpoint tcp:port=8080:interface=0.0.0.0
-INFO 12/Mar/2024 02:28:21 server.listen_success 1 139645248907072 Listening on TCP address 0.0.0.0:8080
-INFO 12/Mar/2024 02:28:21 consumer.start 1 140321818408768 Huey consumer started with 1 thread, PID 1 at 2024-03-11 23:28:21.880067
-INFO 12/Mar/2024 02:28:21 consumer.start 1 140321818408768 Scheduler runs every 1 second(s).
-INFO 12/Mar/2024 02:28:21 consumer.start 1 140321818408768 Periodic tasks are enabled.
-INFO 12/Mar/2024 02:28:21 consumer.start 1 140321818408768 The following commands are available:
-+ parser.tasks.run_daily
-+ parser.tasks.run_monthly
-+ parser.tasks.run_quarterly
-+ parser.tasks.run_now
-+ parser.tasks.task_export_products
-+ parser.tasks.task_send_email
-+ parser.tasks.generate_export
-INFO 12/Mar/2024 02:29:06 consumer._handle_stop_signal 1 140321818408768 Received SIGTERM
-INFO 12/Mar/2024 02:29:06 consumer.stop 1 140321818408768 Shutting down
-INFO 12/Mar/2024 02:29:06 consumer.run 1 140321818408768 Consumer exiting.
-INFO 12/Mar/2024 02:29:06 server.kill_all_applications 1 139645248907072 Killed 0 pending application instances
-INFO 12/Mar/2024 02:29:27 consumer.start 1 140337928378176 Huey consumer started with 1 thread, PID 1 at 2024-03-11 23:29:27.712630
-INFO 12/Mar/2024 02:29:27 consumer.start 1 140337928378176 Scheduler runs every 1 second(s).
-INFO 12/Mar/2024 02:29:27 consumer.start 1 140337928378176 Periodic tasks are enabled.
-INFO 12/Mar/2024 02:29:27 consumer.start 1 140337928378176 The following commands are available:
-+ parser.tasks.run_daily
-+ parser.tasks.run_monthly
-+ parser.tasks.run_quarterly
-+ parser.tasks.run_now
-+ parser.tasks.task_export_products
-+ parser.tasks.task_send_email
-+ parser.tasks.generate_export
-INFO 12/Mar/2024 02:29:28 cli.run 1 139684219422528 Starting server at tcp:port=8080:interface=0.0.0.0
-INFO 12/Mar/2024 02:29:28 server.run 1 139684219422528 HTTP/2 support not enabled (install the http2 and tls Twisted extras)
-INFO 12/Mar/2024 02:29:28 server.run 1 139684219422528 Configuring endpoint tcp:port=8080:interface=0.0.0.0
-INFO 12/Mar/2024 02:29:28 server.listen_success 1 139684219422528 Listening on TCP address 0.0.0.0:8080
-INFO 12/Mar/2024 02:35:06 consumer._handle_stop_signal 1 140337928378176 Received SIGTERM
-INFO 12/Mar/2024 02:35:06 consumer.stop 1 140337928378176 Shutting down
-INFO 12/Mar/2024 02:35:06 consumer.run 1 140337928378176 Consumer exiting.
-INFO 12/Mar/2024 02:35:06 server.kill_all_applications 1 139684219422528 Killed 0 pending application instances
-INFO 12/Mar/2024 02:36:23 consumer.start 1 140522873055040 Huey consumer started with 1 thread, PID 1 at 2024-03-11 23:36:23.002402
-INFO 12/Mar/2024 02:36:23 consumer.start 1 140522873055040 Scheduler runs every 1 second(s).
-INFO 12/Mar/2024 02:36:23 consumer.start 1 140522873055040 Periodic tasks are enabled.
-INFO 12/Mar/2024 02:36:23 consumer.start 1 140522873055040 The following commands are available:
-+ parser.tasks.run_daily
-+ parser.tasks.run_monthly
-+ parser.tasks.run_quarterly
-+ parser.tasks.run_now
-+ parser.tasks.task_export_products
-+ parser.tasks.task_send_email
-+ parser.tasks.generate_export
-INFO 12/Mar/2024 02:36:23 cli.run 1 140040453596992 Starting server at tcp:port=8080:interface=0.0.0.0
-INFO 12/Mar/2024 02:36:23 server.run 1 140040453596992 HTTP/2 support not enabled (install the http2 and tls Twisted extras)
-INFO 12/Mar/2024 02:36:23 server.run 1 140040453596992 Configuring endpoint tcp:port=8080:interface=0.0.0.0
-INFO 12/Mar/2024 02:36:23 server.listen_success 1 140040453596992 Listening on TCP address 0.0.0.0:8080
-INFO 12/Mar/2024 02:39:16 consumer._handle_stop_signal 1 140522873055040 Received SIGTERM
-INFO 12/Mar/2024 02:39:16 consumer.stop 1 140522873055040 Shutting down
-INFO 12/Mar/2024 02:39:16 consumer.run 1 140522873055040 Consumer exiting.
-INFO 12/Mar/2024 02:39:17 server.kill_all_applications 1 140040453596992 Killed 0 pending application instances
-INFO 12/Mar/2024 02:40:30 consumer.start 1 140210896250688 Huey consumer started with 1 thread, PID 1 at 2024-03-11 23:40:30.920757
-INFO 12/Mar/2024 02:40:30 consumer.start 1 140210896250688 Scheduler runs every 1 second(s).
-INFO 12/Mar/2024 02:40:30 consumer.start 1 140210896250688 Periodic tasks are enabled.
-INFO 12/Mar/2024 02:40:30 consumer.start 1 140210896250688 The following commands are available:
-+ parser.tasks.run_daily
-+ parser.tasks.run_monthly
-+ parser.tasks.run_quarterly
-+ parser.tasks.run_now
-+ parser.tasks.task_export_products
-+ parser.tasks.task_send_email
-+ parser.tasks.generate_export
-INFO 12/Mar/2024 02:40:31 cli.run 1 140181631559488 Starting server at tcp:port=8080:interface=0.0.0.0
-INFO 12/Mar/2024 02:40:31 server.run 1 140181631559488 HTTP/2 support not enabled (install the http2 and tls Twisted extras)
-INFO 12/Mar/2024 02:40:31 server.run 1 140181631559488 Configuring endpoint tcp:port=8080:interface=0.0.0.0
-INFO 12/Mar/2024 02:40:31 server.listen_success 1 140181631559488 Listening on TCP address 0.0.0.0:8080
-INFO 12/Mar/2024 03:00:30 consumer.enqueue_periodic_tasks 1 140210812184320 Enqueueing periodic task parser.tasks.run_daily: c6c62de2-28f4-4213-9cee-d816defa426b.
-INFO 12/Mar/2024 03:00:30 api.execute 1 140210803791616 Executing parser.tasks.run_daily: c6c62de2-28f4-4213-9cee-d816defa426b
-INFO 12/Mar/2024 03:00:30 tasks.store_signals 1 140210803791616 Store Task c6c62de2-28f4-4213-9cee-d816defa426b signal 'executing' (finished: False)
-INFO 12/Mar/2024 03:00:30 tasks.run_periodic_now 1 140210803791616 Running periodic tasks 1...
-INFO 12/Mar/2024 03:00:30 tasks.run_periodic_now 1 140210803791616 Running periodic task: Арматура А3 10
-INFO 12/Mar/2024 03:00:30 tasks.run_periodic_now 1 140210803791616 Running periodic task: Уголок 50х50х4
-INFO 12/Mar/2024 03:00:30 tasks.run_periodic_now 1 140210803791616 Running periodic task: Швеллер 10П
-INFO 12/Mar/2024 03:00:30 tasks.run_periodic_now 1 140210803791616 Running periodic task: Швеллер 10У
-INFO 12/Mar/2024 03:00:30 tasks.run_periodic_now 1 140210803791616 Running periodic task: Арматура А3 12
-INFO 12/Mar/2024 03:00:30 tasks.run_periodic_now 1 140210803791616 Running periodic tasks 2...
-INFO 12/Mar/2024 03:00:30 tasks.run_periodic_now 1 140210803791616 Running periodic tasks 5...
-INFO 12/Mar/2024 03:00:30 api._execute 1 140210803791616 parser.tasks.run_daily: c6c62de2-28f4-4213-9cee-d816defa426b executed in 0.016s
-INFO 12/Mar/2024 03:00:30 tasks.store_signals 1 140210803791616 Store Task c6c62de2-28f4-4213-9cee-d816defa426b signal 'complete' (finished: True)
-INFO 12/Mar/2024 03:00:30 api.execute 1 140210803791616 Executing parser.tasks.run_now: 3f885298-b752-4e26-930b-4c505a809047
-INFO 12/Mar/2024 03:00:30 tasks.store_signals 1 140210803791616 Store Task 3f885298-b752-4e26-930b-4c505a809047 signal 'executing' (finished: False)
-INFO 12/Mar/2024 03:00:31 models.set_parent_task 1 140210803791616 Set 3f885298-b752-4e26-930b-4c505a809047 as sub task of c6c62de2-28f4-4213-9cee-d816defa426b
-INFO 12/Mar/2024 03:00:31 tqdm.__init__ 1 140210803791616 Init TaskModel run_now - task-36 0/Noneit (divisor: 1000)
-INFO 12/Mar/2024 03:00:31 signals.task_email_pre_save 1 140210803791616 Task status updated: 7 => 2 (notify=False)
-INFO 12/Mar/2024 03:00:31 log.log 1 140210803791616 Processing URLS list (3)...
-WARNING 12/Mar/2024 03:00:31 log.log 1 140210803791616 Found multiple parser settings: <QuerySet [<SiteParseSettings: #23 (orenbyrg.23met.ru)>]>
-INFO 12/Mar/2024 03:00:31 selenium._driver_init 1 140210803791616 Init selenium driver...
-INFO 12/Mar/2024 03:00:35 selenium._driver_init 1 140210803791616 Using remote selenium grid: http://chrome:4444/wd/hub
-INFO 12/Mar/2024 03:00:44 selenium.page_has_loaded 1 140210803791616 Checking if https://orenbyrg.23met.ru/price/armatura_a3/10 page is loaded.
-WARNING 12/Mar/2024 03:00:44 log.log 1 140210803791616 Found multiple parser settings: <QuerySet [<SiteParseSettings: #25 (ekb.23met.ru)>]>
-INFO 12/Mar/2024 03:00:49 selenium.page_has_loaded 1 140210803791616 Checking if https://ekb.23met.ru/price/armatura_a3/10 page is loaded.
-ERROR 12/Mar/2024 03:00:49 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:49 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:49 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:49 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:49 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:49 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:49 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:49 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:49 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:49 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:49 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:49 log.log 1 140210803791616 CSS row processing error
-WARNING 12/Mar/2024 03:00:50 log.log 1 140210803791616 Found multiple parser settings: <QuerySet [<SiteParseSettings: #24 (23met.ru)>]>
-INFO 12/Mar/2024 03:00:55 selenium.page_has_loaded 1 140210803791616 Checking if https://23met.ru/price/armatura_a3/10 page is loaded.
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
-ERROR 12/Mar/2024 03:00:55 log.log 1 140210803791616 CSS row processing error
+  File "/usr/local/lib/python3.11/site-packages/huey/contrib/djhuey/__init__.py", line 135, in inner
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/app/parser/tasks.py", line 75, in run_now
+    res = process_task(parse_task, callback=callback, test=test)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/parser/services/parse.py", line 168, in process_task
+    process_parse_results(task, res)
+  File "/app/parser/services/parse.py", line 84, in process_parse_results
+    process_parse_result(task, item_res)
+  File "/app/parser/services/parse.py", line 60, in process_parse_result
+    product, _ = Product.objects.get_or_create(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 623, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1545, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1576, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1426, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1236, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1724, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'default' into field. Choices are: author, author_id, categories, created_at, history, id, linked_id, name, price, statusproducts, synonyms, task, task_id, tasks, updated_at
+INFO 12/Mar/2024 03:02:23 tasks.store_signals 1 140210803791616 Store Task db1df014-1867-4f7a-9c22-ae64c1048d4f signal 'error' (finished: True)
+INFO 12/Mar/2024 03:02:23 api.execute 1 140210803791616 Executing parser.tasks.task_export_products: 124fd0bb-526a-4eea-8295-a8925a74b8aa
+INFO 12/Mar/2024 03:02:23 tasks.store_signals 1 140210803791616 Store Task 124fd0bb-526a-4eea-8295-a8925a74b8aa signal 'executing' (finished: False)
+INFO 12/Mar/2024 03:02:23 xml_export.export_products 1 140210803791616 Exporting 1 products to XML...
+INFO 12/Mar/2024 03:02:23 xml_export.export_products 1 140210803791616 Writing export to: exports/task_37/2024_03_12-03_02_23.xml...
+INFO 12/Mar/2024 03:02:23 xml_export.export_products 1 140210803791616 Exported.
+INFO 12/Mar/2024 03:02:23 api._execute 1 140210803791616 parser.tasks.task_export_products: 124fd0bb-526a-4eea-8295-a8925a74b8aa executed in 0.008s
+INFO 12/Mar/2024 03:02:23 tasks.store_signals 1 140210803791616 Store Task 124fd0bb-526a-4eea-8295-a8925a74b8aa signal 'complete' (finished: True)
+INFO 12/Mar/2024 03:02:23 api.execute 1 140210803791616 Executing parser.tasks.task_export_products: e949bb56-cbbe-4a45-bc8d-18d3b83df414
+INFO 12/Mar/2024 03:02:23 tasks.store_signals 1 140210803791616 Store Task e949bb56-cbbe-4a45-bc8d-18d3b83df414 signal 'executing' (finished: False)
+INFO 12/Mar/2024 03:02:23 xml_export.export_products 1 140210803791616 Exporting 1 products to XML...
+INFO 12/Mar/2024 03:02:23 xml_export.export_products 1 140210803791616 Writing export to: exports/task_38/2024_03_12-03_02_23.xml...
+INFO 12/Mar/2024 03:02:23 xml_export.export_products 1 140210803791616 Exported.
+INFO 12/Mar/2024 03:02:23 api._execute 1 140210803791616 parser.tasks.task_export_products: e949bb56-cbbe-4a45-bc8d-18d3b83df414 executed in 0.006s
+INFO 12/Mar/2024 03:02:23 tasks.store_signals 1 140210803791616 Store Task e949bb56-cbbe-4a45-bc8d-18d3b83df414 signal 'complete' (finished: True)
+INFO 12/Mar/2024 03:02:23 api.execute 1 140210803791616 Executing parser.tasks.task_export_products: 1283edf2-305a-4ee6-99fd-60933b0c0eac
+INFO 12/Mar/2024 03:02:23 tasks.store_signals 1 140210803791616 Store Task 1283edf2-305a-4ee6-99fd-60933b0c0eac signal 'executing' (finished: False)
+INFO 12/Mar/2024 03:02:23 xml_export.export_products 1 140210803791616 Exporting 1 products to XML...
+INFO 12/Mar/2024 03:02:23 xml_export.export_products 1 140210803791616 Writing export to: exports/task_39/2024_03_12-03_02_23.xml...
+INFO 12/Mar/2024 03:02:23 xml_export.export_products 1 140210803791616 Exported.
+INFO 12/Mar/2024 03:02:23 api._execute 1 140210803791616 parser.tasks.task_export_products: 1283edf2-305a-4ee6-99fd-60933b0c0eac executed in 0.007s
+INFO 12/Mar/2024 03:02:23 tasks.store_signals 1 140210803791616 Store Task 1283edf2-305a-4ee6-99fd-60933b0c0eac signal 'complete' (finished: True)
+INFO 12/Mar/2024 03:04:32 consumer._handle_stop_signal 1 140210896250688 Received SIGTERM
+INFO 12/Mar/2024 03:04:32 consumer.stop 1 140210896250688 Shutting down
+INFO 12/Mar/2024 03:04:32 consumer.run 1 140210896250688 Consumer exiting.
